@@ -8,7 +8,11 @@
     "backend-dev": "npm run dev -w ./backend",
     "dev": "concurrently --names \"backend,frontend\" \"npm run dev -w ./backend\" \"npm run dev -w ./frontend\"",
     "build": "npm run build -w ./frontend && npm run build -w ./backend",
-    "serve": "concurrently --names \"backend,frontend\" \"npm run start -w ./backend\" \"npm run preview -w ./frontend\""
+    "build-backend": "npm run build -w ./backend",
+    "build-frontend": "npm run build -w ./frontend",
+    "serve": "concurrently --names \"backend,frontend\" \"npm run start -w ./backend\" \"npm run preview -w ./frontend\"",
+    "serve-backend": "npm run start -w ./backend",
+    "serve-frontend": "npm run start -w ./frontend"
   },
   "workspaces": [
     "frontend",
