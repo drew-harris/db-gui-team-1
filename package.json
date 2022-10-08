@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "backend-dev": "npm run dev -w ./backend",
+    "dev-backend": "npm run dev -w ./backend",
     "dev": "concurrently --names \"BACKEND,FRONTEND\" -c \"blue,green\" -i \"npm run dev -w ./backend\" \"npm run dev -w ./frontend\"",
     "build": "npm run build -w ./frontend && npm run build -w ./backend",
     "build-backend": "npm run build -w ./backend",
     "build-frontend": "npm run build -w ./frontend",
     "serve": "concurrently --names \"BACKEND,FRONTEND\" -c \"blue,green\" -i  \"npm run start -w ./backend\" \"npm run preview -w ./frontend\"",
     "serve-backend": "npm run start -w ./backend",
-    "serve-frontend": "npm run start -w ./frontend"
+    "serve-frontend": "npm run start -w ./frontend",
+    "format": "npx prettier --config .prettierrc '**/*.{ts,tsx,css}' --write",
+    "format-check": "npx prettier --config .prettierrc '**/*.{ts,tsx,css}' --check"
   },
   "workspaces": [
     "frontend",
@@ -21,7 +23,9 @@
   "author": "Team 1",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^7.4.0",
-    "forever": "^4.0.3"
+    "concurrently": "^7.4.0"
+  },
+  "devDependencies": {
+    "prettier": "2.7.1"
   }
 }

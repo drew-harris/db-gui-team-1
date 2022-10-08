@@ -19,3 +19,9 @@
       * The website and server will update live when you make changes
       * The backend is located at http://localhost:8000
       * The frontend is located at http://localhost:3000
+
+### Additional Commands
+* `npm run build` : builds both the frontend and backend for production
+* `npm run serve` : runs both the frontend and backend after you've built it
+* `npm run format` : Formats all code in the project
+    * Turning on "Format on Save" in VS Code is *highly recommended*
