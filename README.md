@@ -9,8 +9,12 @@
     * The contents should be 
     ```VITE_API_URL=http://localhost:8000```
     * More environment variables may need to be added later, especially for the backend.
+
+
+5. Build the project (First time only):
+   * Run `npm run build` in the root of the repo
     
-5. Start the development server: 
+6. Start the development server: 
     * Run `npm run dev` in the ***root*** of the repo to start both the frontend and backend development environments.
       * The website and server will update live when you make changes
       * The backend is located at http://localhost:8000
