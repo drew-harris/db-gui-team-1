@@ -22,6 +22,7 @@ app.get("/bluewhale", (req, res) => {
     class: "Mammalia",
     genus: "Balaenoptera",
     lifeSpan: "85 years",
+    weight: "200 tons",
   });
 });
 
