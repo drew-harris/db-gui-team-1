@@ -12,7 +12,7 @@
     "build-frontend": "npm run build -w ./frontend",
     "serve": "concurrently --names \"BACKEND,FRONTEND\" -c \"blue,green\" -i  \"npm run start -w ./backend\" \"npm run preview -w ./frontend\"",
     "serve-backend": "npm run start -w ./backend",
-    "serve-frontend": "npm run start -w ./frontend",
+    "serve-frontend": "npm run preview -w ./frontend",
     "format": "npx prettier --config .prettierrc '**/*.{ts,tsx,css}' --write",
     "format-check": "npx prettier --config .prettierrc '**/*.{ts,tsx,css}' --check"
   },

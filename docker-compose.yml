@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    restart: always
+    ports:
+      - 8000:8000
+    networks:
+      - project
+
+  frontend:
+    container_name: frontend
+    depends_on:
+      - backend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - project
+
+networks:
+  project:

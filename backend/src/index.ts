@@ -28,8 +28,3 @@ app.get("/bluewhale", (req, res) => {
 app.listen(port, () => {
   console.log(`Backend is running at http://localhost:${port}`);
 });
-
-process.on("SIGINT", function () {
-  console.log("\nGracefully shutting down from SIGINT (Ctrl-C)");
-  process.exit(0);
-});
