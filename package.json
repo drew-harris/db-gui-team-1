@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-backend": "npm run dev -w ./backend",
     "dev-frontend": "npm run dev -w ./frontend",
-    "dev": "concurrently --kill-others --names \"BACKEND,FRONTEND\" -c \"blue,green\" -i \"npm run dev -w ./backend\" \"npm run dev -w ./frontend\"",
+    "dev": "concurrently -r --kill-others --names \"BACKEND,FRONTEND\" -c \"blue,green\" -i \"npm run dev -w ./backend\" \"npm run dev -w ./frontend\"",
     "build": "npm run build -w ./frontend && npm run build -w ./backend",
     "build-backend": "npm run build -w ./backend",
     "build-frontend": "npm run build -w ./frontend",
