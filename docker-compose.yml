@@ -20,6 +20,8 @@ services:
       context: .
       dockerfile: ./frontend/Dockerfile
     restart: always
+    environment:
+      - VITE_API_URL=CHANGE_ME
     ports:
       - 3000:3000
     networks:
