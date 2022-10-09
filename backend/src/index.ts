@@ -25,6 +25,10 @@ app.get("/bluewhale", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Backend is running at http://localhost:${port}`);
-});
+app
+  .listen(port, () => {
+    console.log(`Backend is running at http://localhost:${port}`);
+  })
+  .on("error", (error) => {
+    console.log(error);
+  });
