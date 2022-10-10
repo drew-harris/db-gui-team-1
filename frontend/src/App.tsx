@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="middle">
-      <div className="title">Blank React App</div>
+      <div className="title">Blank React App!</div>
       <div id="whale-data-header">Whale Data From API:</div>
       <pre>{whaleData ? JSON.stringify(whaleData, null, 4) : "Loading..."}</pre>
     </div>
