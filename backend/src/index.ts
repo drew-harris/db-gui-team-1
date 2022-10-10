@@ -12,7 +12,6 @@ const port = process.env.PORT || 8000;
 app.get("/", (req, res) => {
   res.send("Express + TypeScript Server");
 });
-
 app.get("/bluewhale", (req, res) => {
   res.json({
     name: "Blue whale",
