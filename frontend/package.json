@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview --host"
+    "serve": "vite preview --host",
+    "lint": "eslint src/**.{ts,tsx}"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -15,7 +16,12 @@
   "devDependencies": {
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
     "@vitejs/plugin-react": "^2.1.0",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.31.9",
     "typescript": "^4.6.4",
     "vite": "^3.1.0"
   }

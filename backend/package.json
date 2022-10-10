@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
     "serve": "node dist/index.js",
-    "dev": "concurrently --kill-others -r -i \"npx tsc --watch --preserveWatchOutput\" \"nodemon  -q dist/index.js\""
+    "dev": "concurrently --kill-others -r -i \"npx tsc --watch --preserveWatchOutput\" \"nodemon  -q dist/index.js\"",
+    "lint": "eslint src/**"
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +21,11 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
     "@types/node": "^18.8.3",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "concurrently": "^7.4.0",
+    "eslint": "^8.25.0",
+    "eslint-config-prettier": "^8.5.0",
     "nodemon": "^2.0.20",
     "typescript": "^4.8.4"
   }

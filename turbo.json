@@ -3,7 +3,14 @@
   "pipeline": {
     "build": {
       "outputs": ["dist/**", "dist/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "package.json"],
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "package.json",
+        ".env",
+        "index.html",
+        "vite.config.ts"
+      ],
       "dependsOn": ["^build"]
     },
     "dev": {
@@ -11,6 +18,16 @@
     },
     "serve": {
       "dependsOn": ["build"]
+    },
+    "lint": {
+      "inputs": [
+        "src/**/*.tsx",
+        "src/**/*.ts",
+        "package.json",
+        ".eslintrc.cjs",
+        ".eslintrc.js",
+        "index.html"
+      ]
     }
   }
 }

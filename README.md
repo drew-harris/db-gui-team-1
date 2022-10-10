@@ -23,5 +23,6 @@
 ### Additional Commands
 * `npm run build` : builds both the frontend and backend for production
 * `npm run serve` : runs both the frontend and backend after you've built it
+* `npm run lint` : analyzes code to find problems
 * `npm run format` : Formats all code in the project
     * Turning on "Format on Save" in VS Code is *highly recommended*
