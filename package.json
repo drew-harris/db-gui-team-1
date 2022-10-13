@@ -14,8 +14,8 @@
     "serve": "turbo serve",
     "serve-backend": "turbo serve --filter=backend",
     "serve-frontend": "turbo serve --filter=frontend",
-    "format": "npx prettier --config .prettierrc '**/*.{ts,tsx,css}' --write",
-    "format-check": "npx prettier --config .prettierrc '**/*.{ts,tsx,css}' --check",
+    "format": "npx prettier --config .prettierrc \"**/*.{ts,tsx,css}\" --write",
+    "format-check": "npx prettier --config .prettierrc \"**/*.{ts,tsx,css}\" --check",
     "lint": "turbo lint",
     "lint-backend": "turbo lint --filter=backend",
     "lint-frontend": "turbo lint --filter=frontend"
