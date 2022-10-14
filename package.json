@@ -9,7 +9,7 @@
     "dev-frontend": "turbo dev --filter=backend",
     "dev": "turbo dev",
     "build": "turbo build",
-    "build-backend": "turbo build --filter=backend",
+    "build-backend": "turbo build --filter=backend --filter=prisma-schema",
     "build-frontend": "turbo build --filter=frontend",
     "serve": "turbo serve",
     "serve-backend": "turbo serve --filter=backend",
@@ -20,7 +20,7 @@
     "lint-backend": "turbo lint --filter=backend",
     "lint-frontend": "turbo lint --filter=frontend",
     "studio": "npm run studio -w prisma-schema",
-    "regenerate-db": "npm run regen -w prisma-schema"
+    "regenerate-db": "turbo regen --filter=prisma-schema"
   },
   "workspaces": [
     "frontend",

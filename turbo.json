@@ -11,7 +11,7 @@
         "index.html",
         "vite.config.ts"
       ],
-      "dependsOn": ["^build"]
+      "dependsOn": ["regen", "^build"]
     },
     "dev": {
       "cache": false
@@ -28,6 +28,10 @@
         ".eslintrc.js",
         "index.html"
       ]
+    },
+
+    "regen": {
+      "cache": false
     }
   }
 }
