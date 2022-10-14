@@ -18,11 +18,14 @@
     "format-check": "npx prettier --config .prettierrc \"**/*.{ts,tsx,css}\" --check",
     "lint": "turbo lint",
     "lint-backend": "turbo lint --filter=backend",
-    "lint-frontend": "turbo lint --filter=frontend"
+    "lint-frontend": "turbo lint --filter=frontend",
+    "studio": "npm run studio -w prisma-schema",
+    "regenerate-db": "npm run regen -w prisma-schema"
   },
   "workspaces": [
     "frontend",
-    "backend"
+    "backend",
+    "packages/*"
   ],
   "author": "Team 1",
   "license": "ISC",

@@ -7,6 +7,8 @@ services:
       context: .
       dockerfile: ./backend/Dockerfile
     restart: always
+    environment:
+      - DATABASE_URL=CHANGE_ME
     ports:
       - 8000:8000
     networks:

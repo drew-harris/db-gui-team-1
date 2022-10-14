@@ -20,9 +20,22 @@
       * The backend is located at http://localhost:8000
       * The frontend is located at http://localhost:3000
 
-### Additional Commands
+## Database Setup
+1. Pull changes with `git pull`
+2. Install new libraries: run `npm install`  in **root directory** of repo
+3. Create .env file in `packages/prisma-schema` (contents in gc)
+4. Create .env file in `backend` (with same contents as step 3)
+5. Run `npm run regenerate-db` in root directory to generate the database package
+6. Run `npm run dev` to confirm connection
+7. Optional (but highly recommended): Install the prisma vs code extension
+
+Note: For docker setup on aws you need to replace `CHANGE_ME` with the proper database url from the .env files
+
+
+## Commands
 * `npm run build` : builds both the frontend and backend for production
 * `npm run serve` : runs both the frontend and backend after you've built it
 * `npm run lint` : analyzes code to find problems
 * `npm run format` : Formats all code in the project
     * Turning on "Format on Save" in VS Code is *highly recommended*
+* ***NEW!***  &nbsp;  `npm run studio` : opens a database editor in browser (on localhost:5555)
