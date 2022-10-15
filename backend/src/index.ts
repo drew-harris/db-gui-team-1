@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
+import { takeCoverage } from "v8";
 
 // Load enviornment variables from .env file
 dotenv.config();
@@ -25,7 +26,12 @@ app.get("/", (req, res) => {
 
 app.get("/allmovies", async (req, res) => {
   try {
-    const movies = await prisma.movie.findMany({});
+    const movies = await prisma.movie.findMany({
+      orderBy: {
+        tmdbVoteCount: "desc",
+      },
+      take: 50,
+    });
     return res.json(movies);
   } catch (error) {
     console.error(error);
@@ -55,11 +61,12 @@ app.post("/createmovie", async (req, res) => {
 
     const movie = await prisma.movie.create({
       data: {
-        name: req.body.name,
-        genre: req.body.genre,
-        description: req.body.description,
-        posterImageUrl: req.body.posterImageUrl,
-        releaseDate: req.body.releaseDate,
+        title: req.body.title,
+        genre: req.body.genre || null,
+        description: req.body.description || null,
+        posterImageUrl: req.body.posterImageUrl || null,
+        releaseDate: req.body.releaseDate || null,
+        backdropImageUrl: req.body.backdropImageUrl || null,
       },
     });
 

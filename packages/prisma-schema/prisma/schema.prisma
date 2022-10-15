@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -13,17 +14,66 @@ datasource db {
 // These are just example models, the google doc will get converted to this
 
 model User {
-  id       String @id @default(cuid())
-  username String
-  email    String
-  password String
+  id        String   @id @default(cuid())
+  username  String
+  email     String
+  password  String
+  createdAt DateTime @default(now())
+
+  reviews Review[]
+  ratings Rating[]
+  lists   List[]
 }
 
 model Movie {
-  id             String    @id @default(cuid())
-  name           String
-  description    String? // ? = can be null
-  posterImageUrl String?
-  genre          String?
-  releaseDate    DateTime?
+  id               Int       @id @default(autoincrement())
+  title            String
+  description      String? // ? = can be null
+  posterImageUrl   String?
+  backdropImageUrl String?
+  genre            String?
+  releaseDate      DateTime?
+  tagline          String?
+  tmdbPopularity   Decimal?
+  tmdbVoteCount    Int?
+  runTime          Int?
+
+  reviews Review[]
+  ratings Rating[]
+  inLists List[]
+}
+
+model Review {
+  id          String   @id @default(cuid())
+  content     String
+  submittedAt DateTime @default(now())
+
+  for     Movie @relation(fields: [movieId], references: [id])
+  movieId Int
+
+  by     User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Rating {
+  id          String   @id @default(cuid())
+  score       Int
+  submittedAt DateTime @default(now())
+
+  for     Movie @relation(fields: [movieId], references: [id])
+  movieId Int
+
+  by     User   @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model List {
+  id   String @id @default(cuid())
+  name String @default("Watched")
+
+  createdAt DateTime @default(now())
+
+  movies Movie[]
+  user   User    @relation(references: [id], fields: [userId])
+  userId String
 }

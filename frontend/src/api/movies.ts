@@ -1,3 +1,5 @@
+import { type Movie } from "@prisma/client";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export default async function getAllMovies() {
@@ -10,7 +12,7 @@ export default async function getAllMovies() {
 
     const data = await response.json();
 
-    return data;
+    return data as Movie;
   } catch (error) {
     console.error(error);
     throw new Error("Error getting information");
