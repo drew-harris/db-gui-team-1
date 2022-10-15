@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import * as cors from "cors";
 import * as bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
-import { takeCoverage } from "v8";
 
 // Load enviornment variables from .env file
 dotenv.config();
