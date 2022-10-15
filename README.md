@@ -39,3 +39,16 @@ Note: For docker setup on aws you need to replace `CHANGE_ME` with the proper da
 * `npm run format` : Formats all code in the project
     * Turning on "Format on Save" in VS Code is *highly recommended*
 * ***NEW!***  &nbsp;  `npm run studio` : opens a database editor in browser (on localhost:5555)
+
+## Documentation for Libraries
+### Frontend
+* [React](https://beta.reactjs.org/)
+* [React Router](https://reactrouter.com/en/main)
+* Potential Libraries: 
+    * [Tailwind](https://tailwindcss.com/docs/utility-first)
+    * [MUI](https://mui.com/material-ui/getting-started/overview/)
+    * [Mantine](https://mantine.dev/pages/getting-started/)
+
+### Backend
+* [Express](https://expressjs.com/en/guide/routing.html)
+* [Prisma](https://www.prisma.io/docs/concepts/components/prisma-client)
