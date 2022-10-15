@@ -1,7 +1,6 @@
 import { Movie } from "@prisma/client";
 
 export default function SimpleMovie({ movie }: { movie: Movie }) {
-  console.log(movie);
   return (
     <div className="p-2 text-center flex flex-col items-center gap-2 border-white border rounded">
       <div>{movie.title}</div>

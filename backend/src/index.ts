@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
   res.send("Express + TypeScript Server");
 });
 
+// Not technically all the movies (only the first 50)
 app.get("/allmovies", async (req, res) => {
   try {
     const movies = await prisma.movie.findMany({
