@@ -21,7 +21,8 @@
     "lint-frontend": "turbo lint --filter=frontend",
     "studio": "npm run studio -w prisma-schema",
     "prisma-rebuild": "turbo regen --filter=prisma-schema",
-    "reset-db": "npm run reset -w database-reset"
+    "reset-db": "npm run reset -w database-reset",
+    "postinstall": "prisma generate"
   },
   "workspaces": [
     "frontend",

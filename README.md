@@ -1,4 +1,4 @@
-# DB GUI Team 1 Project
+# DB GUI Team 1 Project - Movie Ranker
 
 ## Set Up
 1. Ensure that Node and NPM are installed on your machine
@@ -25,7 +25,6 @@
 2. Install new libraries: run `npm install`  in **root directory** of repo
 3. Create .env file in `packages/prisma-schema` (contents in gc)
 4. Create .env file in `backend` (with same contents as step 3)
-5. Run `npm run regenerate-db` in root directory to generate the database package
 6. Run `npm run dev` to confirm connection
 7. Optional (but highly recommended): Install the prisma vs code extension
 
