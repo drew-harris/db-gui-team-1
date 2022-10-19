@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { createUser, getUserById, getUsers } from "../services/user.service";
 export async function createUserHandler(req: Request, res: Response) {
   try {
-    console.log(req.body);
-
     const user = await createUser(req.body);
 
     return res.json(user);

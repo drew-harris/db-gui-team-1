@@ -5,7 +5,7 @@ dotenv.config();
 
 const privateKey = process.env.PRIVATE_KEY;
 
-export function signJwt(object: Object) {
+export function signJwt(object: Record<string, unknown>) {
   return jwt.sign(object, privateKey);
 }
 
@@ -18,8 +18,6 @@ export function verifyJWT(token: string) {
       decoded,
     };
   } catch (e) {
-    console.log(e);
-
     return {
       valid: false,
       decoded: null,

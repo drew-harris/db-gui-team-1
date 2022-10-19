@@ -2,15 +2,15 @@ import prisma from "../utils/prisma.util";
 import bcrypt from "bcrypt";
 import { omit } from "lodash";
 
-export async function createUser(body) {
+export async function createUser(body: Record<string, string>) {
   const emailExists = await findUserByEmail(body.email);
   const usernameExists = await findUserByUsername(body.username);
 
-  if (usernameExists.length > 0) {
+  if (usernameExists) {
     throw new Error("Username already exists");
   }
 
-  if (emailExists.length > 0) {
+  if (emailExists) {
     throw new Error("Email already exists");
   }
   const salt = await bcrypt.genSalt(12);
@@ -28,7 +28,7 @@ export async function createUser(body) {
   return omit(user, "password");
 }
 
-export async function validateUser(password, actualPass) {
+export async function validateUser(password: string, actualPass: string) {
   return await bcrypt.compare(password, actualPass);
 }
 
@@ -46,7 +46,7 @@ export async function getUsers() {
 }
 
 export async function getUserById(id: string) {
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findFirst({
     where: {
       id,
     },
@@ -54,16 +54,16 @@ export async function getUserById(id: string) {
 
   return omit(user, "password");
 }
-export async function findUserByEmail(email) {
-  return await prisma.user.findMany({
+export async function findUserByEmail(email: string) {
+  return await prisma.user.findFirst({
     where: {
       email,
     },
   });
 }
 
-export async function findUserByUsername(username) {
-  return await prisma.user.findMany({
+export async function findUserByUsername(username: string) {
+  return await prisma.user.findFirst({
     where: {
       username,
     },

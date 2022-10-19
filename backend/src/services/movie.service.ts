@@ -1,6 +1,6 @@
 import prisma from "../utils/prisma.util";
 
-export async function createMovie(body) {
+export async function createMovie(body: Record<string, string>) {
   return prisma.movie.create({
     data: {
       title: body.title,
