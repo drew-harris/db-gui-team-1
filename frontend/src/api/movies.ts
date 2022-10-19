@@ -4,7 +4,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default async function getAllMovies() {
   try {
-    const response = await fetch(API_URL + "/allmovies");
+    const response = await fetch(API_URL + "/api/movies");
     if (!response.ok) {
       console.log(response);
       throw new Error("Error getting information");
