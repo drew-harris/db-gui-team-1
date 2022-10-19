@@ -24,8 +24,8 @@ app.get("/healthcheck", (request: Request, res: Response) => res.sendStatus(200)
 app.use('/api/movies', movieRouter)
 
 // TODO
-app.use('/api/session', sessionRouter)
-app.use('/api/user', userRouter)
+app.use('/api/sessions', sessionRouter)
+app.use('/api/users', userRouter)
 
 
 app

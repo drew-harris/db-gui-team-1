@@ -1,15 +1,15 @@
-import prisma from '../utils/prisma'
+import prisma from '../utils/prisma.util'
 
-export async function createMovie(data) {
+export async function createMovie(body) {
   
     return prisma.movie.create({
         data: {
-          title: data.title,
-          genre: data.genre || null,
-          description: data.description || null,
-          posterImageUrl: data.posterImageUrl || null,
-          releaseDate: data.releaseDate || null,
-          backdropImageUrl: data.backdropImageUrl || null,
+          title: body.title,
+          genre: body.genre || null,
+          description: body.description || null,
+          posterImageUrl: body.posterImageUrl || null,
+          releaseDate: body.releaseDate || null,
+          backdropImageUrl: body.backdropImageUrl || null,
         },
       });
 }
