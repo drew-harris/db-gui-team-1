@@ -1,24 +1,23 @@
-import prisma from '../utils/prisma.util'
+import prisma from "../utils/prisma.util";
 
 export async function createMovie(body) {
-  
-    return prisma.movie.create({
-        data: {
-          title: body.title,
-          genre: body.genre || null,
-          description: body.description || null,
-          posterImageUrl: body.posterImageUrl || null,
-          releaseDate: body.releaseDate || null,
-          backdropImageUrl: body.backdropImageUrl || null,
-        },
-      });
+  return prisma.movie.create({
+    data: {
+      title: body.title,
+      genre: body.genre || null,
+      description: body.description || null,
+      posterImageUrl: body.posterImageUrl || null,
+      releaseDate: body.releaseDate || null,
+      backdropImageUrl: body.backdropImageUrl || null,
+    },
+  });
 }
 
 export function getMovies() {
-    return prisma.movie.findMany({
-        orderBy: {
-          tmdbVoteCount: "desc",
-        },
-        take: 50,
-      });
+  return prisma.movie.findMany({
+    orderBy: {
+      tmdbVoteCount: "desc",
+    },
+    take: 50,
+  });
 }

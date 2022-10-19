@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { AnyZodObject } from 'zod';
+import { AnyZodObject } from "zod";
 
-
-const validate = (schema: AnyZodObject) =>
-   (req: Request, res: Response, next: NextFunction) => {
+const validate =
+  (schema: AnyZodObject) =>
+  (req: Request, res: Response, next: NextFunction) => {
     try {
-       schema.parse({
+      schema.parse({
         body: req.body,
         query: req.query,
         params: req.params,
@@ -14,6 +14,6 @@ const validate = (schema: AnyZodObject) =>
     } catch (error: any) {
       return res.status(400).json(error);
     }
-};
+  };
 
-export default validate
+export default validate;

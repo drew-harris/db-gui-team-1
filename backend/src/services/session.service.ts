@@ -1,5 +1,3 @@
-import prisma from '../utils/prisma.util'
+import prisma from "../utils/prisma.util";
 
-export async function createSession() {
-    
-}
+export async function createSession() {}

@@ -1,7 +1,7 @@
-import express, {Express, Request, Response} from "express";
+import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import * as cors from "cors";
-import movieRouter from './routes/movie.route'
+import movieRouter from "./routes/movie.route";
 import userRouter from "./routes/user.route";
 import sessionRouter from "./routes/session.route";
 
@@ -17,16 +17,15 @@ app.use(express.json()); // Reads the body from a post request properly
 
 const port = process.env.PORT || 8000;
 
+app.get("/healthcheck", (request: Request, res: Response) =>
+  res.sendStatus(200)
+);
 
-
-app.get("/healthcheck", (request: Request, res: Response) => res.sendStatus(200));
-
-app.use('/api/movies', movieRouter)
+app.use("/api/movies", movieRouter);
 
 // TODO
-app.use('/api/sessions', sessionRouter)
-app.use('/api/users', userRouter)
-
+app.use("/api/sessions", sessionRouter);
+app.use("/api/users", userRouter);
 
 app
   .listen(port, () => {
