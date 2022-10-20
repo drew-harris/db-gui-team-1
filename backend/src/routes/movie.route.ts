@@ -2,7 +2,8 @@ import express from "express";
 import { createMovieSchema } from "schemas";
 import {
   createMovieHandler,
-  getMovieHandler,getMovieByIdHandler
+  getMovieHandler,
+  getMovieByIdHandler,
 } from "../controllers/movie.controller";
 import validate from "../middleware/validateRequest";
 

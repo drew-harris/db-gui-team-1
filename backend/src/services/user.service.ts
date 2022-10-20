@@ -4,7 +4,6 @@ import { CLIENT_RENEG_LIMIT } from "tls";
 import prisma from "../utils/prisma.util";
 
 export async function createUser(body: Record<string, string>) {
-
   const emailExists = await findUserByEmail(body.email);
   const usernameExists = await findUserByUsername(body.username);
 
@@ -55,7 +54,6 @@ export async function getUserById(id: string) {
   return omit(user, "password");
 }
 export async function findUserByEmail(email: string) {
-
   return await prisma.user.findFirst({
     where: {
       email,
@@ -64,7 +62,6 @@ export async function findUserByEmail(email: string) {
 }
 
 export async function findUserByUsername(username: string) {
-
   return await prisma.user.findFirst({
     where: {
       username,

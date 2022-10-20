@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { createMovie, getMovies, getMovieById } from "../services/movie.service";
+import {
+  createMovie,
+  getMovies,
+  getMovieById,
+} from "../services/movie.service";
 
 export async function createMovieHandler(req: Request, res: Response) {
   try {
@@ -44,4 +48,3 @@ export async function getMovieByIdHandler(req: Request, res: Response) {
     });
   }
 }
-

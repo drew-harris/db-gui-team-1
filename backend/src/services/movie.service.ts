@@ -25,8 +25,7 @@ export function getMovies() {
 export async function getMovieById(id: number) {
   return await prisma.movie.findUnique({
     where: {
-      id
+      id,
     },
   });
-
 }
