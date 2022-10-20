@@ -1,6 +1,7 @@
 ## Current routes
   * API Docs available at http://localhost:8000/docs
-  * Import ```postman_collection.json``` to quickly import the current routes in Postman.
+  * Add ```PRIVATE_KEY``` to .env in backend dir
+  * Import ```postman_collection.json``` to use the current routes in Postman.
 
 
 

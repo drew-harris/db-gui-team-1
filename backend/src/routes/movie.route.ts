@@ -2,7 +2,7 @@ import express from "express";
 import { createMovieSchema } from "schemas";
 import {
   createMovieHandler,
-  getMovieHandler,
+  getMovieHandler,getMovieByIdHandler
 } from "../controllers/movie.controller";
 import validate from "../middleware/validateRequest";
 
@@ -30,6 +30,25 @@ const movieRouter = express.Router();
 
 movieRouter.get("/", getMovieHandler);
 
+/**
+ * @openapi
+ * /api/movies/:id:
+ *  get:
+ *   tags:
+ *   - Movie
+ *   summary: Return specific movie
+ *   responses:
+ *    200:
+ *     description: Success
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/components/schemas/CreateMovieResponse'
+ *    500:
+ *     description: Could not fetch movie
+ */
+
+movieRouter.get("/:id", getMovieByIdHandler);
 /**
  * @openapi
  * /api/movies:

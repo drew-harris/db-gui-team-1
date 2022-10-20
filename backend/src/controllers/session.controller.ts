@@ -24,7 +24,7 @@ export async function createSessionHandler(req: Request, res: Response) {
     return res.status(201).json({ accessToken });
   } catch (e) {
     res.status(400).json({
-      e,
+      e: e.message,
     });
   }
 }

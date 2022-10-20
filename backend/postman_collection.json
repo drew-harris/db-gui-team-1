@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "8148a342-6966-417c-921e-57ba65a05899",
+		"_postman_id": "f218c568-f172-45aa-a993-1c23a5ec45e2",
 		"name": "DB GUI Team 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23157591"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -22,6 +21,25 @@
 							"path": [
 								"api",
 								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movies by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/movies/19995",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"movies",
+								"19995"
 							]
 						}
 					},
@@ -66,7 +84,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"cw2645\",\r\n    \"email\": \"sup44644@gmail.com\",\r\n    \"password\": \"testeuaoue\",\r\n    \"passwordConfirmation\": \"testeuaoue\"\r\n \r\n}",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"passwordConfirmation\": \"{{password}}\"\r\n \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -108,7 +126,10 @@
 					"name": "Get User by ID",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
@@ -124,7 +145,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"sup44644@gmail.com\",\r\n    \"password\": \"testeuaoue\"\r\n}",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

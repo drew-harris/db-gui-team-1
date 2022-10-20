@@ -21,3 +21,12 @@ export function getMovies() {
     take: 50,
   });
 }
+
+export async function getMovieById(id: number) {
+  return await prisma.movie.findUnique({
+    where: {
+      id
+    },
+  });
+
+}
