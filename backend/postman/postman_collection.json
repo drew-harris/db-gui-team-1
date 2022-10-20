@@ -1,12 +1,13 @@
 {
 	"info": {
-		"_postman_id": "f218c568-f172-45aa-a993-1c23a5ec45e2",
+		"_postman_id": "f4a21f53-e899-4453-a037-a54eb76af8e2",
 		"name": "DB GUI Team 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23157591"
 	},
 	"item": [
 		{
-			"name": "Movies",
+			"name": "Movie",
 			"item": [
 				{
 					"name": "Get movies",
@@ -27,7 +28,7 @@
 					"response": []
 				},
 				{
-					"name": "Get movies by id",
+					"name": "Get movie by id",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -52,7 +53,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"test2\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Movie Title Test\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,6 +161,74 @@
 							"path": [
 								"api",
 								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Get reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get review by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Test movie review\",\r\n    \"movieId\": 19995,\r\n    \"userId\": \"cl9f830wh0000imwscdmy5nbl\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews"
 							]
 						}
 					},
