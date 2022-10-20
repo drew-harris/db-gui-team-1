@@ -2,6 +2,7 @@ import * as cors from "cors";
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import movieRouter from "./routes/movie.route";
+import reviewRouter from "./routes/review.route";
 import sessionRouter from "./routes/session.route";
 import userRouter from "./routes/user.route";
 import swaggerDocs from "./utils/swagger";
@@ -36,9 +37,9 @@ app.get("/healthcheck", (request: Request, res: Response) =>
 
 app.use("/api/movies", movieRouter);
 
-// TODO
 app.use("/api/sessions", sessionRouter);
 app.use("/api/users", userRouter);
+app.use("/api/reviews", reviewRouter);
 
 app
   .listen(port, () => {
