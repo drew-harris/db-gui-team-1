@@ -1,5 +1,3 @@
-import { object, string } from "zod";
-
 /**
  * @openapi
  * components:
@@ -108,10 +106,3 @@ import { object, string } from "zod";
  *        type: number
  *        default: 162
  */
-export const createMovieSchema = object({
-  body: object({
-    title: string({
-      required_error: "Title is required",
-    }),
-  }),
-});

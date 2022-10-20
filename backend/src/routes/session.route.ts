@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import { createSessionSchema } from "schemas";
 import { createSessionHandler } from "../controllers/session.controller";
 import validate from "../middleware/validateRequest";
-import { createSessionSchema } from "../schemas/session.schema";
 
 const sessionRouter = express.Router();
 

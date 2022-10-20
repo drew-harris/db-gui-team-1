@@ -1,11 +1,11 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import { createUserSchema } from "schemas";
 import {
   createUserHandler,
   getUserByIdHandler,
   getUsersHandler,
 } from "../controllers/user.controller";
 import validate from "../middleware/validateRequest";
-import { createUserSchema } from "../schemas/user.schema";
 const userRouter = express.Router();
 
 /**

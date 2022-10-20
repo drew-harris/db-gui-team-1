@@ -1,10 +1,10 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import { createMovieSchema } from "schemas";
 import {
   createMovieHandler,
   getMovieHandler,
 } from "../controllers/movie.controller";
 import validate from "../middleware/validateRequest";
-import { createMovieSchema } from "../schemas/movie.schema";
 
 const movieRouter = express.Router();
 

@@ -14,7 +14,8 @@
       "dependsOn": ["regen", "^build"]
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "dependsOn": ["^build"]
     },
     "serve": {
       "dependsOn": ["build"]
@@ -31,7 +32,7 @@
     },
 
     "regen": {
-      "cache": false
+      "inputs": ["prisma/schema.prisma"]
     }
   }
 }

@@ -1,14 +1,13 @@
-import prisma from "../utils/prisma.util";
 import bcrypt from "bcrypt";
 import { omit } from "lodash";
+import prisma from "../utils/prisma.util";
 
 export async function createUser(body: Record<string, string>) {
   const emailExists = await findUserByEmail(body.email);
   const usernameExists = await findUserByUsername(body.username);
 
   if (emailExists || usernameExists) {
-    const error = new Error("User already exists");
-    // @ts-ignore
+    const error: any = new Error("User already exists");
     error.code = 409;
     throw error;
   }

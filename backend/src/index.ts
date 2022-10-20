@@ -1,10 +1,9 @@
-import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
 import * as cors from "cors";
+import dotenv from "dotenv";
+import express, { Express, Request, Response } from "express";
 import movieRouter from "./routes/movie.route";
-import userRouter from "./routes/user.route";
 import sessionRouter from "./routes/session.route";
-import swagerDocs from "./utils/swagger";
+import userRouter from "./routes/user.route";
 import swaggerDocs from "./utils/swagger";
 
 // Load enviornment variables from .env file

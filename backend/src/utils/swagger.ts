@@ -1,6 +1,7 @@
-import { Express, Request, Response } from "express";
+import { Express } from "express";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-ignore
 import { version } from "../../../package.json";
 
@@ -26,7 +27,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
   },
-  apis: [`./src/*.ts`, "./src/routes/*.ts", "./src/schemas/*.ts"],
+  apis: [`./src/*.ts`, "./src/routes/*.ts", "./src/swagger/*.ts"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

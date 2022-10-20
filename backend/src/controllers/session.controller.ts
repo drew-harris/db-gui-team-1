@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { findUserByEmail, validateUser } from "../services/user.service";
-import { signJwt, verifyJWT } from "../utils/jwt.util";
+import { signJwt } from "../utils/jwt.util";
 
 export async function createSessionHandler(req: Request, res: Response) {
   try {
