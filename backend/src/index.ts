@@ -4,6 +4,8 @@ import * as cors from "cors";
 import movieRouter from "./routes/movie.route";
 import userRouter from "./routes/user.route";
 import sessionRouter from "./routes/session.route";
+import swagerDocs from "./utils/swagger";
+import swaggerDocs from "./utils/swagger";
 
 // Load enviornment variables from .env file
 dotenv.config();
@@ -15,7 +17,19 @@ app.use(cors.default()); // Allows us to connect to the api from any website
 app.use(express());
 app.use(express.json()); // Reads the body from a post request properly
 
-const port = process.env.PORT || 8000;
+const port: number = +process.env.PORT || 8000;
+
+/**
+ * @openapi
+ * /healthcheck:
+ *  get:
+ *   summary: Check server is running
+ *   tags:
+ *   - Healthcheck
+ *   responses:
+ *    200:
+ *     description: App is running
+ */
 
 app.get("/healthcheck", (request: Request, res: Response) =>
   res.sendStatus(200)
@@ -30,6 +44,8 @@ app.use("/api/users", userRouter);
 app
   .listen(port, () => {
     console.log(`Backend is running at http://localhost:${port}`);
+
+    swaggerDocs(app, port);
   })
   .on("error", (error) => {
     console.log(error);

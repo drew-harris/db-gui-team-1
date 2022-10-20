@@ -8,14 +8,14 @@ export async function createSessionHandler(req: Request, res: Response) {
 
     if (!user) {
       return res.status(404).json({
-        message: "User not found",
+        message: "Email or password not valid",
       });
     }
 
     const isValid = await validateUser(req.body.password, user.password);
     if (!isValid) {
       return res.status(404).json({
-        message: "Password not valid",
+        message: "Email or password not valid",
       });
     }
 

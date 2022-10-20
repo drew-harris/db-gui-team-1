@@ -6,12 +6,11 @@ export async function createUser(body: Record<string, string>) {
   const emailExists = await findUserByEmail(body.email);
   const usernameExists = await findUserByUsername(body.username);
 
-  if (usernameExists) {
-    throw new Error("Username already exists");
-  }
-
-  if (emailExists) {
-    throw new Error("Email already exists");
+  if (emailExists || usernameExists) {
+    const error = new Error("User already exists");
+    // @ts-ignore
+    error.code = 409;
+    throw error;
   }
   const salt = await bcrypt.genSalt(12);
 

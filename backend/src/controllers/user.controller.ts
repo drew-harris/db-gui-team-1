@@ -6,7 +6,12 @@ export async function createUserHandler(req: Request, res: Response) {
 
     return res.json(user);
   } catch (e) {
-    res.status(400).json({
+    if (e.code === 409) {
+      return res.status(409).json({
+        message: e.message,
+      });
+    }
+    return res.status(400).json({
       message: e.message,
     });
   }
@@ -18,7 +23,7 @@ export async function getUsersHandler(req: Request, res: Response) {
 
     return res.json(user);
   } catch (e) {
-    res.status(400).json({
+    res.status(500).json({
       message: e.message,
     });
   }
