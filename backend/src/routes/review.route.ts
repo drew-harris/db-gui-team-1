@@ -4,7 +4,7 @@ import {
   getReviewByIdHandler, createReviewHandler
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
-//import { createReviewSchema } from "schemas";
+import { createReviewSchema } from "schemas";
 const reviewRouter = express.Router();
 
 /**
@@ -72,6 +72,7 @@ reviewRouter.get("/:id", getReviewByIdHandler);
  *     description: Could not create new review
  */
 
-//validate(createReviewSchema),
-reviewRouter.post("/", createReviewHandler);
+
+reviewRouter.post("/", validate(createReviewSchema),createReviewHandler);
+
 export default reviewRouter;

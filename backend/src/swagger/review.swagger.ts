@@ -13,7 +13,7 @@
  *       type: string
  *       default: Unlike in his early work, he gives Moro the fullness of his vast and complicated formal consideration. Whenever Moro’s not on screen you miss him. Why should this be? We know little about him beyond his moral outlook, his way with his family, and his friends (who happen to include the pope [Toni Servillo]).
  *      movieId:
- *       type: number
+ *       type: string
  *       default: 19995
  *      userId:
  *       type: string
