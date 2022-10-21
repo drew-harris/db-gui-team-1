@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8537770a-23f0-4b5a-8378-8124c7baa122",
+		"_postman_id": "902e5f70-822e-4836-bbde-4261cf0ac1a9",
 		"name": "DB GUI Team 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23157591"
 	},
 	"item": [
 		{
@@ -288,7 +289,7 @@
 					"response": []
 				},
 				{
-					"name": "Edit Review by ID",
+					"name": "Edit Review by id",
 					"request": {
 						"method": "PUT",
 						"header": [],

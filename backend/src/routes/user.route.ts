@@ -43,14 +43,14 @@ userRouter.post("/", validate(createUserSchema), createUserHandler);
  *  get:
  *   tags:
  *   - User
- *   summary: Return users
+ *   summary: Get all users
  *   responses:
  *    200:
  *     description:
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/components/schemas/FetchAllUsersResponse'
+ *        $ref: '#/components/schemas/GetAllUsersResponse'
  *    500:
  *     description: Could not fetch users
  *
@@ -60,11 +60,11 @@ userRouter.get("/", getUsersHandler);
 
 /**
  * @openapi
- * /api/users/:id:
+ * /api/users/{id}:
  *  get:
  *   tags:
  *   - User
- *   summary: Return specific user
+ *   summary: Get a user
  *   responses:
  *    200:
  *     description:

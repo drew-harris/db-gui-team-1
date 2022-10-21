@@ -33,7 +33,7 @@
  *       type: string
  *      createdAt:
  *       type: string
- *    FetchAllUsersResponse:
+ *    GetAllUsersResponse:
  *     type: array
  *     items:
  *      type: object

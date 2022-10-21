@@ -70,7 +70,7 @@
  *       type: number
  *       default: 162
  *
- *    FetchAllMoviesResponse:
+ *    GetAllMoviesResponse:
  *     type: array
  *     items:
  *      type: object

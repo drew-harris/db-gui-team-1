@@ -9,7 +9,7 @@ const options: swaggerJsdoc.Options = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "DB GUI Team 1 Project - Movie Ranker",
+      title: "Movie Ranker - DB GUI Team 1",
       version,
     },
     components: {

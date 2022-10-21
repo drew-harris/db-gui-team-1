@@ -4,6 +4,7 @@ import {
   getReviewByIdHandler, createReviewHandler, editReviewByIdHandler
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
+
 import { createReviewSchema } from "schemas";
 const reviewRouter = express.Router();
 
@@ -13,14 +14,14 @@ const reviewRouter = express.Router();
  *  get:
  *   tags:
  *   - Review
- *   summary: Return reviews
+ *   summary: Get all reviews
  *   responses:
  *    200:
  *     description: Success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/components/schemas/FetchAllReviewsResponse'
+ *        $ref: '#/components/schemas/GetAllReviewsResponse'
  *    500:
  *     description: Could not fetch reviews
  */
@@ -29,11 +30,11 @@ reviewRouter.get("/", getReviewHandler);
 
 /**
  * @openapi
- * /api/reviews/:id:
+ * /api/reviews/{id}:
  *  get:
  *   tags:
  *   - Review
- *   summary: Return specific review
+ *   summary: Get a review
  *   responses:
  *    200:
  *     description: Success
@@ -47,6 +48,29 @@ reviewRouter.get("/", getReviewHandler);
 
 
 reviewRouter.get("/:id", getReviewByIdHandler);
+/**
+ * @openapi
+ * /api/reviews/{id}:
+ *  put:
+ *   tags:
+ *   - Review
+ *   summary: Edit review
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema:
+ *       $ref: '#/components/schemas/UpdateReviewInput'
+ *   responses:
+ *    200:
+ *     description: Success
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/components/schemas/EditReviewResponse'
+ *    500:
+ *     description: Could not create new review
+ */
 reviewRouter.put("/:id", editReviewByIdHandler);
 /**
  * @openapi
@@ -73,6 +97,6 @@ reviewRouter.put("/:id", editReviewByIdHandler);
  */
 
 
-reviewRouter.post("/", validate(createReviewSchema),createReviewHandler);
+reviewRouter.post("/", validate(createReviewSchema), createReviewHandler);
 
 export default reviewRouter;
