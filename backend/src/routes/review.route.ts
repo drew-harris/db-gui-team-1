@@ -1,7 +1,7 @@
 import express from "express";
 import {
   getReviewHandler,
-  getReviewByIdHandler, createReviewHandler
+  getReviewByIdHandler, createReviewHandler, editReviewByIdHandler
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
 import { createReviewSchema } from "schemas";
@@ -47,7 +47,7 @@ reviewRouter.get("/", getReviewHandler);
 
 
 reviewRouter.get("/:id", getReviewByIdHandler);
-
+reviewRouter.put("/:id", editReviewByIdHandler);
 /**
  * @openapi
  * /api/reviews:

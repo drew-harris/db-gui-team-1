@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import { omit } from "lodash";
-import { CLIENT_RENEG_LIMIT } from "tls";
 import prisma from "../utils/prisma.util";
 
 export async function createUser(body: Record<string, string>) {
@@ -41,7 +40,7 @@ export async function getUsers() {
     },
   });
 
-  return omit(users, "password");
+  return users;
 }
 
 export async function getUserById(id: string) {

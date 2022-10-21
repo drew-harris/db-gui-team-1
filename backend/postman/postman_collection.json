@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "f4a21f53-e899-4453-a037-a54eb76af8e2",
+		"_postman_id": "8537770a-23f0-4b5a-8378-8124c7baa122",
 		"name": "DB GUI Team 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23157591"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -11,9 +10,21 @@
 			"item": [
 				{
 					"name": "Get movies",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/api/movies",
 							"host": [
@@ -68,6 +79,47 @@
 							"path": [
 								"api",
 								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movie by name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/movies?title=Hocu",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "name2",
+									"value": "Avatar",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Hocu"
+								}
 							]
 						}
 					},
@@ -172,6 +224,33 @@
 			"name": "Review",
 			"item": [
 				{
+					"name": "Create review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Test movie review2\",\r\n    \"movieId\": \"19995\",\r\n    \"userId\": \"cl9f830wh0000imwscdmy5nbl\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/reviews",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get reviews",
 					"request": {
 						"method": "GET",
@@ -195,32 +274,24 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/reviews",
+							"raw": "{{host}}/api/reviews/cl9hm3lz30000im04r3iwidps",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"reviews"
+								"reviews",
+								"cl9hm3lz30000im04r3iwidps"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Create review",
+					"name": "Edit Review by ID",
 					"request": {
-						"method": "POST",
+						"method": "PUT",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"Test movie review\",\r\n    \"movieId\": 19995,\r\n    \"userId\": \"cl9f830wh0000imwscdmy5nbl\"\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{host}}/api/reviews",
 							"host": [

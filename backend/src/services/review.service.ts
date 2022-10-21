@@ -16,6 +16,18 @@ export async function createReview(body: Record<string, string>) {
     });
 }
 
+export async function editReview(id: string, content: string) {
+  return prisma.review.update({
+    where:{
+      id
+    },
+    data:{
+      content
+    }
+
+  });
+}
+
 
 export function getReviews() {
   return prisma.review.findMany({
