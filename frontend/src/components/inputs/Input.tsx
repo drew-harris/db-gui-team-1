@@ -11,7 +11,7 @@ export default function Input(props: InputProps) {
       {label ? <div>{label}</div> : null}
       <input
         {...rest}
-        className={`p-2 text-white font-semibold bg-slate-900 rounded border-none ${className}`}
+        className={`p-2 border-white text-white font-semibold bg-slate-900 rounded border-none ${className}`}
       />
     </div>
   );
