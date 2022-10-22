@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createSessionSchema } from "schemas";
+import { createSessionSchema } from "schemas/src/session.schema";
 import { logIn } from "../api/auth";
 import Button from "../components/inputs/Button";
 import Input from "../components/inputs/Input";
