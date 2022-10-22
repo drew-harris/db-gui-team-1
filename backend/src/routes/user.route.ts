@@ -35,7 +35,7 @@ const userRouter = express.Router();
 
  */
 
-userRouter.post("/", validate(createUserSchema), createUserHandler);
+userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
 
 /**
  * @openapi

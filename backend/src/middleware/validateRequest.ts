@@ -1,15 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import { AnyZodObject, ZodError } from "zod";
+import { AnyZodObject, ZodEffects, ZodError, ZodSchema } from "zod";
+
+type FieldOption = "body" | "query";
 
 const validate =
-  (schema: AnyZodObject) =>
+  (schema: ZodSchema, parseField: FieldOption) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      schema.parse({
-        body: req.body,
-        query: req.query,
-        params: req.params,
-      });
+      schema.parse(parseField === "body" ? req.body : req.query);
       next();
     } catch (error) {
       if (error instanceof ZodError) {

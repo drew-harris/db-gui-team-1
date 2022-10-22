@@ -32,6 +32,10 @@ const sessionRouter = express.Router();
 
  */
 
-sessionRouter.post("/", validate(createSessionSchema), createSessionHandler);
+sessionRouter.post(
+  "/",
+  validate(createSessionSchema, "body"),
+  createSessionHandler
+);
 
 export default sessionRouter;

@@ -96,6 +96,6 @@ movieRouter.get("/:id", getMovieByIdHandler);
  *     description: Could not create new movie
  */
 
-movieRouter.post("/", validate(createMovieSchema), createMovieHandler);
+movieRouter.post("/", validate(createMovieSchema, "body"), createMovieHandler);
 
 export default movieRouter;

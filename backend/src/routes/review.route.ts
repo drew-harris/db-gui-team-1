@@ -97,6 +97,10 @@ reviewRouter.put("/:id", editReviewByIdHandler);
  *     description: Could not create new review
  */
 
-reviewRouter.post("/", validate(createReviewSchema), createReviewHandler);
+reviewRouter.post(
+  "/",
+  validate(createReviewSchema, "body"),
+  createReviewHandler
+);
 
 export default reviewRouter;
