@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createSessionSchema } from "schemas";
+import { logIn } from "../api/auth";
 import Button from "../components/inputs/Button";
 import Input from "../components/inputs/Input";
-import { createSessionSchema } from "schemas";
-import { ZodError } from "zod";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
+  const { setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const [errorText, setErrorText] = useState("");
 
@@ -14,12 +18,19 @@ export default function Login() {
     setErrorText("");
   }, [email, password]);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     try {
       const body = { email, password };
       createSessionSchema.parse(body);
+      const data = await logIn(body);
+      console.log(data);
+      if (data.user) {
+        setUser(data.user);
+        navigate("/");
+      }
     } catch (error) {
+      // If zod error
       if (error.issues) {
         setErrorText(error.issues[0].message);
         console.log(error?.issues[0]?.message);

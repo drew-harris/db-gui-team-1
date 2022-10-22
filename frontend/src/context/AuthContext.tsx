@@ -1,8 +1,8 @@
 import {
-  Children,
   createContext,
   Dispatch,
   SetStateAction,
+  useEffect,
   useState,
 } from "react";
 
@@ -36,6 +36,10 @@ const getUserFromLocalStorage = () => {
 
 export default function AuthContextProvider(props) {
   const [user, setUser] = useState<User | null>(getUserFromLocalStorage());
+
+  useEffect(() => {
+    window.localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {props.children}
