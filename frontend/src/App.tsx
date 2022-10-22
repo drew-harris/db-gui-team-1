@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import getAllMovies from "./api/movies";
 import SimpleMovie from "./components/SimpleMovie";
 import "./index.css";
 
 function App() {
-  const [movies, setMovieData] = useState(null);
-
-  // Fetch the data from the API when the component mounts
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await getAllMovies();
-      console.log(data);
-      setMovieData(data);
-    };
-
-    fetchData();
-  }, []);
+  const {
+    data: movies,
+    status,
+    error,
+  } = useQuery(["movies"], getAllMovies, {
+    retry: false,
+  });
 
   return (
-    <div className="bg-slate-900 text-white p-3">
-      <div className="text-orange-500 font-bold text-2xl">Blank React App</div>
-      <div>Movies from DATABASE:</div>
+    <div className=" text-white p-3">
+      <div className="text-orange-500 font-bold text-2xl mb-4">
+        Blank React App
+      </div>
+      {status === "loading" && <div>Loading...</div>}
+      {error && error instanceof Error && (
+        <div>{error.message || "Error getting movies"} TEST</div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
         {movies &&
           movies.map((movie) => {

@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import {
   createMovie,
   getMovies,
-  getMovieById, getMovieByName
+  getMovieById,
+  getMovieByName,
 } from "../services/movie.service";
 
 export async function createMovieHandler(req: Request, res: Response) {
@@ -22,18 +23,14 @@ export async function createMovieHandler(req: Request, res: Response) {
 }
 export async function getMovieHandler(req, res: Response) {
   try {
-    if(req.query != null){
-      console.log('not null')
-
-      
+    if (req.query.title) {
+      console.log("not null");
       const movie = await getMovieByName(req.query.title);
       return res.json(movie);
-    }
-    else{
+    } else {
       const movies = await getMovies();
       return res.json(movies);
     }
-   
   } catch (error) {
     console.error(error);
     res.status(500).json({

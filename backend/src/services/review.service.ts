@@ -1,33 +1,31 @@
 import prisma from "../utils/prisma.util";
 
 type Review = {
-    content: string,
-    movieId: number,
-    userId: string
-}
+  content: string;
+  movieId: number;
+  userId: string;
+};
 
 export async function createReview(body: Record<string, string>) {
-    return prisma.review.create({
-      data: {
-        content: body.content,
-        movieId: +body.movieId || null,
-        userId: body.userId || null,
-      },
-    });
+  return prisma.review.create({
+    data: {
+      content: body.content,
+      movieId: +body.movieId || null,
+      userId: body.userId || null,
+    },
+  });
 }
 
 export async function editReview(id: string, content: string) {
   return prisma.review.update({
-    where:{
-      id
+    where: {
+      id,
     },
-    data:{
-      content
-    }
-
+    data: {
+      content,
+    },
   });
 }
-
 
 export function getReviews() {
   return prisma.review.findMany({

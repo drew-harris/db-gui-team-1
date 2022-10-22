@@ -1,7 +1,9 @@
 import express from "express";
 import {
   getReviewHandler,
-  getReviewByIdHandler, createReviewHandler, editReviewByIdHandler
+  getReviewByIdHandler,
+  createReviewHandler,
+  editReviewByIdHandler,
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
 
@@ -45,7 +47,6 @@ reviewRouter.get("/", getReviewHandler);
  *    500:
  *     description: Could not fetch review
  */
-
 
 reviewRouter.get("/:id", getReviewByIdHandler);
 /**
@@ -95,7 +96,6 @@ reviewRouter.put("/:id", editReviewByIdHandler);
  *    500:
  *     description: Could not create new review
  */
-
 
 reviewRouter.post("/", validate(createReviewSchema), createReviewHandler);
 

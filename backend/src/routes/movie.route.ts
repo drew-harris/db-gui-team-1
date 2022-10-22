@@ -51,7 +51,6 @@ const movieRouter = express.Router();
  *     description: Could not get movie
  */
 
-
 movieRouter.get("/", getMovieHandler);
 
 /**

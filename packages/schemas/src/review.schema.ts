@@ -6,10 +6,10 @@ export const createReviewSchema = object({
       required_error: "Content is required",
     }),
     movieId: string({
-        required_error: "movieId is required",
+      required_error: "movieId is required",
     }),
     userId: string({
-        required_error: "userId is required",
+      required_error: "userId is required",
     }),
   }),
 });

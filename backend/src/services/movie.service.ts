@@ -18,17 +18,17 @@ export function getMovies() {
     orderBy: {
       tmdbVoteCount: "desc",
     },
-    
+
     take: 50,
   });
 }
 export function getMovieByName(title: string) {
   return prisma.movie.findMany({
-    where:{
+    where: {
       title: {
-        contains: title
-      }
-    }
+        contains: title,
+      },
+    },
   });
 }
 

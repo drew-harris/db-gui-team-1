@@ -1,21 +1,26 @@
 import { Request, Response } from "express";
-import { createReview, getReviews, getReviewById, editReview } from "../services/review.service";
+import {
+  createReview,
+  getReviews,
+  getReviewById,
+  editReview,
+} from "../services/review.service";
 
 export async function createReviewHandler(req: Request, res: Response) {
-    try {
-      const movie = await createReview(req.body);
-  
-      return res.json(movie);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({
-        error: {
-          error: error.message,
-          message: "Could not create new review",
-        },
-      });
-    }
+  try {
+    const movie = await createReview(req.body);
+
+    return res.json(movie);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not create new review",
+      },
+    });
   }
+}
 
 export async function getReviewHandler(req: Request, res: Response) {
   try {
