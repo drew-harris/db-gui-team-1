@@ -19,7 +19,7 @@
  *     required:
  *     - accessToken
  *     properties:
- *      accessToken:
+ *      jwt:
  *       type: string
  *       default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsOWhoZ3V3eDAwMDJqengxbzJjemRjM2EiLCJpYXQiOjE2NjYyOTU4OTN9.elZHRRcJtPVLmIQM7RJjSE_eAYMy5FafyDmIhfSedRo
  */

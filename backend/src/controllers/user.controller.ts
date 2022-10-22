@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 import { createUser, getUserById, getUsers } from "../services/user.service";
+import { signJwt } from "../utils/jwt.util";
 export async function createUserHandler(req: Request, res: Response) {
   try {
     const user = await createUser(req.body);
+    const jwt = await signJwt(user);
 
-    return res.json(user);
+    return res.cookie("jwt", jwt).json({ user, jwt });
   } catch (e) {
     if (e.code === 409) {
       return res.status(409).json({

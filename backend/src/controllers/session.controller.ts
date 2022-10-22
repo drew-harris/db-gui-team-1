@@ -7,21 +7,26 @@ export async function createSessionHandler(req: Request, res: Response) {
     const user = await findUserByEmail(req.body.email);
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(401).json({
         message: "Email or password not valid",
       });
     }
 
     const isValid = await validateUser(req.body.password, user.password);
     if (!isValid) {
-      return res.status(404).json({
+      return res.status(401).json({
         message: "Email or password not valid",
       });
     }
 
-    const accessToken = signJwt({ id: user.id });
+    const { password, ...userWithoutPassword } = user;
 
-    return res.status(201).json({ accessToken });
+    const jwt = signJwt(userWithoutPassword);
+
+    return res
+      .status(201)
+      .cookie("jwt", jwt)
+      .json({ jwt: jwt, user: userWithoutPassword });
   } catch (e) {
     res.status(400).json({
       e: e.message,

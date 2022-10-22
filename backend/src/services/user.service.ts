@@ -11,6 +11,7 @@ export async function createUser(body: Record<string, string>) {
     error.code = 409;
     throw error;
   }
+
   const salt = await bcrypt.genSalt(12);
 
   const hash = await bcrypt.hash(body.password, salt);
@@ -21,9 +22,16 @@ export async function createUser(body: Record<string, string>) {
       email: body.email,
       password: hash,
     },
+    select: {
+      username: true,
+      password: false,
+      createdAt: true,
+      email: true,
+      id: true,
+    },
   });
 
-  return omit(user, "password");
+  return user;
 }
 
 export async function validateUser(password: string, actualPass: string) {

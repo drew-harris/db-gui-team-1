@@ -24,7 +24,6 @@ export async function createMovieHandler(req: Request, res: Response) {
 export async function getMovieHandler(req, res: Response) {
   try {
     if (req.query.title) {
-      console.log("not null");
       const movie = await getMovieByName(req.query.title);
       return res.json(movie);
     } else {

@@ -27,7 +27,7 @@ const sessionRouter = express.Router();
  *        $ref: '#/components/schemas/CreateSessionResponse'
  *    400:
  *     description: Bad request
- *    404:
+ *    401:
  *     description: Email or password not valid
 
  */
