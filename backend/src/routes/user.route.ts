@@ -8,73 +8,13 @@ import {
 import validate from "../middleware/validateRequest";
 const userRouter = express.Router();
 
-/**
- * @openapi
- * /api/users:
- *  post:
- *   tags:
- *   - User
- *   summary: Create user
- *   requestBody:
- *    required: true
- *    content:
- *     application/json:
- *      schema:
- *       $ref: '#/components/schemas/CreateUserInput'
- *   responses:
- *    200:
- *     description: Success
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/CreateUserResponse'
- *    400:
- *     description: Bad request
- *    409:
- *     description: User exists
 
- */
 
 userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
 
-/**
- * @openapi
- * /api/users:
- *  get:
- *   tags:
- *   - User
- *   summary: Get all users
- *   responses:
- *    200:
- *     description:
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/GetAllUsersResponse'
- *    500:
- *     description: Could not fetch users
- *
- */
 
 userRouter.get("/", getUsersHandler);
 
-/**
- * @openapi
- * /api/users/{id}:
- *  get:
- *   tags:
- *   - User
- *   summary: Get a user
- *   responses:
- *    200:
- *     description:
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/CreateUserResponse'
- *    500:
- *     description: Could not fetch users
- */
 
 userRouter.get("/:id", getUserByIdHandler);
 

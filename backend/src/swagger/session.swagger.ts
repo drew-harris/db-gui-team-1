@@ -14,12 +14,34 @@
  *      password:
  *       type: string
  *       default: mypassword12345
- *    CreateSessionResponse:
- *     type: object
- *     required:
- *     - accessToken
- *     properties:
- *      jwt:
- *       type: string
- *       default: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsOWhoZ3V3eDAwMDJqengxbzJjemRjM2EiLCJpYXQiOjE2NjYyOTU4OTN9.elZHRRcJtPVLmIQM7RJjSE_eAYMy5FafyDmIhfSedRo
+
+ */
+
+
+
+/**
+ * @openapi
+ * /api/sessions:
+ *  post:
+ *   tags:
+ *   - Session
+ *   summary: Create session
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema:
+ *       $ref: '#/components/schemas/CreateSessionInput'
+ *   responses:
+ *    200:
+ *     description: Success
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/components/schemas/CreateUserResponse'
+ *    400:
+ *     description: Bad request
+ *    401:
+ *     description: Email or password not valid
+
  */
