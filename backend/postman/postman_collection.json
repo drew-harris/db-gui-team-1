@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "902e5f70-822e-4836-bbde-4261cf0ac1a9",
+		"_postman_id": "8537770a-23f0-4b5a-8378-8124c7baa122",
 		"name": "DB GUI Team 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23157591"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -177,7 +176,7 @@
 					"response": []
 				},
 				{
-					"name": "Get User by ID",
+					"name": "Get User by id",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -264,25 +263,6 @@
 							"path": [
 								"api",
 								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get review by movie id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/reviews/cl9hm3lz30000im04r3iwidps",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"reviews",
-								"cl9hm3lz30000im04r3iwidps"
 							]
 						}
 					},
