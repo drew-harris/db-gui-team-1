@@ -9,8 +9,6 @@ import validate from "../middleware/validateRequest";
 
 const movieRouter = express.Router();
 
-
-
 movieRouter.get("/", getMovieHandler);
 
 movieRouter.get("/:id", getMovieByIdHandler);

@@ -1,4 +1,3 @@
-
 /**
  * @openapi
  * components:
@@ -64,7 +63,6 @@
  *        default: 2022-10-25T19:52:16.529Z
  */
 
-
 /**
  * @openapi
  * /api/users/{id}:
@@ -82,7 +80,6 @@
  *    500:
  *     description: Could not fetch users
  */
-
 
 /**
  * @openapi
@@ -102,7 +99,6 @@
  *     description: Could not fetch users
  *
  */
-
 
 /**
  * @openapi

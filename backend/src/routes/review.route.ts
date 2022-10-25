@@ -11,14 +11,11 @@ import { createReviewSchema } from "schemas";
 import decodeUser from "../middleware/decodeUser";
 const reviewRouter = express.Router();
 
-
 reviewRouter.get("/", getReviewHandler);
-
 
 reviewRouter.get("/:id", getReviewByIdHandler);
 
 reviewRouter.put("/:id", editReviewByIdHandler);
-
 
 reviewRouter.post(
   "/",

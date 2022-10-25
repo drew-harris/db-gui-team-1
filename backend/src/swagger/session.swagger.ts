@@ -17,8 +17,6 @@
 
  */
 
-
-
 /**
  * @openapi
  * /api/sessions:

@@ -198,4 +198,3 @@
  *    500:
  *     description: Could not fetch reviews
  */
-

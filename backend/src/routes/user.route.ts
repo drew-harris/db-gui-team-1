@@ -8,13 +8,9 @@ import {
 import validate from "../middleware/validateRequest";
 const userRouter = express.Router();
 
-
-
 userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
 
-
 userRouter.get("/", getUsersHandler);
-
 
 userRouter.get("/:id", getUserByIdHandler);
 
