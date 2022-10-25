@@ -7,7 +7,4 @@ export const createReviewSchema = object({
   movieId: string({
     required_error: "movieId is required",
   }),
-  userId: string({
-    required_error: "userId is required",
-  }),
 });

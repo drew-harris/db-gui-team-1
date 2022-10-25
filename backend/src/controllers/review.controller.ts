@@ -7,11 +7,15 @@ import {
   getReviewByMovieId,
 } from "../services/review.service";
 
-export async function createReviewHandler(req: Request, res: Response) {
+export async function createReviewHandler(req, res: Response) {
   try {
-    const movie = await createReview(req.body);
+    const reviewBody = {
+      userId: req.user.id,
+      ...req.body,
+    };
+    const review = await createReview(reviewBody);
 
-    return res.json(movie);
+    return res.json(review);
   } catch (error) {
     console.error(error);
     res.status(500).json({
