@@ -4,6 +4,7 @@ import {
   getReviews,
   getReviewById,
   editReview,
+  getReviewByMovieId,
 } from "../services/review.service";
 
 export async function createReviewHandler(req: Request, res: Response) {
@@ -24,6 +25,10 @@ export async function createReviewHandler(req: Request, res: Response) {
 
 export async function getReviewHandler(req: Request, res: Response) {
   try {
+    if (req.query.movieId) {
+      const reviews = await getReviewByMovieId(+req.query.movieId);
+      return res.json(reviews);
+    }
     const reviews = await getReviews();
     return res.json(reviews);
   } catch (error) {

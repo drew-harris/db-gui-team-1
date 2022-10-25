@@ -33,7 +33,7 @@ const movieRouter = express.Router();
 
 /**
  * @openapi
- * /api/movies/title?={name}:
+ * /api/movies/?title={name}:
  *  get:
  *   tags:
  *   - Movie

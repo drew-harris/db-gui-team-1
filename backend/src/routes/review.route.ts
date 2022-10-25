@@ -28,11 +28,29 @@ const reviewRouter = express.Router();
  *     description: Could not fetch reviews
  */
 
+/**
+ * @openapi
+ * /api/reviews/?movieId={id}:
+ *  get:
+ *   tags:
+ *   - Review
+ *   summary: Get reviews from movie
+ *   responses:
+ *    200:
+ *     description: Success
+ *     content:
+ *      application/json:
+ *       schema:
+ *        $ref: '#/components/schemas/GetAllReviewsResponse'
+ *    500:
+ *     description: Could not fetch reviews
+ */
+
 reviewRouter.get("/", getReviewHandler);
 
 /**
  * @openapi
- * /api/reviews/{id}:
+ * /api/reviews/{reviewId}:
  *  get:
  *   tags:
  *   - Review
@@ -51,7 +69,7 @@ reviewRouter.get("/", getReviewHandler);
 reviewRouter.get("/:id", getReviewByIdHandler);
 /**
  * @openapi
- * /api/reviews/{id}:
+ * /api/reviews/{reviewId}:
  *  put:
  *   tags:
  *   - Review

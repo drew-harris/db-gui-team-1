@@ -44,3 +44,11 @@ export async function getReviewById(id: string) {
     },
   });
 }
+
+export async function getReviewByMovieId(movieId: number) {
+  return await prisma.review.findMany({
+    where: {
+      movieId,
+    },
+  });
+}
