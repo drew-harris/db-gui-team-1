@@ -132,6 +132,33 @@
 			"item": [
 				{
 					"name": "Create user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const randomEmail = pm.variables.replaceIn('{{$randomEmail}}')",
+									"const randomName = pm.variables.replaceIn('{{$randomUserName}}')",
+									"const randomPassword = pm.variables.replaceIn('{{$randomPassword}}')",
+									"postman.setEnvironmentVariable('email',randomEmail)",
+									"postman.setEnvironmentVariable('password',randomPassword)",
+									"postman.setEnvironmentVariable('username',randomName)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"postman.setEnvironmentVariable('jwt',jsonData.jwt)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -193,6 +220,19 @@
 			"item": [
 				{
 					"name": "Create session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)",
+									"",
+									"postman.setEnvironmentVariable('jwt',jsonData.jwt)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -225,12 +265,29 @@
 			"item": [
 				{
 					"name": "Create review",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "jwt",
+								"value": "{{jwt}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"content\": \"Test movie review2\",\r\n    \"movieId\": \"19995\",\r\n    \"userId\": \"cl9f830wh0000imwscdmy5nbl\"\r\n\r\n}",
+							"raw": "{\r\n    \"content\": \"Test movie review2\",\r\n    \"movieId\": \"19995\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -269,6 +326,31 @@
 					"response": []
 				},
 				{
+					"name": "Get reviews by movie id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/reviews/?movieId=19995",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								""
+							],
+							"query": [
+								{
+									"key": "movieId",
+									"value": "19995"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get review by id",
 					"request": {
 						"method": "GET",
@@ -292,14 +374,24 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\":\"Updated review\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/api/reviews",
+							"raw": "{{host}}/api/reviews/cl9hm3lz30000im04r3iwidps",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"reviews"
+								"reviews",
+								"cl9hm3lz30000im04r3iwidps"
 							]
 						}
 					},
