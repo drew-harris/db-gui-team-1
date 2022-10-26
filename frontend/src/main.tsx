@@ -7,12 +7,14 @@ import App from "./App";
 import { MainLayout } from "./components/layouts/MainLayout";
 import AuthContextProvider from "./context/AuthContext";
 import "./index.css";
+import { ErrorPage } from "./pages/Error";
 import Login from "./pages/Login";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/login",
