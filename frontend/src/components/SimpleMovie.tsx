@@ -1,12 +1,12 @@
 import { Movie } from "@prisma/client";
+import { Link } from "react-router-dom";
 
 export default function SimpleMovie({ movie }: { movie: Movie }) {
   return (
-    <div className="p-2 text-center flex flex-col items-center gap-2 border-white border rounded">
-      <div>{movie.title}</div>
-      <img className="w-24" src={movie.posterImageUrl}></img>
-      <div>{movie.genre}</div>
-      <div>{movie.tagline}</div>
-    </div>
+    <Link to={"/movie/" + movie.id}>
+      <div className="border border-orange-200">
+        <img className="w-32" src={movie.posterImageUrl}></img>
+      </div>
+    </Link>
   );
 }

@@ -3,12 +3,14 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
+import singleMovieLoader from "./api/loaders/movies";
 import { MainLayout } from "./components/layouts/MainLayout";
 import AuthContextProvider from "./context/AuthContext";
 import "./index.css";
 import { ErrorPage } from "./pages/Error";
+import Home from "./pages/Home";
 import Login from "./pages/Login";
+import { MoviePage } from "./pages/Movie";
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <App />,
+        element: <Home />,
+      },
+      {
+        path: "/movie/:id",
+        loader: singleMovieLoader,
+        element: <MoviePage />,
       },
     ],
   },
