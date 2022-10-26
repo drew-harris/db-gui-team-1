@@ -16,7 +16,7 @@ export const MoviePage = () => {
     <div>
       <div className="grid grid-cols-[auto_1fr] gap-4">
         <img
-          className="bg-red-500 w-80 shrink rounded-xl"
+          className="w-80 shrink rounded-xl"
           src={movie.backdropImageUrl}
         ></img>
         <div>
