@@ -9,8 +9,9 @@ import AuthContextProvider from "./context/AuthContext";
 import "./index.css";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
+import Login from "./pages/accounts/Login";
 import { MoviePage } from "./pages/Movie";
+import SignUp from "./pages/accounts/SignUp";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <SignUp />,
       },
       {
         path: "/",
