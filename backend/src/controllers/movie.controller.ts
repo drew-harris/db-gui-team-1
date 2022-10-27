@@ -35,7 +35,7 @@ export async function getMovieHandler(req, res: Response) {
     };
 
     const movies = await filterMovies(filterBody);
-
+    console.log(movies.length);
     return res.json(movies);
   } catch (error) {
     console.error(error);
