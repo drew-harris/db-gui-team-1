@@ -12,6 +12,7 @@ export default async function getMovies({ page }) {
         },
       }
     );
+
     if (!response.ok) {
       console.log(response);
       throw new Error("Error getting information");
