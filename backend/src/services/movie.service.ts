@@ -45,11 +45,11 @@ export function filterMovies({
   tmdb: { low, high },
   runtime: { begin, end },
 }) {
-  if (isNaN(page)) page = 0;
+  if (isNaN(page)) page = 1;
 
   return prisma.movie.findMany({
     take: 50,
-    skip: page * 10,
+    skip: (page - 1) * 50,
     where: {
       ...(title && {
         title: {
