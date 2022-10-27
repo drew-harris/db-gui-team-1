@@ -31,12 +31,15 @@ async function main() {
   // Exit if no environment variable
   const prisma = new PrismaClient();
   // DELETE ALL MOVIES
+  await prisma.review.deleteMany({});
+  await prisma.rating.deleteMany({});
   await prisma.movie.deleteMany({});
-  const TOTAL_MOVIES = 100;
+  const TOTAL_MOVIES = 400;
   let movieIds: any[] = [];
   let i = 1;
   while (movieIds.length < TOTAL_MOVIES) {
     const ids = await getIdsForPage(i);
+    console.log(`Gotten ${movieIds.length} movies`);
     movieIds = [...movieIds, ...ids];
     i++;
   }
@@ -49,31 +52,44 @@ async function main() {
       return;
     }
 
-    const createdMovie = await prisma.movie.create({
-      data: {
-        title: data.title,
-        description: data.overview || null,
-        genre: data.genres?.at(0)?.name || null,
+    const foundMovie = await prisma.movie.findFirst({
+      where: {
         id: data.id,
-        runTime: data.runtime || null,
-        releaseDate: data.release_date ? new Date(data.release_date) : null,
-        posterImageUrl: data.poster_path
-          ? configuration.base_url +
-            configuration.poster_sizes[configuration.poster_sizes.length - 2] +
-            data.poster_path
-          : null,
-        backdropImageUrl: data.backdrop_path
-          ? configuration.base_url +
-            configuration.backdrop_sizes[
-              configuration.backdrop_sizes.length - 2
-            ] +
-            data.backdrop_path
-          : null,
-        tagline: data.tagline || null,
-        tmdbPopularity: data.popularity || null,
-        tmdbVoteCount: data.vote_count || null,
       },
     });
+
+    if (foundMovie) return;
+
+    try {
+      const createdMovie = await prisma.movie.create({
+        data: {
+          title: data.title,
+          description: data.overview || null,
+          genre: data.genres?.at(0)?.name || null,
+          runTime: data.runtime || null,
+          releaseDate: data.release_date ? new Date(data.release_date) : null,
+          posterImageUrl: data.poster_path
+            ? configuration.base_url +
+              configuration.poster_sizes[
+                configuration.poster_sizes.length - 2
+              ] +
+              data.poster_path
+            : null,
+          backdropImageUrl: data.backdrop_path
+            ? configuration.base_url +
+              configuration.backdrop_sizes[
+                configuration.backdrop_sizes.length - 2
+              ] +
+              data.backdrop_path
+            : null,
+          tagline: data.tagline || null,
+          tmdbPopularity: data.popularity || null,
+          tmdbVoteCount: data.vote_count || null,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
 
     // Get movie info
   });

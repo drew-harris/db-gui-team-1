@@ -21,24 +21,16 @@ export async function createUserHandler(req: Request, res: Response) {
 
 export async function getUsersHandler(req: Request, res: Response) {
   try {
+    if(req.query.id) {
+      const user = await getUserById(req.query.id)
+
+      return res.json(user)
+    }
     const user = await getUsers();
 
     return res.json(user);
   } catch (e) {
     res.status(500).json({
-      message: e.message,
-    });
-  }
-}
-
-export async function getUserByIdHandler(req: Request, res: Response) {
-  try {
-    const user = await getUserById(req.params.id);
-
-    return res.json(user);
-  } catch (e) {
-    console.log(e);
-    res.status(400).json({
       message: e.message,
     });
   }

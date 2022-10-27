@@ -70,7 +70,7 @@
  *       type: number
  *       default: 162
  *
- *    GetAllMoviesResponse:
+ *    GetMoviesResponse:
  *     type: array
  *     items:
  *      type: object
@@ -115,56 +115,42 @@
  *  get:
  *   tags:
  *   - Movie
- *   summary: Get all movies
+ *   summary: Get movies
  *   parameters:
  *    - in: query
+ *      name: title
+ *    - in: query
+ *      name: fromDate
+ *    - in: query
+ *      name: toDate
+ *    - in: query
+ *      name: tmdbLow
+ *    - in: query
+ *      name: tmdbHigh
+ *    - in: query
+ *      name: sortUp
+ *    - in: query
+ *      name: sortDown
+ *    - in: query
+ *      name: runTimeBegin
+ *    - in: query
+ *      name: runTimeEnd
+ *    - in: query
+ *      name: page
+ *    - in: query
+ *      name: genre
+ *    - in: query
+ *      name: id 
+
  *   responses:
  *    200:
  *     description: Success
  *     content:
  *      application/json:
  *       schema:
- *        $ref: '#/components/schemas/GetAllMoviesResponse'
+ *        $ref: '#/components/schemas/GetMoviesResponse'
  *    500:
  *     description: Could not fetch movies
- */
-
-/**
- * @openapi
- * /api/movies/?title={name}:
- *  get:
- *   tags:
- *   - Movie
- *   summary: Get a movie
- *   parameters:
- *    - in: query
- *   responses:
- *    200:
- *     description: Success
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/CreateMovieResponse'
- *    500:
- *     description: Could not get movie
- */
-
-/**
- * @openapi
- * /api/movies/{id}:
- *  get:
- *   tags:
- *   - Movie
- *   summary: Get a movie
- *   responses:
- *    200:
- *     description: Success
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/CreateMovieResponse'
- *    500:
- *     description: Could not get movie
  */
 
 /**

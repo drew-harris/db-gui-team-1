@@ -123,11 +123,14 @@
 
 /**
  * @openapi
- * /api/reviews/{reviewId}:
+ * /api/reviews:
  *  put:
  *   tags:
  *   - Review
  *   summary: Edit review
+ *   parameters:
+ *    - in: query
+ *      name: id
  *   requestBody:
  *    required: true
  *    content:
@@ -145,23 +148,6 @@
  *     description: Could not create new review
  */
 
-/**
- * @openapi
- * /api/reviews/{reviewId}:
- *  get:
- *   tags:
- *   - Review
- *   summary: Get a review
- *   responses:
- *    200:
- *     description: Success
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/CreateReviewResponse'
- *    500:
- *     description: Could not fetch review
- */
 
 /**
  * @openapi
@@ -169,7 +155,12 @@
  *  get:
  *   tags:
  *   - Review
- *   summary: Get all reviews
+ *   summary: Get reviews
+ *   parameters:
+ *    - in: query
+ *      name: id
+ *    - in: query
+ *      name: movieId
  *   responses:
  *    200:
  *     description: Success
@@ -181,20 +172,4 @@
  *     description: Could not fetch reviews
  */
 
-/**
- * @openapi
- * /api/reviews/?movieId={id}:
- *  get:
- *   tags:
- *   - Review
- *   summary: Get reviews from movie
- *   responses:
- *    200:
- *     description: Success
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/GetAllReviewsResponse'
- *    500:
- *     description: Could not fetch reviews
- */
+

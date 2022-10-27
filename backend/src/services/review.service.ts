@@ -37,7 +37,7 @@ export function getReviews() {
   });
 }
 
-export async function getReviewById(id: string) {
+export async function getReviewById(id) {
   return await prisma.review.findUnique({
     where: {
       id,

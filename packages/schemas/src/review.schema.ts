@@ -1,4 +1,4 @@
-import { object, string } from "zod";
+import { number, object, string } from "zod";
 
 export const createReviewSchema = object({
   content: string({
@@ -7,4 +7,13 @@ export const createReviewSchema = object({
   movieId: string({
     required_error: "movieId is required",
   }),
+});
+
+export const getReviewSchema = object({
+  id: string({
+    
+  }).optional(),
+  movieId: string({
+    
+  }).optional(),
 });
