@@ -28,7 +28,7 @@ model User {
 model Movie {
   id               Int       @id @default(autoincrement())
   title            String
-  description      String? // ? = can be null
+  description      String?   @db.VarChar(1000)
   posterImageUrl   String?
   backdropImageUrl String?
   genre            String?
@@ -45,7 +45,7 @@ model Movie {
 
 model Review {
   id          String   @id @default(cuid())
-  content     String
+  content     String   @db.VarChar(1000)
   submittedAt DateTime @default(now())
 
   for     Movie @relation(fields: [movieId], references: [id])
