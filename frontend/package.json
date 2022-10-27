@@ -10,9 +10,20 @@
     "lint": "eslint src/**.{ts,tsx}"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@prisma/client": "^4.4.0",
+    "@tanstack/react-query": "^4.12.0",
+    "@tanstack/react-query-devtools": "^4.12.0",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2",
+    "schemas": "*",
+    "sort-by": "^1.2.0",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",

@@ -1,8 +1,14 @@
-import express, { Request, Response }from 'express'
-import { createSessionHandler } from '../controllers/session.controller'
+import express from "express";
+import { createSessionSchema } from "schemas";
+import { createSessionHandler } from "../controllers/session.controller";
+import validate from "../middleware/validateRequest";
 
-const sessionRouter = express.Router()
+const sessionRouter = express.Router();
 
-sessionRouter.post('/', createSessionHandler)
+sessionRouter.post(
+  "/",
+  validate(createSessionSchema, "body"),
+  createSessionHandler
+);
 
-export default sessionRouter
+export default sessionRouter;

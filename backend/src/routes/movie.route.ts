@@ -1,11 +1,21 @@
-import express, { Request, Response }from 'express'
-import {createMovieHandler, getMovieHandler} from '../controllers/movie.controller'
+import express from "express";
+import { createMovieSchema, getMoviesFilterSchema } from "schemas";
+import {
+  createMovieHandler,
+  getMovieHandler,
+} from "../controllers/movie.controller";
+import optionalUser from "../middleware/optionalUser";
+import validate from "../middleware/validateRequest";
 
-const movieRouter = express.Router()
+const movieRouter = express.Router();
 
-// first 50 movies
-movieRouter.get("/", getMovieHandler);
+movieRouter.get(
+  "/",
+  optionalUser,
+  validate(getMoviesFilterSchema, "query"),
+  getMovieHandler
+);
 
-movieRouter.post("/", createMovieHandler);
+movieRouter.post("/", validate(createMovieSchema, "body"), createMovieHandler);
 
-export default movieRouter
+export default movieRouter;
