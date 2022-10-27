@@ -65,29 +65,14 @@
 
 /**
  * @openapi
- * /api/users/{id}:
- *  get:
- *   tags:
- *   - User
- *   summary: Get a user
- *   responses:
- *    200:
- *     description:
- *     content:
- *      application/json:
- *       schema:
- *        $ref: '#/components/schemas/CreateUserResponse'
- *    500:
- *     description: Could not fetch users
- */
-
-/**
- * @openapi
  * /api/users:
  *  get:
  *   tags:
  *   - User
- *   summary: Get all users
+ *   summary: Get users
+ *   parameters:
+ *    - in: query
+ *      name: id
  *   responses:
  *    200:
  *     description:

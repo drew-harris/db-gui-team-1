@@ -34,6 +34,7 @@ export default function SignUp() {
       console.log(data);
       if (data.user) {
         setUser(data.user);
+        window.localStorage.setItem("jwt", data.jwt);
         navigate("/");
       }
     } catch (error) {

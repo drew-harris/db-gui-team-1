@@ -7,7 +7,7 @@ import reviewRouter from "./routes/review.route";
 import sessionRouter from "./routes/session.route";
 import userRouter from "./routes/user.route";
 import swaggerDocs from "./utils/swagger";
-
+import cookieParser from "cookie-parser";
 // Load enviornment variables from .env file
 dotenv.config();
 
@@ -17,7 +17,7 @@ const app: Express = express();
 app.use(cors.default()); // Allows us to connect to the api from any website
 app.use(express());
 app.use(express.json()); // Reads the body from a post request properly
-
+app.use(cookieParser());
 const port: number = +process.env.PORT || 8000;
 
 /**

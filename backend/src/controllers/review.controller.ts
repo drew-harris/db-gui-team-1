@@ -33,6 +33,10 @@ export async function getReviewHandler(req: Request, res: Response) {
       const reviews = await getReviewByMovieId(+req.query.movieId);
       return res.json(reviews);
     }
+    if (req.query.id) {
+      const reviews = await getReviewById(req.query.id);
+      return res.json(reviews);
+    }
     const reviews = await getReviews();
     return res.json(reviews);
   } catch (error) {
@@ -40,14 +44,14 @@ export async function getReviewHandler(req: Request, res: Response) {
     res.status(500).json({
       error: {
         error: error.message,
-        message: "Could not fetch reviews from database",
+        message: "Could not get reviews",
       },
     });
   }
 }
 export async function editReviewByIdHandler(req, res: Response) {
   try {
-    const review = await editReview(req.params.id, req.body.content);
+    const review = await editReview(req.query.id, req.body.content);
     return res.json(review);
   } catch (error) {
     console.error(error);
@@ -60,17 +64,4 @@ export async function editReviewByIdHandler(req, res: Response) {
   }
 }
 
-export async function getReviewByIdHandler(req: Request, res: Response) {
-  try {
-    const review = await getReviewById(req.params.id);
-    return res.json(review);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      error: {
-        error: error.message,
-        message: "Could not fetch review from database",
-      },
-    });
-  }
-}
+

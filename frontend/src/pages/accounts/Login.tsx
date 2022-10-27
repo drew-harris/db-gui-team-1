@@ -27,6 +27,7 @@ export default function Login() {
       console.log(data);
       if (data.user) {
         setUser(data.user);
+        window.localStorage.setItem("jwt", data.jwt);
         navigate("/");
       }
     } catch (error) {
