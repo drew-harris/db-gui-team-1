@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 import getAllMovies from "../api/movies";
-import Button from "../components/inputs/Button";
 import SimpleMovie from "../components/SimpleMovie";
 import "../index.css";
 

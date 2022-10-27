@@ -21,7 +21,6 @@ export async function createSessionHandler(req: Request, res: Response) {
 
     const { password, ...userWithoutPassword } = user;
 
-    // @ts-ignore
     const jwt = signJwt(userWithoutPassword);
 
     return res
