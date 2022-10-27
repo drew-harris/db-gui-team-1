@@ -115,7 +115,7 @@
  *  get:
  *   tags:
  *   - Movie
- *   summary: Get movies (filter/sort)
+ *   summary: Get movies
  *   parameters:
  *    - in: query
  *      name: title
@@ -139,8 +139,8 @@
  *      name: page
  *    - in: query
  *      name: genre
- *    - in: path
- *      name: movieID 
+ *    - in: query
+ *      name: id 
 
  *   responses:
  *    200:

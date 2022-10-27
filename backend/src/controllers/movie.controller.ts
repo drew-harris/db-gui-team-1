@@ -3,8 +3,6 @@ import {
   createMovie,
   get100Movies,
   getMovieById,
-  getMovieByName,
-  getAllMovies,
   filterMovies,
 } from "../services/movie.service";
 
@@ -14,6 +12,11 @@ export async function getMovieHandler(req, res: Response) {
       const movies = await get100Movies();
       return res.json(movies);
     }
+    if(req.query.id){
+      const movie = await getMovieById(+req.query.id);
+      return res.json(movie);
+    }
+
     const filterBody = {
       page: +req.query.page,
       title: req.query.title,
@@ -35,7 +38,7 @@ export async function getMovieHandler(req, res: Response) {
     };
 
     const movies = await filterMovies(filterBody);
-    console.log(movies.length);
+    
     return res.json(movies);
   } catch (error) {
     console.error(error);
@@ -63,17 +66,3 @@ export async function createMovieHandler(req: Request, res: Response) {
   }
 }
 
-export async function getMovieByIdHandler(req: Request, res: Response) {
-  try {
-    const movie = await getMovieById(+req.params.id);
-    return res.json(movie);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      error: {
-        error: error.message,
-        message: "Could not fetch movie from database",
-      },
-    });
-  }
-}

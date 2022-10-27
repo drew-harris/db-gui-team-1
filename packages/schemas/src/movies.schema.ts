@@ -7,6 +7,7 @@ export const createMovieSchema = z.object({
 });
 
 export const getMoviesFilterSchema = z.object({
+  id: z.string().optional(),
   genre: z
     .enum([
       "Animation",

@@ -19,43 +19,6 @@
 							{
 								"key": "jwt",
 								"value": "{{jwt}}",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/movies",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"movies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get movie by filters",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "jwt",
-								"value": "{{jwt}}",
 								"type": "text"
 							}
 						],
@@ -132,25 +95,6 @@
 									"key": "genre",
 									"value": "Action"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get movie by id",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/movies/19995",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"movies",
-								"19995"
 							]
 						}
 					},

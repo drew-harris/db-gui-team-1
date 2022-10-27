@@ -23,18 +23,6 @@ export function get100Movies() {
     take: 50,
   });
 }
-
-export function getAllMovies() {
-  return prisma.movie.findMany({});
-}
-export function getMovieByName(title) {
-  return prisma.movie.findMany({
-    where: {
-      title,
-    },
-  });
-}
-
 export function filterMovies({
   page,
   sortUp,

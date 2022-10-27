@@ -3,7 +3,6 @@ import { createMovieSchema, getMoviesFilterSchema } from "schemas";
 import {
   createMovieHandler,
   getMovieHandler,
-  getMovieByIdHandler,
 } from "../controllers/movie.controller";
 import optionalUser from "../middleware/optionalUser";
 import validate from "../middleware/validateRequest";
@@ -16,8 +15,6 @@ movieRouter.get(
   validate(getMoviesFilterSchema, "query"),
   getMovieHandler
 );
-
-movieRouter.get("/:id", getMovieByIdHandler);
 
 movieRouter.post("/", validate(createMovieSchema, "body"), createMovieHandler);
 
