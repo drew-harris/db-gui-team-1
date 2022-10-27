@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import getAllMovies from "../api/movies";
+import { useState } from "react";
+import getMovies from "../api/movies";
 import SimpleMovie from "../components/SimpleMovie";
 import "../index.css";
 
 function Home() {
+  const [page, setPage] = useState(8);
   const {
     data: movies,
     status,
     error,
-  } = useQuery(["movies"], getAllMovies, {
+  } = useQuery(["movies"], () => getMovies({ page: page }), {
     retry: false,
   });
 

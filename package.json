@@ -38,7 +38,6 @@
     "turbo": "^1.5.5"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.3",
     "@prisma/client": "^4.5.0"
   }
 }
