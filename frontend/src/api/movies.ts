@@ -29,13 +29,21 @@ export default async function getMovies({ page }) {
 
 export async function getMovieById(id) {
   try {
-    const response = await fetch(API_URL + "/api/movies/" + id);
+    const response = await fetch(
+      API_URL + "/api/movies/?" + new URLSearchParams({ id: id }),
+      {
+        headers: {
+          jwt: getJwt(),
+        },
+      }
+    );
     if (!response.ok) {
       console.log(response);
       throw new Error("Error getting information");
     }
 
     const data = await response.json();
+    console.log(data);
 
     return data;
   } catch (error) {

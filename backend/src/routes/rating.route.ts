@@ -4,7 +4,6 @@ import {
   getRatingHandler,
 } from "../controllers/rating.controller";
 import decodeUser from "../middleware/requireUser";
-import validate from "../middleware/validateRequest";
 
 const ratingRouter = express.Router();
 
