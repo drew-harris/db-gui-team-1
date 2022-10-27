@@ -2,6 +2,7 @@ import * as cors from "cors";
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import movieRouter from "./routes/movie.route";
+import ratingRouter from "./routes/rating.route";
 import reviewRouter from "./routes/review.route";
 import sessionRouter from "./routes/session.route";
 import userRouter from "./routes/user.route";
@@ -40,6 +41,7 @@ app.use("/api/movies", movieRouter);
 app.use("/api/sessions", sessionRouter);
 app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
+app.use("/api/rating", ratingRouter);
 
 app
   .listen(port, () => {
