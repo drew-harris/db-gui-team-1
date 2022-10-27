@@ -14,7 +14,7 @@ function Home() {
 
   return (
     <div className=" text-white px-5">
-      <div className="text-3xl mb-2 font-bold">All Movies</div>
+      <div className="text-3xl mb-2 font-bold">Top Movies</div>
       {error && error instanceof Error && (
         <div>{error.message || "Error getting movies"} TEST</div>
       )}

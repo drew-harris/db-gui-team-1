@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8537770a-23f0-4b5a-8378-8124c7baa122",
+		"_postman_id": "4efb09f8-febd-4bd5-8b23-9c6a0f11e271",
 		"name": "DB GUI Team 1",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23157591"
 	},
 	"item": [
 		{
@@ -15,7 +16,14 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "jwt",
+								"value": "{{jwt}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "",
@@ -33,6 +41,98 @@
 							"path": [
 								"api",
 								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get movie by filters",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "jwt",
+								"value": "{{jwt}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/movies?genre=Action",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Avatar",
+									"disabled": true
+								},
+								{
+									"key": "fromDate",
+									"value": "2016-01-01T00:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "toDate",
+									"value": "2022-01-01T00:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "tmdbLow",
+									"value": "500",
+									"disabled": true
+								},
+								{
+									"key": "tmdbHigh",
+									"value": "600",
+									"disabled": true
+								},
+								{
+									"key": "sortUp",
+									"value": "tmdbPopularity",
+									"disabled": true
+								},
+								{
+									"key": "sortDown",
+									"value": "runTime",
+									"disabled": true
+								},
+								{
+									"key": "runTimeBegin",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "runTimeEnd",
+									"value": "150",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "Action"
+								}
 							]
 						}
 					},
@@ -79,47 +179,6 @@
 							"path": [
 								"api",
 								"movies"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get movie by name",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/api/movies?title=Hocu",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"movies"
-							],
-							"query": [
-								{
-									"key": "name2",
-									"value": "Avatar",
-									"disabled": true
-								},
-								{
-									"key": "title",
-									"value": "Hocu"
-								}
 							]
 						}
 					},

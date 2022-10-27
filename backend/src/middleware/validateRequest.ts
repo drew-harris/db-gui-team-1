@@ -7,8 +7,8 @@ const validate =
   (schema: ZodSchema, parseField: FieldOption) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("Middleware for ", parseField);
-      console.log("Request body", req.body);
+      // console.log("Middleware for ", parseField);
+      // console.log("Request body", req.body);
       schema.parse(parseField === "body" ? req.body : req.query);
       next();
     } catch (error) {

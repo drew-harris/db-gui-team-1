@@ -1,3 +1,4 @@
+import { date } from "zod";
 import prisma from "../utils/prisma.util";
 
 export async function createMovie(body: Record<string, string>) {
@@ -13,7 +14,7 @@ export async function createMovie(body: Record<string, string>) {
   });
 }
 
-export function getMovies() {
+export function get100Movies() {
   return prisma.movie.findMany({
     orderBy: {
       tmdbVoteCount: "desc",
@@ -22,12 +23,73 @@ export function getMovies() {
     take: 50,
   });
 }
-export function getMovieByName(title: string) {
+
+export function getAllMovies() {
+  return prisma.movie.findMany({});
+}
+export function getMovieByName(title) {
   return prisma.movie.findMany({
     where: {
-      title: {
-        contains: title,
-      },
+      title,
+    },
+  });
+}
+
+export function filterMovies({
+  page,
+  sortUp,
+  sortDown,
+  genre,
+  title,
+  date: { from, to },
+  tmdb: { low, high },
+  runtime: { begin, end },
+}) {
+  if (isNaN(page)) page = 0;
+
+  return prisma.movie.findMany({
+    take: 50,
+    skip: page * 10,
+    where: {
+      ...(title && {
+        title: {
+          contains: title,
+        },
+      }),
+      ...(genre && {
+        genre: {
+          contains: genre,
+        },
+      }),
+      ...(from &&
+        to && {
+          releaseDate: {
+            lte: to,
+            gte: from,
+          },
+        }),
+      ...(low &&
+        high && {
+          tmdbPopularity: {
+            lte: high,
+            gte: low,
+          },
+        }),
+      ...(begin &&
+        end && {
+          runTime: {
+            lte: end,
+            gte: begin,
+          },
+        }),
+    },
+    orderBy: {
+      ...(sortUp && {
+        [sortUp]: "asc",
+      }),
+      ...(sortDown && {
+        [sortDown]: "desc",
+      }),
     },
   });
 }

@@ -8,7 +8,7 @@ import {
 import validate from "../middleware/validateRequest";
 
 import { createReviewSchema } from "schemas";
-import decodeUser from "../middleware/decodeUser";
+import decodeUser from "../middleware/requireUser";
 const reviewRouter = express.Router();
 
 reviewRouter.get("/", getReviewHandler);
