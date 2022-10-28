@@ -101,6 +101,98 @@
 					"response": []
 				},
 				{
+					"name": "Get movies by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/movies",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1031494",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": "Avatar",
+									"disabled": true
+								},
+								{
+									"key": "genre",
+									"value": "Action",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "fromDate",
+									"value": "2016-01-01T00:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "toDate",
+									"value": "2022-01-01T00:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "tmdbLow",
+									"value": "500",
+									"disabled": true
+								},
+								{
+									"key": "tmdbHigh",
+									"value": "600",
+									"disabled": true
+								},
+								{
+									"key": "sortUp",
+									"value": "tmdbPopularity",
+									"disabled": true
+								},
+								{
+									"key": "sortDown",
+									"value": "runTime",
+									"disabled": true
+								},
+								{
+									"key": "runTimeBegin",
+									"value": "100",
+									"disabled": true
+								},
+								{
+									"key": "runTimeEnd",
+									"value": "150",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Create movie",
 					"request": {
 						"method": "POST",

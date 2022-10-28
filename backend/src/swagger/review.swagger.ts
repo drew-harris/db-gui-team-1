@@ -148,7 +148,6 @@
  *     description: Could not create new review
  */
 
-
 /**
  * @openapi
  * /api/reviews:
@@ -171,5 +170,3 @@
  *    500:
  *     description: Could not fetch reviews
  */
-
-

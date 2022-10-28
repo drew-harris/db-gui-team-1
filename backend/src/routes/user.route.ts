@@ -11,5 +11,4 @@ userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
 
 userRouter.get("/", getUsersHandler);
 
-
 export default userRouter;

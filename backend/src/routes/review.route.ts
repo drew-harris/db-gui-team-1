@@ -6,11 +6,11 @@ import {
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
 
-import { createReviewSchema,getReviewSchema } from "schemas";
+import { createReviewSchema, getReviewSchema } from "schemas";
 import decodeUser from "../middleware/requireUser";
 const reviewRouter = express.Router();
 
-reviewRouter.get("/", validate(getReviewSchema,"query"),getReviewHandler);
+reviewRouter.get("/", validate(getReviewSchema, "query"), getReviewHandler);
 
 reviewRouter.put("/", editReviewByIdHandler);
 

@@ -139,7 +139,7 @@
  *      name: page
  *    - in: query
  *      name: genre
- *    - in: query
+ *    - in: path
  *      name: id 
 
  *   responses:

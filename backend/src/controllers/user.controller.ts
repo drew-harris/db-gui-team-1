@@ -21,10 +21,10 @@ export async function createUserHandler(req: Request, res: Response) {
 
 export async function getUsersHandler(req: Request, res: Response) {
   try {
-    if(req.query.id) {
-      const user = await getUserById(req.query.id)
+    if (req.query.id) {
+      const user = await getUserById(req.query.id);
 
-      return res.json(user)
+      return res.json(user);
     }
     const user = await getUsers();
 
