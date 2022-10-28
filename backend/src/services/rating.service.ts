@@ -21,10 +21,10 @@ export function getRatings() {
   });
 }
 
-export async function getRatingById(id: string) {
-  return await prisma.rating.findUnique({
+export async function getRatingById(id) {
+  return await prisma.rating.findMany({
     where: {
-      id,
+      movieId: +id,
     },
   });
 }

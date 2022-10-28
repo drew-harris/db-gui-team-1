@@ -22,19 +22,34 @@ export async function createRatingHandler(req, res: Response) {
 
 export async function getRatingHandler(req, res: Response) {
   try {
-    if (req.query.id) {
-      const rating = await getRatingById(req.query.id);
-      return res.json(rating);
-    } else {
-      const rating = await getRatings();
+    if(req.query.movieId) {
+      const rating = await getRatingById(+req.query.movieId);
       return res.json(rating);
     }
+      const rating = await getRatings();
+      return res.json(rating);
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({
       error: {
         error: error.message,
         message: "Could not fetch ratings from database",
+      },
+    });
+  }
+}
+
+export async function getRatingByIdHandler(req, res: Response) {
+  try {
+    const rating = await getRatingById(+req.query.movieId);
+    return res.json(rating);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not get rating",
       },
     });
   }
