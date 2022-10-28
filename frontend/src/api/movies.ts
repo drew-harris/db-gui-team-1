@@ -1,8 +1,18 @@
+import { getJwt } from "../utils/jwt";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default async function getAllMovies() {
+export default async function getMovies({ page }) {
   try {
-    const response = await fetch(API_URL + "/api/movies");
+    const response = await fetch(
+      API_URL + "/api/movies?" + new URLSearchParams({ page: page }),
+      {
+        headers: {
+          jwt: getJwt(),
+        },
+      }
+    );
+
     if (!response.ok) {
       console.log(response);
       throw new Error("Error getting information");
@@ -19,13 +29,21 @@ export default async function getAllMovies() {
 
 export async function getMovieById(id) {
   try {
-    const response = await fetch(API_URL + "/api/movies/" + id);
+    const response = await fetch(
+      API_URL + "/api/movies/?" + new URLSearchParams({ id: id }),
+      {
+        headers: {
+          jwt: getJwt(),
+        },
+      }
+    );
     if (!response.ok) {
       console.log(response);
       throw new Error("Error getting information");
     }
 
     const data = await response.json();
+    console.log(data);
 
     return data;
   } catch (error) {
