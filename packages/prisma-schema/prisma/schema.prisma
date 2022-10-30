@@ -48,6 +48,8 @@ model MovieRequest {
   id String @id @default(cuid())
   title String
   message String?
+  approved Boolean @default(false)
+  submittedAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
   userId String
