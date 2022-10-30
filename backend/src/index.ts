@@ -2,6 +2,7 @@ import * as cors from "cors";
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import movieRouter from "./routes/movie.route";
+import { movieRequestRouter } from "./routes/movieRequests.route";
 import ratingRouter from "./routes/rating.route";
 import reviewRouter from "./routes/review.route";
 import sessionRouter from "./routes/session.route";
@@ -40,7 +41,8 @@ app.use("/api/sessions", sessionRouter);
 app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/rating", ratingRouter);
- 
+app.use("/api/movierequests", movieRequestRouter)
+
 app
   .listen(port, () => {
     console.log(`Backend is running at http://localhost:${port}`);
