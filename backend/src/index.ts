@@ -40,7 +40,7 @@ app.use("/api/sessions", sessionRouter);
 app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/rating", ratingRouter);
-
+ 
 app
   .listen(port, () => {
     console.log(`Backend is running at http://localhost:${port}`);
