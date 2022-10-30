@@ -22,13 +22,12 @@ export async function createRatingHandler(req, res: Response) {
 
 export async function getRatingHandler(req, res: Response) {
   try {
-    if(req.query.movieId) {
+    if (req.query.movieId) {
       const rating = await getRatingById(+req.query.movieId);
       return res.json(rating);
     }
-      const rating = await getRatings();
-      return res.json(rating);
-    
+    const rating = await getRatings();
+    return res.json(rating);
   } catch (error) {
     console.error(error);
     res.status(500).json({

@@ -41,7 +41,7 @@ app.use("/api/sessions", sessionRouter);
 app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
 app.use("/api/rating", ratingRouter);
-app.use("/api/movierequests", movieRequestRouter)
+app.use("/api/movierequests", movieRequestRouter);
 
 app
   .listen(port, () => {
