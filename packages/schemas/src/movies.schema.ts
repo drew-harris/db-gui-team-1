@@ -37,6 +37,7 @@ export const getMoviesFilterSchema = z.object({
       "tmdbPopularity",
       "tmdbVoteCount",
       "runTime",
+      "id",
     ])
     .optional(),
   sortDown: z
@@ -47,6 +48,7 @@ export const getMoviesFilterSchema = z.object({
       "tmdbPopularity",
       "tmdbVoteCount",
       "runTime",
+      "id",
     ])
     .optional(),
   runTimeBegin: z.string({}).optional(),
