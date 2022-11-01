@@ -1,17 +1,23 @@
 import { Movie } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import { createMovieSchema } from "schemas";
+import { getMovieById } from "../api/movies";
 
 export const MoviePage = () => {
   const initialMovies = useLoaderData() as Movie;
+  const { id } = useParams();
   const {
     data: movie,
     status,
     error,
-  } = useQuery(["movie", { id: initialMovies.id }], {
-    initialData: initialMovies,
+  } = useQuery(["movie", { id: initialMovies.id }], () => getMovieById(id), {
+    // initialData: initialMovies,
   });
+
+  if (!movie) {
+    return null;
+  }
   return (
     <div>
       <div className="grid grid-cols-[auto_1fr] gap-4">
