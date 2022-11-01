@@ -70,7 +70,11 @@ export async function deleteReviewHandler(req, res) {
     });
 
     if (movieDelete.userId != req.user.id) {
-      res.status(401).json();
+      res.status(401).json({
+        error: {
+          message: "Access denied: You do not own this review",
+        },
+      });
     }
     await prisma.review.delete({
       where: {
