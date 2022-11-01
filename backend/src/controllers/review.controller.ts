@@ -69,15 +69,15 @@ export async function deleteReviewHandler(req, res) {
       },
     });
 
-    if (movieDelete.userId == req.user.id) {
-      res.status(401).json;
+    if (movieDelete.userId != req.user.id) {
+      res.status(401).json();
     }
     await prisma.review.delete({
       where: {
         id: req.body.id,
       },
     });
-    return null;
+    return res.json(movieDelete);
   } catch (error) {
     res.status(500).json({
       error: {
