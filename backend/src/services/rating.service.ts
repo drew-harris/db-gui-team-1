@@ -12,14 +12,18 @@ export async function createRating(body: Record<string, string>, user) {
 }
 
 export function getRatings() {
-  return prisma.rating.findMany({
-    orderBy: {
-      score: "desc",
-    },
-
-    take: 50,
+  const rating = prisma.rating.findMany({
+    select: {
+      id: true,
+      score: true,
+      submittedAt: true,
+      by: true,
+      for: true,
+    }
   });
+  return rating;
 }
+
 
 export async function getRatingById(id) {
   return await prisma.rating.findMany({
@@ -27,4 +31,13 @@ export async function getRatingById(id) {
       movieId: +id,
     },
   });
+}
+
+export async function deleteRatingById(ident) {
+  const deleteRating = prisma.rating.delete({
+    where: {
+      id: ident,
+    }
+  });
+  return deleteRating;
 }
