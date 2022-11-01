@@ -3,6 +3,8 @@ import {
   getReviewHandler,
   createReviewHandler,
   editReviewByIdHandler,
+  reviewIdHandler,
+  deleteReviewHandler,
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
 
@@ -12,6 +14,7 @@ const reviewRouter = express.Router();
 
 reviewRouter.get("/", validate(getReviewSchema, "query"), getReviewHandler);
 
+reviewRouter.get("/:id", reviewIdHandler);
 reviewRouter.put("/", editReviewByIdHandler);
 
 reviewRouter.post(
@@ -20,5 +23,6 @@ reviewRouter.post(
   decodeUser,
   createReviewHandler
 );
+reviewRouter.post("/delete", decodeUser, deleteReviewHandler);
 
 export default reviewRouter;

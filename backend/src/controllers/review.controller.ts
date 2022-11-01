@@ -1,11 +1,7 @@
 import { Request, Response } from "express";
-import {
-  createReview,
-  getReviews,
-  getReviewById,
-  editReview,
-  getReviewByMovieId,
-} from "../services/review.service";
+import { userInfo } from "os";
+import { createReview, editReview } from "../services/review.service";
+import prisma from "../utils/prisma.util";
 
 export async function createReviewHandler(req, res: Response) {
   try {
@@ -27,18 +23,19 @@ export async function createReviewHandler(req, res: Response) {
   }
 }
 
-export async function getReviewHandler(req: Request, res: Response) {
+export async function getReviewHandler(req, res: Response) {
+  console.log(req.query);
+
   try {
-    if (req.query.movieId) {
-      const reviews = await getReviewByMovieId(+req.query.movieId);
-      return res.json(reviews);
-    }
-    if (req.query.id) {
-      const reviews = await getReviewById(req.query.id);
-      return res.json(reviews);
-    }
-    const reviews = await getReviews();
-    return res.json(reviews);
+    const reviews = await prisma.review.findMany({
+      where: {
+        movieId: req.query.movieId
+          ? parseInt(req.query.movieId.toString())
+          : undefined,
+      },
+      take: req.query.limit ? parseInt(req.query.limit) : undefined,
+    });
+    res.json(reviews);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -59,6 +56,53 @@ export async function editReviewByIdHandler(req, res: Response) {
       error: {
         error: error.message,
         message: "Could not edit review",
+      },
+    });
+  }
+}
+
+export async function deleteReviewHandler(req, res) {
+  try {
+    const movieDelete = await prisma.movieRequest.findFirst({
+      where: {
+        id: req.body.id,
+      },
+    });
+
+    if (movieDelete.userId == req.user.id) {
+      res.status(401).json;
+    }
+    await prisma.review.delete({
+      where: {
+        id: req.body.id,
+      },
+    });
+    return null;
+  } catch (error) {
+    res.status(500).json({
+      error: {
+        message: "Error deleting review",
+      },
+    });
+  }
+}
+
+export async function reviewIdHandler(req, res) {
+  try {
+    if (!req.params.id) {
+      throw new Error("No id provided");
+    }
+    const review = await prisma.review.findFirst({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.json(review);
+  } catch (error) {
+    res.status(500).json({
+      error: {
+        error,
+        message: "Error getting review",
       },
     });
   }
