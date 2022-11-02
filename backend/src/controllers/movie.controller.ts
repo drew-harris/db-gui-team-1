@@ -7,16 +7,14 @@ import {
 } from "../services/movie.service";
 
 export async function getMovieHandler(req, res: Response) {
-  console.log("Running movie handler");
   try {
     if (!res.locals.valid) {
       const movies = await get100Movies();
-      console.log("NOT VALID");
       return res.json(movies);
     }
 
     const filterBody = {
-      page: req.query.page,
+      page: +req.query.page,
       title: req.query.title,
       genre: req.query.genre,
       date: {

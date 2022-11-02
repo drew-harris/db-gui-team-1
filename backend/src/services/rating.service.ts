@@ -19,11 +19,10 @@ export function getRatings() {
       submittedAt: true,
       by: true,
       for: true,
-    }
+    },
   });
   return rating;
 }
-
 
 export async function getRatingById(id) {
   return await prisma.rating.findMany({
@@ -33,11 +32,37 @@ export async function getRatingById(id) {
   });
 }
 
+// export async function getAverage(id) {
+//   const count = 0.0;
+//   const amount = prisma.rating.findMany({
+//     where: {
+//       movieId: +id,
+//     },
+//   });
+// }
+
+export async function getRatingByUser(user) {
+  return await prisma.rating.findMany({
+    where: {
+      userId: user,
+    },
+  });
+}
+
 export async function deleteRatingById(ident) {
   const deleteRating = prisma.rating.delete({
     where: {
       id: ident,
-    }
+    },
   });
   return deleteRating;
+}
+
+export async function getAllMoviesRatingsByUser(movID, uID) {
+  return await prisma.rating.findMany({
+    where: {
+      userId: uID,
+      movieId: +movID,
+    },
+  });
 }

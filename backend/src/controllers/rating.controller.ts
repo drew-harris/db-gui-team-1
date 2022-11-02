@@ -4,6 +4,8 @@ import {
   getRatingById,
   createRating,
   deleteRatingById,
+  getRatingByUser,
+  getAllMoviesRatingsByUser,
 } from "../services/rating.service";
 
 export async function createRatingHandler(req, res: Response) {
@@ -24,7 +26,18 @@ export async function createRatingHandler(req, res: Response) {
 export async function getRatingHandler(req, res: Response) {
   try {
     if (req.query.movieId) {
-      const rating = await getRatingById(+req.query.movieId);
+      if (!req.query.userID) {
+        const rating = await getRatingById(+req.query.movieId);
+        return res.json(rating);
+      } else {
+        const rating = await getAllMoviesRatingsByUser(
+          +req.query.movieId,
+          req.query.userID
+        );
+        return res.json(rating);
+      }
+    } else if (req.query.userID) {
+      const rating = await getRatingByUser(req.query.userID);
       return res.json(rating);
     }
     const rating = await getRatings();
@@ -40,9 +53,39 @@ export async function getRatingHandler(req, res: Response) {
   }
 }
 
-export async function getRatingByIdHandler(req, res: Response) {
+// export async function getRatingByIdHandler(req, res: Response) {
+//   try {
+//     const rating = await getRatingById(+req.query.movieId);
+//     return res.json(rating);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       error: {
+//         error: error.message,
+//         message: "Could not get rating",
+//       },
+//     });
+//   }
+// }
+
+// export async function getAverageRatingsForAMovie(req, res: Response) {
+//   try {
+//     const rating = await getAverage(+req.query.movieId);
+//     return res.json(rating);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({
+//       error: {
+//         error: error.message,
+//         message: "Could not get rating",
+//       },
+//     });
+//   }
+// }
+
+export async function getRatingByUserID(req, res: Response) {
   try {
-    const rating = await getRatingById(+req.query.movieId);
+    const rating = await getRatingById(req.query.userID);
     return res.json(rating);
   } catch (error) {
     console.error(error);

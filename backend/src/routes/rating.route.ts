@@ -2,8 +2,9 @@ import express from "express";
 import {
   createRatingHandler,
   getRatingHandler,
-  getRatingByIdHandler,
+  // getRatingByIdHandler,
   deleteRatingByIdHandler,
+  getRatingByUserID,
 } from "../controllers/rating.controller";
 import decodeUser from "../middleware/requireUser";
 
