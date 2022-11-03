@@ -16,7 +16,7 @@ const links = [
     icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
-    to: "/my-liss",
+    to: "/my-lists",
     label: "My Lists",
     icon: <FontAwesomeIcon icon={faList} />,
   },
@@ -31,7 +31,7 @@ const links = [
     icon: <FontAwesomeIcon icon={faStar} />,
   },
   {
-    to: "/",
+    to: "/account",
     label: "My Account",
     icon: <FontAwesomeIcon icon={faUser} />,
   },

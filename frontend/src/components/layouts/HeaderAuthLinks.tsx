@@ -5,6 +5,15 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
+const LoginOrSignup = () => {
+  return (
+    <div className="flex gap-8 font-bold">
+      <Button><Link to="/login">Log In</Link></Button>
+      <Button><Link to="/signup">Sign Up</Link></Button>
+    </div>
+  );
+};
+
 export const HeaderAuthLinks = () => {
   const { user } = useContext(AuthContext);
   return (
@@ -17,7 +26,7 @@ export const HeaderAuthLinks = () => {
         </Link>
       ) : (
         <>
-          <Button>Sign In</Button>
+          <LoginOrSignup />
         </>
       )}
     </Group>
