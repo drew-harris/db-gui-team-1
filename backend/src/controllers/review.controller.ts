@@ -24,8 +24,6 @@ export async function createReviewHandler(req, res: Response) {
 }
 
 export async function getReviewHandler(req, res: Response) {
-  console.log(req.query);
-
   try {
     const reviews = await prisma.review.findMany({
       where: {
