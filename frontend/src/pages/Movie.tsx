@@ -3,6 +3,7 @@ import { Movie } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { useLoaderData, useParams } from "react-router-dom";
 import { getMovieById } from "../api/movies";
+import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
 import Review from "../components/reviews/Review";
 
@@ -23,6 +24,10 @@ export const MoviePage = () => {
     () => getReviewsForMovie(id)
   );
 
+  const { data: average } = useQuery(["average-rating", { movieId: id }], () =>
+    getAverageRating(id)
+  );
+
   if (!movie) {
     return null;
   }
@@ -33,11 +38,21 @@ export const MoviePage = () => {
         <Image src={movie.posterImageUrl} width={80}></Image>
         <Box>
           <Title>{movie.title}</Title>
-          <Text>{movie.description}</Text>
         </Box>
       </Group>
 
-      <Title order={2}>Reviews</Title>
+      <Text mb="md">{movie.description}</Text>
+
+      <Title>Ratings</Title>
+      {average.average ? (
+        <Text>Average Rating: {average.average}</Text>
+      ) : (
+        <Text>No ratings yet</Text>
+      )}
+
+      <Title order={2} mt="md">
+        Reviews
+      </Title>
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
       {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
