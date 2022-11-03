@@ -50,6 +50,30 @@ export async function getUsers() {
 
   return users;
 }
+export async function editBio(id, bio) {
+  const users = await prisma.user.update({
+   where:{
+    id
+   },
+   data:{
+    bio
+   }
+  });
+
+  return users;
+}
+export async function editImage(id, profileImageUrl) {
+  const user = await prisma.user.update({
+   where:{
+    id
+   },
+   data:{
+    profileImageUrl
+   }
+  });
+
+  return user;
+}
 
 export async function getUserById(id) {
   const user = await prisma.user.findFirst({

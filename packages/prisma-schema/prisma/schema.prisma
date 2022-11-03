@@ -24,6 +24,8 @@ model User {
   ratings Rating[]
   lists   List[]
   requests MovieRequest[]
+  bio String?
+  profileImageUrl String?
 }
 
 model Movie {
