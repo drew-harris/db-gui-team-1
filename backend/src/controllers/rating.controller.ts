@@ -9,6 +9,7 @@ import {
   getAverage,
   updateMovieScore,
 } from "../services/rating.service";
+import prisma from "../utils/prisma.util";
 
 export async function createRatingHandler(req, res: Response) {
   try {
@@ -20,6 +21,29 @@ export async function createRatingHandler(req, res: Response) {
       error: {
         error: error.message,
         message: "Could not create new rating",
+      },
+    });
+  }
+}
+
+export async function getAverageRatingHandler(req, res: Response) {
+  try {
+    const id = req.params.movieId;
+    const aggregations = await prisma.rating.aggregate({
+      _avg: {
+        score: true,
+      },
+      _count: true,
+      where: {
+        movieId: +id,
+      },
+    });
+    res.json({ average: aggregations._avg.score, count: aggregations._count });
+  } catch (error) {
+    return res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not get average rating",
       },
     });
   }
