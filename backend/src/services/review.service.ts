@@ -1,11 +1,5 @@
 import prisma from "../utils/prisma.util";
 
-type Review = {
-  content: string;
-  movieId: number;
-  userId: string;
-};
-
 export async function createReview(body: Record<string, string>) {
   return prisma.review.create({
     data: {
@@ -28,13 +22,7 @@ export async function editReview(id: string, content: string) {
 }
 
 export function getReviews() {
-  return prisma.review.findMany({
-    // include: {
-    //   for: true,
-    //   by: true,
-    // },
-    // take: 50
-  });
+  return prisma.review.findMany({});
 }
 
 export async function getReviewById(id) {
@@ -42,6 +30,21 @@ export async function getReviewById(id) {
     where: {
       id,
     },
+  });
+}
+export async function getReviewByUserId(userId) {
+  return await prisma.review.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      movieId: true,
+      content: true,
+    },
+    orderBy: {
+      submittedAt: "desc",
+    },
+    take: 10,
   });
 }
 
