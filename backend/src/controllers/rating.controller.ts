@@ -25,6 +25,21 @@ export async function createRatingHandler(req, res: Response) {
   }
 }
 
+export async function getAverageRatingHandler(req, res: Response) {
+  try {
+    const average = req.params.movieId;
+    const rating = await getAverage(average);
+    res.json({ average: rating });
+  } catch (error) {
+    return res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not get average rating",
+      },
+    });
+  }
+}
+
 export async function getRatingHandler(req, res: Response) {
   try {
     if (req.query.movieId) {

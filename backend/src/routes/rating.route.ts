@@ -1,9 +1,9 @@
 import express from "express";
 import {
   createRatingHandler,
-  getRatingHandler,
   deleteRatingByIdHandler,
-  getRatingByUserID,
+  getAverageRatingHandler,
+  getRatingHandler,
   updateScoreHandler,
 } from "../controllers/rating.controller";
 import decodeUser from "../middleware/requireUser";
@@ -11,6 +11,8 @@ import decodeUser from "../middleware/requireUser";
 const ratingRouter = express.Router();
 
 ratingRouter.get("/", getRatingHandler);
+
+ratingRouter.get("/average/:movieId", getAverageRatingHandler);
 
 ratingRouter.post("/", decodeUser, createRatingHandler);
 
