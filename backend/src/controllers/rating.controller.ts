@@ -51,7 +51,6 @@ export async function getRatingHandler(req, res: Response) {
       const rating = await getRatingByUser(req.query.userID);
       return res.json(rating);
     }
-    //get all ratings
     const rating = await getRatings();
     return res.json(rating);
   } catch (error) {
