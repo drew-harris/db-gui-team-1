@@ -1,11 +1,14 @@
+import { Center, Pagination, SimpleGrid, Text, Title } from "@mantine/core";
+import { usePagination } from "@mantine/hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import getMovies from "../api/movies";
-import SimpleMovie from "../components/SimpleMovie";
+import MovieCard from "../components/MovieCard";
 import "../index.css";
 
 function Home() {
-  const [page, setPage] = useState(1);
+  const [page, onPageChange] = useState(1);
+  const pagination = usePagination({ total: 10, page, onChange: onPageChange });
   const client = useQueryClient();
   const {
     data: movies,
@@ -22,19 +25,28 @@ function Home() {
   }, [page]);
 
   return (
-    <div className=" text-white px-5">
-      <div className="text-3xl mb-2 font-bold">Top Movies</div>
+    <>
+      <Title mb="md">All Movies</Title>
       {error && error instanceof Error && (
-        <div>{error.message || "Error getting movies"} TEST</div>
+        <Center>
+          <Text color="red">{error.message || "Error getting movies"}</Text>
+        </Center>
       )}
-      <button onClick={() => setPage((curr) => curr + 1)}>Next page</button>
-      <div className="flex flex-wrap gap-4 justify-around">
+      <SimpleGrid cols={4}>
         {movies &&
           movies.map((movie) => {
-            return <SimpleMovie movie={movie} key={movie.id} />;
+            return <MovieCard movie={movie} key={movie.id} />;
           })}
-      </div>
-    </div>
+      </SimpleGrid>
+      <Center>
+        <Pagination
+          mt="md"
+          page={pagination.active}
+          onChange={pagination.setPage}
+          total={10}
+        />
+      </Center>
+    </>
   );
 }
 

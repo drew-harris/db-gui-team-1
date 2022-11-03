@@ -35,8 +35,8 @@ export function filterMovies({
 }) {
   if (isNaN(page)) page = 1;
   return prisma.movie.findMany({
-    take: 50,
-    skip: (page - 1) * 50,
+    take: 28,
+    skip: (page - 1) * 28,
     where: {
       ...(title && {
         title: {

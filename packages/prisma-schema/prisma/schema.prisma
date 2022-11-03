@@ -23,6 +23,9 @@ model User {
   reviews Review[]
   ratings Rating[]
   lists   List[]
+  requests MovieRequest[]
+  bio String?
+  profileImageUrl String?
 }
 
 model Movie {
@@ -41,6 +44,17 @@ model Movie {
   reviews Review[]
   ratings Rating[]
   inLists List[]
+}
+
+model MovieRequest {
+  id String @id @default(cuid())
+  title String
+  message String?
+  approved Boolean @default(false)
+  submittedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model Review {
