@@ -13,6 +13,7 @@ import SignUp from "./pages/accounts/SignUp";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
+import Account from "./pages/accounts/Account";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/account",
+        element: <Account />,
       },
       {
         path: "/movie/:id",
