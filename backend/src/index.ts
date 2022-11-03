@@ -1,4 +1,4 @@
-import * as cors from "cors";
+import cors from "cors";
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import movieRouter from "./routes/movie.route";
@@ -14,7 +14,7 @@ dotenv.config();
 const app: Express = express();
 
 // Middleware (functions that intercept requests)
-app.use(cors.default()); // Allows us to connect to the api from any website
+app.use(cors()); // Allows us to connect to the api from any website
 app.use(express());
 app.use(express.json()); // Reads the body from a post request properly
 const port: number = +process.env.PORT || 8000;
@@ -40,7 +40,7 @@ app.use("/api/movies", movieRouter);
 app.use("/api/sessions", sessionRouter);
 app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
-app.use("/api/rating", ratingRouter);
+app.use("/api/ratings", ratingRouter);
 app.use("/api/movierequests", movieRequestRouter)
 
 app

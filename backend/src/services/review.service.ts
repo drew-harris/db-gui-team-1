@@ -22,11 +22,36 @@ export async function editReview(id: string, content: string) {
 }
 
 export function getReviews() {
-  return prisma.review.findMany({
-    // include: {
-    //   for: true,
-    //   by: true,
-    // },
-    // take: 50
+  return prisma.review.findMany({});
+}
+
+export async function getReviewById(id) {
+  return await prisma.review.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+export async function getReviewByUserId(userId) {
+  return await prisma.review.findMany({
+    where: {
+      userId,
+    },
+    select: {
+      movieId: true,
+      content: true,
+    },
+    orderBy: {
+      submittedAt: "desc",
+    },
+    take: 10,
+  });
+}
+
+export async function getReviewByMovieId(movieId: number) {
+  return await prisma.review.findMany({
+    where: {
+      movieId,
+    },
   });
 }
