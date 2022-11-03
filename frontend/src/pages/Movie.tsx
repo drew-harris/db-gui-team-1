@@ -1,22 +1,26 @@
+import { Box, Group, Image, Title, Text } from "@mantine/core";
 import { Movie } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { useLoaderData, useParams } from "react-router-dom";
 import { getMovieById } from "../api/movies";
 import { getReviewsForMovie } from "../api/reviews";
+import Review from "../components/reviews/Review";
 
 export const MoviePage = () => {
   const initialMovies = useLoaderData() as Movie;
   const { id } = useParams();
-  const {
-    data: movie,
-    status,
-    error,
-  } = useQuery(["movie", { id: initialMovies.id }], () => getMovieById(id), {
-    initialData: initialMovies,
-  });
 
-  const { data: reviews } = useQuery(["reviews", { movieId: id }], () =>
-    getReviewsForMovie(id)
+  const { data: movie } = useQuery(
+    ["movie", { id: initialMovies.id }],
+    () => getMovieById(id),
+    {
+      initialData: initialMovies,
+    }
+  );
+
+  const { data: reviews, status: reviewsStatus } = useQuery(
+    ["reviews", { movieId: id }],
+    () => getReviewsForMovie(id)
   );
 
   if (!movie) {
@@ -24,20 +28,19 @@ export const MoviePage = () => {
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-[auto_1fr] gap-4">
-        {JSON.stringify(reviews, null, 4)}
-        <div>
-          <div className="font-bold mt-4 text-3xl">{movie.title}</div>
-          <div className="italic">{movie.tagline}</div>
-          <div className="flex gap-4">
-            <div>{movie.genre}</div>
-            <div>{movie.runTime} min.</div>
-            <div>{new Date(movie.releaseDate).toLocaleDateString()}</div>
-          </div>
-          <div className="mt-4">{movie.description}</div>
-        </div>
-      </div>
-    </div>
+    <>
+      <Group mb="lg">
+        <Image src={movie.posterImageUrl} width={80}></Image>
+        <Box>
+          <Title>{movie.title}</Title>
+          <Text>{movie.description}</Text>
+        </Box>
+      </Group>
+
+      <Title order={2}>Reviews</Title>
+      {reviewsStatus !== "success" && <Text>Loading...</Text>}
+      {reviews &&
+        reviews.map((review) => <Review review={review} key={review.id} />)}
+    </>
   );
 };

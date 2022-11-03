@@ -42,7 +42,7 @@ export async function getMovieById(id) {
 
     const data = await response.json();
 
-    return data;
+    return data as Movie;
   } catch (error) {
     console.error(error);
     throw new Error("Error getting list of movies");
