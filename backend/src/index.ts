@@ -42,7 +42,7 @@ app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
 
 app.use("/api/ratings", ratingRouter);
-app.use("/api/movierequests", movieRequestRouter)
+app.use("/api/movierequests", movieRequestRouter);
 
 app
   .listen(port, () => {

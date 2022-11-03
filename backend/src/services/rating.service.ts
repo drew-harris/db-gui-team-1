@@ -24,16 +24,15 @@ export function getRatings() {
 }
 
 export function getRatingById(movieId) {
-  
   return prisma.rating.findMany({
     where: {
-       movieId,
+      movieId,
     },
   });
 }
 
 export async function getAverage(id) {
-    const aggregations = prisma.rating.aggregate({
+  const aggregations = prisma.rating.aggregate({
     _avg: {
       score: true,
     },
@@ -42,18 +41,17 @@ export async function getAverage(id) {
     },
   });
 
-   return((await aggregations)._avg.score);
+  return (await aggregations)._avg.score;
 }
 
 export async function getRatingByUser(userId) {
   return await prisma.rating.aggregate({
     _avg: {
-      score: true
+      score: true,
     },
-    where:{
-      userId
-    }
-   
+    where: {
+      userId,
+    },
   });
 }
 
