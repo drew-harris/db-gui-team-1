@@ -71,7 +71,12 @@ export async function editImageHandler(req, res: Response) {
 }
 export async function getUserOverviewHandler(req, res: Response) {
   try {
-    const userId = req.user.id;
+    if (!req.query.id) {
+      return res.status(400).json({
+        message: "Missing id",
+      });
+    }
+    const userId = req.query.id || req.user.id;
 
     const user = await getUserById(userId);
     const reviews = await getReviewByUserId(userId);
