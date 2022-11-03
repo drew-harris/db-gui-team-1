@@ -1,8 +1,8 @@
 import { Movie } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { useLoaderData, useParams } from "react-router-dom";
-import { createMovieSchema } from "schemas";
 import { getMovieById } from "../api/movies";
+import { getReviewsForMovie } from "../api/reviews";
 
 export const MoviePage = () => {
   const initialMovies = useLoaderData() as Movie;
@@ -12,19 +12,21 @@ export const MoviePage = () => {
     status,
     error,
   } = useQuery(["movie", { id: initialMovies.id }], () => getMovieById(id), {
-    // initialData: initialMovies,
+    initialData: initialMovies,
   });
+
+  const { data: reviews } = useQuery(["reviews", { movieId: id }], () =>
+    getReviewsForMovie(id)
+  );
 
   if (!movie) {
     return null;
   }
+
   return (
     <div>
       <div className="grid grid-cols-[auto_1fr] gap-4">
-        <img
-          className="w-80 shrink rounded-xl"
-          src={movie.backdropImageUrl}
-        ></img>
+        {JSON.stringify(reviews, null, 4)}
         <div>
           <div className="font-bold mt-4 text-3xl">{movie.title}</div>
           <div className="italic">{movie.tagline}</div>

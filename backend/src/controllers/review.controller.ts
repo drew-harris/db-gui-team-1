@@ -34,6 +34,10 @@ export async function getReviewHandler(req, res: Response) {
           : undefined,
       },
       take: req.query.limit ? parseInt(req.query.limit) : undefined,
+      include: {
+        // Include user with each review
+        by: true,
+      },
     });
     res.json(reviews);
   } catch (error) {
