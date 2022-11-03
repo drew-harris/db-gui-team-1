@@ -44,7 +44,7 @@ export const MoviePage = () => {
       <Text mb="md">{movie.description}</Text>
 
       <Title>Ratings</Title>
-      {average.average ? (
+      {average?.average ? (
         <Text>Average Rating: {average.average}</Text>
       ) : (
         <Text>No ratings yet</Text>
