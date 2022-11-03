@@ -1,4 +1,4 @@
-import { Box, Group, Image, Title, Text } from "@mantine/core";
+import { Box, Group, Image, Title, Text, Rating } from "@mantine/core";
 import { Movie } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import { useLoaderData, useParams } from "react-router-dom";
@@ -45,7 +45,10 @@ export const MoviePage = () => {
 
       <Title>Ratings</Title>
       {average?.average ? (
-        <Text>Average Rating: {average.average}</Text>
+        <Group>
+          <Rating value={average.average}></Rating>
+          <Text color="dimmed">{average.count} ratings</Text>
+        </Group>
       ) : (
         <Text>No ratings yet</Text>
       )}

@@ -8,7 +8,7 @@ export async function getAverageRating(movieId: string) {
       const data = await response.json();
       throw new Error(data.message);
     }
-    return (await response.json()) as { average: number };
+    return (await response.json()) as { average: number; count: number };
   } catch (error) {
     throw new Error("Could not fetch reviews for movie");
   }
