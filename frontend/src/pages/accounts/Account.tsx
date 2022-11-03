@@ -1,5 +1,6 @@
+import { Text, Title } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { getUserInfo } from "../../api/userInfo";
 import { AuthContext } from "../../context/AuthContext";
@@ -19,36 +20,18 @@ function AccountInfo({ userId }) {
     data: userInfo,
     error,
     isLoading,
-  } = useQuery(["user"], () => getUserInfo(userId));
+  } = useQuery(["user", { id: userId }], () => getUserInfo(userId));
 
-  if (!userInfo) {
+  if (!userInfo || isLoading || error) {
     return null;
   }
 
   return (
-    <div>
-      <h1>{userInfo.user.username}</h1>
-      <div>{userInfo.user.email}</div>
+    <>
+      <Title>{userInfo.user.username}</Title>
+      <Text mb={"xl"}>{userInfo.user.email}</Text>
       {JSON.stringify(userInfo, null, 4)}
-    </div>
-  );
-}
-
-function DisplayReview({ review }) {
-  return (
-    <div>
-      <div>For Movie: {review.movieId}</div>
-      <div>{review.content}</div>
-    </div>
-  );
-}
-
-function DisplayRating({ rating }) {
-  return (
-    <div>
-      <div>For Movie: {rating.movieId}</div>
-      <div>{rating.score}</div>
-    </div>
+    </>
   );
 }
 
