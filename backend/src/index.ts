@@ -40,7 +40,7 @@ app.use("/api/movies", movieRouter);
 app.use("/api/sessions", sessionRouter);
 app.use("/api/users", userRouter);
 app.use("/api/reviews", reviewRouter);
-app.use("/api/rating", ratingRouter);
+app.use("/api/ratings", ratingRouter);
 app.use("/api/movierequests", movieRequestRouter)
 
 app

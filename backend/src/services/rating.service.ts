@@ -1,12 +1,11 @@
 import prisma from "../utils/prisma.util";
 
-export async function createRating(body: Record<string, string>, user) {
+export async function createRating(body, user) {
   return prisma.rating.create({
     data: {
-      score: parseInt(body.score),
-      submittedAt: new Date(),
+      score: body.score,
       by: { connect: { id: user.id } },
-      for: { connect: { id: parseInt(body.id) } },
+      for: { connect: { id: parseInt(body.movieId) } },
     },
   });
 }
@@ -24,10 +23,11 @@ export function getRatings() {
   return rating;
 }
 
-export async function getRatingById(id) {
-  return await prisma.rating.findMany({
+export function getRatingById(movieId) {
+  
+  return prisma.rating.findMany({
     where: {
-      movieId: +id,
+       movieId,
     },
   });
 }
@@ -41,11 +41,15 @@ export async function getRatingById(id) {
 //   });
 // }
 
-export async function getRatingByUser(user) {
-  return await prisma.rating.findMany({
-    where: {
-      userId: user,
+export async function getRatingByUser(userId) {
+  return await prisma.rating.aggregate({
+    _avg: {
+      score: true
     },
+    where:{
+      userId
+    }
+   
   });
 }
 
@@ -62,7 +66,7 @@ export async function getAllMoviesRatingsByUser(movID, uID) {
   return await prisma.rating.findMany({
     where: {
       userId: uID,
-      movieId: +movID,
+      movieId: movID,
     },
   });
 }

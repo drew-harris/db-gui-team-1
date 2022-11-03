@@ -53,36 +53,6 @@ export async function getRatingHandler(req, res: Response) {
   }
 }
 
-// export async function getRatingByIdHandler(req, res: Response) {
-//   try {
-//     const rating = await getRatingById(+req.query.movieId);
-//     return res.json(rating);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({
-//       error: {
-//         error: error.message,
-//         message: "Could not get rating",
-//       },
-//     });
-//   }
-// }
-
-// export async function getAverageRatingsForAMovie(req, res: Response) {
-//   try {
-//     const rating = await getAverage(+req.query.movieId);
-//     return res.json(rating);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({
-//       error: {
-//         error: error.message,
-//         message: "Could not get rating",
-//       },
-//     });
-//   }
-// }
-
 export async function getRatingByUserID(req, res: Response) {
   try {
     const rating = await getRatingById(req.query.userID);

@@ -29,11 +29,7 @@ export async function editReview(id: string, content: string) {
 
 export function getReviews() {
   return prisma.review.findMany({
-    // include: {
-    //   for: true,
-    //   by: true,
-    // },
-    // take: 50
+
   });
 }
 
@@ -42,6 +38,22 @@ export async function getReviewById(id) {
     where: {
       id,
     },
+  });
+}
+export async function getReviewByUserId(userId) {
+  return await prisma.review.findMany({
+    where: {
+      userId,
+    },
+    select:{
+      movieId: true,
+      content: true
+    },
+    orderBy: {
+      submittedAt: "desc"
+    },
+    take: 10
+    
   });
 }
 
