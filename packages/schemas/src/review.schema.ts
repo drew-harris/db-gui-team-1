@@ -12,4 +12,5 @@ export const createReviewSchema = object({
 export const getReviewSchema = object({
   id: string({}).optional(),
   movieId: string({}).optional(),
+  limit: string().optional(),
 });
