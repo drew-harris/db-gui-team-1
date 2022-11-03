@@ -10,7 +10,7 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "build-backend": "turbo build --filter=backend --filter=prisma-schema",
-    "build-frontend": "turbo build --filter=frontend",
+    "build-frontend": "turbo build --filter=frontend --filter=prisma-schema",
     "serve": "turbo serve",
     "serve-backend": "turbo serve --filter=backend",
     "serve-frontend": "turbo serve --filter=frontend",
