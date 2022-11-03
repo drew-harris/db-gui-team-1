@@ -1,7 +1,7 @@
 import { Center, Pagination, SimpleGrid, Text, Title } from "@mantine/core";
 import { usePagination } from "@mantine/hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getMovies from "../api/movies";
 import MovieCard from "../components/MovieCard";
 import "../index.css";
@@ -18,11 +18,11 @@ function Home() {
     retry: false,
   });
 
-  // useEffect(() => {
-  //   client.prefetchQuery(["movies", { page: page + 1 }], () =>
-  //     getMovies({ page: page + 1 })
-  //   );
-  // }, [page]);
+  useEffect(() => {
+    client.prefetchQuery(["movies", { page: page + 1 }], () =>
+      getMovies({ page: page + 1 })
+    );
+  }, [page]);
 
   return (
     <>
