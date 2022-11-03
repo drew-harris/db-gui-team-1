@@ -9,12 +9,13 @@ import {
 } from "../controllers/user.controller";
 import validate from "../middleware/validateRequest";
 import decodeUser from "../middleware/requireUser";
+import optionalUser from "../middleware/optionalUser";
 const userRouter = express.Router();
 
 userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
 
 userRouter.get("/", getUsersHandler);
-userRouter.get("/about", decodeUser, getUserOverviewHandler);
+userRouter.get("/about", optionalUser, getUserOverviewHandler);
 userRouter.put(
   "/bio",
   validate(editBioSchema, "body"),

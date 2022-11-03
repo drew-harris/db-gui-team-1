@@ -10,6 +10,7 @@ export default function optionalUser(req, res: Response, next: NextFunction) {
     res.locals.valid = false;
   } else {
     res.locals.valid = true;
+    req.user = validToken.decoded;
   }
 
   next();
