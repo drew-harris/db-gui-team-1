@@ -17,3 +17,13 @@ export const createUserSchema = object({
   message: "Passwords do not match",
   path: ["passwordConfirmation"],
 });
+export const editPfpSchema = object({
+  profileImageUrl: string({
+    required_error: "profileImageUrl is required",
+  }),
+});
+export const editBioSchema = object({
+  bio: string({
+    required_error: "bio is required",
+  }),
+});
