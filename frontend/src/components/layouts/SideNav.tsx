@@ -16,17 +16,17 @@ const links = [
     icon: <FontAwesomeIcon icon={faHome} />,
   },
   {
-    to: "/my-lists",
+    to: "/mylists",
     label: "My Lists",
     icon: <FontAwesomeIcon icon={faList} />,
   },
   {
-    to: "/",
+    to: "/myreviews",
     label: "My Reviews",
     icon: <FontAwesomeIcon icon={faPencil} />,
   },
   {
-    to: "/",
+    to: "/myratings",
     label: "My Ratings",
     icon: <FontAwesomeIcon icon={faStar} />,
   },

@@ -14,6 +14,9 @@ import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
 import Account from "./pages/accounts/Account";
+import Reviews from "./pages/Reviews";
+import Ratings from "./pages/Ratings";
+import Lists from "./pages/Lists";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +39,18 @@ const router = createBrowserRouter([
       {
         path: "/account",
         element: <Account />,
+      },
+      {
+        path: "/myreviews",
+        element: <Reviews />,
+      },
+      {
+        path: "/myratings",
+        element: <Ratings />,
+      },
+      {
+        path: "/mylists",
+        element: <Lists />,
       },
       {
         path: "/movie/:id",
