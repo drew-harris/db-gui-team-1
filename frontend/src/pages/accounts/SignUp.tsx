@@ -1,5 +1,14 @@
-import { Button, TextInput } from "@mantine/core";
-import { useContext, useEffect, useState } from "react";
+import {
+  Button,
+  Center,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserSchema } from "schemas/src/user.schema";
 import { signUp } from "../../api/auth";
@@ -7,26 +16,26 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function SignUp() {
   const { setUser } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const form = useForm({
+    initialValues: {
+      email: "",
+      password: "",
+      username: "",
+      confirmPassword: "",
+    },
+  });
   const navigate = useNavigate();
 
   const [errorText, setErrorText] = useState("");
 
-  useEffect(() => {
-    setErrorText("");
-  }, [email, password]);
-
-  const submit = async (e) => {
-    e.preventDefault();
+  const submit = async (values) => {
     try {
       const body = {
-        email,
-        password,
-        username,
-        passwordConfirmation: confirmPassword,
+        email: values.email,
+        password: values.password,
+        username: values.username,
+        confirmPassword: values.confirmPassword,
       };
       createUserSchema.parse(body);
       const data = await signUp(body);
@@ -41,44 +50,59 @@ export default function SignUp() {
       if (error.issues) {
         setErrorText(error.issues[0].message);
         console.log(error?.issues[0]?.message);
+        return;
       }
-      console.log(error);
+      console.log("MESSAGE: ", error.message);
+      setErrorText(error.message || "Could not sign up");
     }
   };
 
   return (
-    <div className="h-[90vh] grid place-items-center">
-      <div className="bg-slate-800 p-8 shadow rounded border border-slate-500">
-        <h2 className="font-bold text-center mb-3 text-xl">Log In</h2>
-        <form className="flex flex-col gap-2" onSubmit={submit}>
-          <TextInput
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <TextInput
-            label="Username"
-            type="text"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-          <TextInput
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <TextInput
-            label="Confirm Password"
-            type="password"
-            value={confirmPassword}
-            onChange={(event) => setConfirmPassword(event.target.value)}
-          />
-          {errorText && <div className="text-red-500">{errorText}</div>}
-          <Button type="submit">Sign Up</Button>
-        </form>
-      </div>
-    </div>
+    <>
+      <Center>
+        <Paper
+          sx={(theme) => ({
+            maxWidth: 400,
+            width: "100%",
+          })}
+          shadow="lg"
+          p="md"
+          withBorder
+          m="lg"
+        >
+          <Title order={2} align="center">
+            Sign Up
+          </Title>
+          <form onSubmit={form.onSubmit((values) => submit(values))}>
+            <TextInput
+              label="Email"
+              type="email"
+              {...form.getInputProps("email")}
+            />
+            <TextInput
+              label="Username"
+              type="text"
+              {...form.getInputProps("username")}
+            />
+            <PasswordInput
+              label="Password"
+              type="password"
+              {...form.getInputProps("password")}
+            />
+            <PasswordInput
+              label="Confirm Password"
+              type="password"
+              {...form.getInputProps("confirmPassword")}
+            />
+            {errorText && <Text color="red">{errorText}</Text>}
+            <Center>
+              <Button mt="lg" type="submit">
+                Sign Up
+              </Button>
+            </Center>
+          </form>
+        </Paper>
+      </Center>
+    </>
   );
 }

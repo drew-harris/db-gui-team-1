@@ -1,5 +1,14 @@
-import { Button, Input, TextInput } from "@mantine/core";
-import { useContext, useEffect, useState } from "react";
+import {
+  Button,
+  Center,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createSessionSchema } from "schemas/src/session.schema";
 import { logIn } from "../../api/auth";
@@ -7,20 +16,23 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
   const { setUser } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
+  const form = useForm({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const [errorText, setErrorText] = useState("");
 
-  useEffect(() => {
-    setErrorText("");
-  }, [email, password]);
-
-  const submit = async (e) => {
-    e.preventDefault();
+  const submit = async (values) => {
     try {
-      const body = { email, password };
+      const body = {
+        email: values.email,
+        password: values.password,
+      };
       createSessionSchema.parse(body);
       const data = await logIn(body);
       console.log(data);
@@ -40,26 +52,41 @@ export default function Login() {
   };
 
   return (
-    <div className="h-[90vh] grid place-items-center">
-      <div className="bg-slate-800 p-8 shadow rounded border border-slate-500">
-        <h2 className="font-bold text-center mb-3 text-xl">Log In</h2>
-        <form className="flex flex-col gap-2" onSubmit={submit}>
-          <TextInput
-            label="Email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <TextInput
-            label="Password"
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          {errorText && <div className="text-red-500">{errorText}</div>}
-          <Button type="submit">Submit</Button>
-        </form>
-      </div>
-    </div>
+    <>
+      <Center>
+        <Paper
+          sx={(theme) => ({
+            maxWidth: 400,
+            width: "100%",
+          })}
+          shadow="lg"
+          p="md"
+          withBorder
+          m="lg"
+        >
+          <Title order={2} align="center">
+            Log In
+          </Title>
+          <form onSubmit={form.onSubmit((values) => submit(values))}>
+            <TextInput
+              label="Email"
+              type="email"
+              {...form.getInputProps("email")}
+            />
+            <PasswordInput
+              label="Password"
+              type="password"
+              {...form.getInputProps("password")}
+            />
+            {errorText && <Text color="red">{errorText}</Text>}
+            <Center>
+              <Button mt="lg" type="submit">
+                Log In
+              </Button>
+            </Center>
+          </form>
+        </Paper>
+      </Center>
+    </>
   );
 }
