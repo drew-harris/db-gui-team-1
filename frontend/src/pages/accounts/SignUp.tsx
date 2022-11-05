@@ -1,9 +1,8 @@
+import { Button, TextInput } from "@mantine/core";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserSchema } from "schemas/src/user.schema";
 import { signUp } from "../../api/auth";
-import Button from "../../components/inputs/Button";
-import Input from "../../components/inputs/Input";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function SignUp() {
@@ -52,25 +51,25 @@ export default function SignUp() {
       <div className="bg-slate-800 p-8 shadow rounded border border-slate-500">
         <h2 className="font-bold text-center mb-3 text-xl">Log In</h2>
         <form className="flex flex-col gap-2" onSubmit={submit}>
-          <Input
+          <TextInput
             label="Email"
             type="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <Input
+          <TextInput
             label="Username"
             type="text"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
-          <Input
+          <TextInput
             label="Password"
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <Input
+          <TextInput
             label="Confirm Password"
             type="password"
             value={confirmPassword}

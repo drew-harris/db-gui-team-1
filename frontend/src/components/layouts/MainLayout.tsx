@@ -1,6 +1,6 @@
-import { AppShell, Group, Header, Text } from "@mantine/core";
+import { AppShell, Box, Group, Header, Text } from "@mantine/core";
 import { useContext } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { HeaderAuthLinks } from "./HeaderAuthLinks";
 import { SideNav } from "./SideNav";
@@ -15,9 +15,10 @@ const LoginOrSignup = () => {
 };
 
 export const MainLayout = () => {
+  const location = useLocation();
   return (
     <AppShell
-      padding="md"
+      hidden={location.pathname === "/login" || location.pathname === "/signup"}
       navbar={<SideNav />}
       header={
         <Header height={60} withBorder>
@@ -42,7 +43,9 @@ export const MainLayout = () => {
         },
       })}
     >
-      <Outlet />
+      <Box p="md">
+        <Outlet />
+      </Box>
     </AppShell>
   );
 };
