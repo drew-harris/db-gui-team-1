@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navbar, NavLink } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const links = [
   {
@@ -38,6 +38,9 @@ const links = [
 ];
 
 export const SideNav = () => {
+  const location = useLocation();
+  if (location.pathname === "/login" || location.pathname === "/signup")
+    return null;
   return (
     <Navbar width={{ base: 240 }} withBorder p="xs">
       {links.map((link) => (
