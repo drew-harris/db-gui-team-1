@@ -1,19 +1,18 @@
+import { MantineProvider } from "@mantine/core";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { MantineProvider, Text } from "@mantine/core";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import singleMovieLoader from "./api/loaders/movies";
 import { MainLayout } from "./components/layouts/MainLayout";
 import AuthContextProvider from "./context/AuthContext";
 import "./index.css";
+import Account from "./pages/accounts/Account";
 import Login from "./pages/accounts/Login";
 import SignUp from "./pages/accounts/SignUp";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
-import Account from "./pages/accounts/Account";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +38,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/movie/:id",
-        loader: singleMovieLoader,
         element: <MoviePage />,
       },
     ],

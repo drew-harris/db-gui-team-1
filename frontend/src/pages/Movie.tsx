@@ -8,15 +8,12 @@ import { getReviewsForMovie } from "../api/reviews";
 import Review from "../components/reviews/Review";
 
 export const MoviePage = () => {
-  const initialMovies = useLoaderData() as Movie;
   const { id } = useParams();
 
   const { data: movie } = useQuery(
-    ["movie", { id: initialMovies.id }],
+    ["movie", { id }],
     () => getMovieById(id),
-    {
-      initialData: initialMovies,
-    }
+    {}
   );
 
   const { data: reviews, status: reviewsStatus } = useQuery(

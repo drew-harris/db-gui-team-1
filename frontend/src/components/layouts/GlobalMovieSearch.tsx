@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { searchMovies } from "../../api/movies";
 
+// TODO: Debounce this
 function GloablMovieSearch() {
   const navigate = useNavigate();
   const form = useForm({
@@ -17,14 +18,15 @@ function GloablMovieSearch() {
     () => searchMovies(form.values.search)
   );
 
-  const transformedMovies = movies
-    ? movies.map((movie) => {
-        return {
-          value: movie.title || "Title",
-          ...movie,
-        };
-      })
-    : [];
+  const transformedMovies =
+    movies && form.values.search
+      ? movies.map((movie) => {
+          return {
+            value: movie.title || "Title",
+            ...movie,
+          };
+        })
+      : [];
 
   return (
     <>
