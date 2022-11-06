@@ -1,24 +1,20 @@
-import { Autocomplete, Avatar, Group } from "@mantine/core";
-import { Text } from "@mantine/core";
+import { Autocomplete } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useQuery } from "@tanstack/react-query";
-import { forwardRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { searchMovies } from "../../api/movies";
-import { Link } from "react-router-dom";
 
 function GloablMovieSearch() {
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       search: "",
     },
   });
 
-  const {
-    data: movies,
-    status,
-    error,
-  } = useQuery(["movies", { title: form.values.search }], () =>
-    searchMovies(form.values.search)
+  const { data: movies } = useQuery(
+    ["movies", { title: form.values.search }],
+    () => searchMovies(form.values.search)
   );
 
   const transformedMovies = movies
@@ -35,20 +31,15 @@ function GloablMovieSearch() {
       <Autocomplete
         size="sm"
         placeholder="Search Movies"
-        itemComponent={AutoCompleteItem}
         data={transformedMovies}
+        onItemSubmit={(item) => {
+          navigate("/movie/" + item.id);
+          form.setFieldValue("search", "");
+        }}
         {...form.getInputProps("search")}
       ></Autocomplete>
     </>
   );
 }
-
-const AutoCompleteItem = ({ ref, value, description, id }) => (
-  <Link to={"/movie/" + id}>
-    <Group p="xs" noWrap sx={{ overflow: "hidden" }}>
-      <Text size="sm">{value}</Text>
-    </Group>
-  </Link>
-);
 
 export default GloablMovieSearch;
