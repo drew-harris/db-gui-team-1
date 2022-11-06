@@ -1,5 +1,5 @@
 import { AppShell, Box, Group, Header, Text } from "@mantine/core";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import GloablMovieSearch from "./GlobalMovieSearch";
 import { HeaderAuthLinks } from "./HeaderAuthLinks";
 import { SideNav } from "./SideNav";
@@ -17,7 +17,10 @@ export const MainLayout = () => {
             p="xs"
             sx={{ height: "100%" }}
           >
-            <Text weight="bold">Movie Website</Text>
+            {/* TODO: figure out the proper way to do this */}
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+              <Text weight="bold">Movie Website</Text>
+            </Link>
             <GloablMovieSearch />
             <HeaderAuthLinks />
           </Group>
