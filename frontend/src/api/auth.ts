@@ -30,10 +30,11 @@ export async function signUp(body) {
     });
     if (!response.ok) {
       const data = await response.json();
+      console.log(data);
       throw new Error(data.message);
     }
     return await response.json();
   } catch (error) {
-    throw new Error(error.message);
+    throw new Error(error.message || "Something went wrong");
   }
 }

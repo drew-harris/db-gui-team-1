@@ -48,3 +48,24 @@ export async function getMovieById(id) {
     throw new Error("Error getting list of movies");
   }
 }
+
+export async function searchMovies(title) {
+  try {
+    const url = API_URL + "/api/movies?" + new URLSearchParams({ title });
+    console.log(url);
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        jwt: getJwt(),
+      },
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

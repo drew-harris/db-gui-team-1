@@ -7,14 +7,10 @@ import { AuthContext } from "../../context/AuthContext";
 
 const LoginOrSignup = () => {
   return (
-    <div className="flex gap-8 font-bold">
-      <Button>
-        <Link to="/login">Log In</Link>
-      </Button>
-      <Button>
-        <Link to="/signup">Sign Up</Link>
-      </Button>
-    </div>
+    <Group>
+      <Link to="/login">Log In</Link>
+      <Link to="/signup">Sign Up</Link>
+    </Group>
   );
 };
 
