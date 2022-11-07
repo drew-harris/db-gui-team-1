@@ -36,10 +36,8 @@ function AccountInfo({ userId }) {
 }
 
 export default function Account() {
-  const user = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   return (
-    <div>
-      {user ? <AccountInfo userId={user.user.id} /> : <LoginOrSignup />}
-    </div>
+    <div>{user?.id ? <AccountInfo userId={user.id} /> : <LoginOrSignup />}</div>
   );
 }
