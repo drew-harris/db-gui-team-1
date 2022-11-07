@@ -1,9 +1,11 @@
 import * as dotenv from "dotenv";
 import { fetchWithKey } from "../api";
 import { ApiMoive } from "../types";
-import { PrismaClient } from "@prisma/client";
+import { prisma, PrismaClient } from "@prisma/client";
 
 dotenv.config();
+let movieIds: any[] = [];
+const TOTAL_MOVIES = 400;
 
 type Config = {
   base_url: string;
@@ -17,7 +19,7 @@ type Config = {
 
 async function getConfiguration(): Promise<Config> {
   const data = await fetchWithKey("/configuration");
-  console.log("CONFIG: ", data.images);
+  //console.log("CONFIG: ", data.images);
   return data.images as Config;
 }
 
@@ -26,12 +28,10 @@ async function getIdsForPage(page: number): Promise<string[]> {
   return simpleMovies.results.map((movie: any) => movie.id);
 }
 
-export default async function movies(prisma: PrismaClient) {
+export async function movies(prisma: PrismaClient) {
   const configuration = await getConfiguration();
   // Exit if no environment variable
 
-  const TOTAL_MOVIES = 400;
-  let movieIds: any[] = [];
   let i = 1;
   while (movieIds.length < TOTAL_MOVIES) {
     const ids = await getIdsForPage(i);
@@ -57,31 +57,76 @@ export default async function movies(prisma: PrismaClient) {
     if (foundMovie) return;
 
     const createdMovie = await prisma.movie.create({
-    data: {
+      data: {
+        id: data.id,
         title: data.title,
         description: data.overview || null,
         genre: data.genres?.at(0)?.name || null,
         runTime: data.runtime || null,
         releaseDate: data.release_date ? new Date(data.release_date) : null,
         posterImageUrl: data.poster_path
-        ? configuration.base_url +
-            configuration.poster_sizes[
-            configuration.poster_sizes.length - 2
-            ] +
+          ? configuration.base_url +
+            configuration.poster_sizes[configuration.poster_sizes.length - 2] +
             data.poster_path
-        : null,
+          : null,
         backdropImageUrl: data.backdrop_path
-        ? configuration.base_url +
+          ? configuration.base_url +
             configuration.backdrop_sizes[
-            configuration.backdrop_sizes.length - 2
+              configuration.backdrop_sizes.length - 2
             ] +
             data.backdrop_path
-        : null,
+          : null,
         tagline: data.tagline || null,
         tmdbPopularity: data.popularity || null,
         tmdbVoteCount: data.vote_count || null,
-    },
+      },
+    });
+  });
+}
+
+// @ts-ignore
+async function addReviewsForPage(
+  userIds,
+  prisma: PrismaClient,
+  movieId: number
+) {
+  const reviews = await fetchWithKey("/movie/" + movieId + "/reviews", {
+    page: 1,
+  });
+  const randomElement = userIds[Math.floor(Math.random() * userIds.length)];
+
+  reviews.results.forEach(async (item: any, index: any) => {
+    const foundMovie = await prisma.movie.findFirst({
+      where: {
+        id: movieId,
+      },
     });
 
+    if (!foundMovie) return;
+
+    await prisma.review.create({
+      data: {
+        content: item.content,
+        movieId,
+        userId: randomElement.id,
+      },
+    });
   });
+}
+export async function reviews(prisma: PrismaClient) {
+  const configuration = await getConfiguration();
+  let i = 0;
+
+  const userIds = await prisma.user.findMany({
+    select: {
+      id: true,
+    },
+  });
+
+  while (i < TOTAL_MOVIES) {
+    console.log(`adding reviews for movie ${i + 1}`);
+    await addReviewsForPage(userIds, prisma, movieIds[i]);
+
+    i++;
+  }
 }
