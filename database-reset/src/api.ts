@@ -14,7 +14,7 @@ async function fetchWithKey(path: string, params?: object | undefined) {
       api_key: API_KEY,
       ...params,
     });
-
+  console.log(url);
   const response = await fetch(url);
 
   if (!response.ok) {
