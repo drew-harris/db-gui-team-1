@@ -4,6 +4,7 @@ import {
   createMovieHandler,
   getMovieHandler,
   getMovieByIdHandler,
+  getGenresHandler,
 } from "../controllers/movie.controller";
 import optionalUser from "../middleware/optionalUser";
 import validate from "../middleware/validateRequest";
@@ -16,6 +17,8 @@ movieRouter.get(
   validate(getMoviesFilterSchema, "query"),
   getMovieHandler
 );
+
+movieRouter.get("/genres", getGenresHandler);
 
 movieRouter.get("/:id", getMovieByIdHandler);
 

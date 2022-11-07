@@ -5,6 +5,7 @@ import {
   getMovieById,
   filterMovies,
 } from "../services/movie.service";
+import prisma from "../utils/prisma.util";
 
 export async function getMovieHandler(req, res: Response) {
   try {
@@ -71,6 +72,27 @@ export async function createMovieHandler(req: Request, res: Response) {
       error: {
         error: error.message,
         message: "Could not create new movie",
+      },
+    });
+  }
+}
+
+export async function getGenresHandler(req, res) {
+  try {
+    const genres = await prisma.movie.groupBy({
+      by: ["genre"],
+      orderBy: {
+        _count: {
+          genre: "desc",
+        },
+      },
+    });
+
+    res.json(genres.map((result) => result.genre));
+  } catch (error) {
+    return res.status(500).json({
+      error: {
+        message: "There was an error fetching movie genres",
       },
     });
   }
