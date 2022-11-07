@@ -56,35 +56,32 @@ export default async function movies(prisma: PrismaClient) {
 
     if (foundMovie) return;
 
-    try {
-      const createdMovie = await prisma.movie.create({
-        data: {
-          title: data.title,
-          description: data.overview || null,
-          genre: data.genres?.at(0)?.name || null,
-          runTime: data.runtime || null,
-          releaseDate: data.release_date ? new Date(data.release_date) : null,
-          posterImageUrl: data.poster_path
-            ? configuration.base_url +
-              configuration.poster_sizes[
-                configuration.poster_sizes.length - 2
-              ] +
-              data.poster_path
-            : null,
-          backdropImageUrl: data.backdrop_path
-            ? configuration.base_url +
-              configuration.backdrop_sizes[
-                configuration.backdrop_sizes.length - 2
-              ] +
-              data.backdrop_path
-            : null,
-          tagline: data.tagline || null,
-          tmdbPopularity: data.popularity || null,
-          tmdbVoteCount: data.vote_count || null,
-        },
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    const createdMovie = await prisma.movie.create({
+    data: {
+        title: data.title,
+        description: data.overview || null,
+        genre: data.genres?.at(0)?.name || null,
+        runTime: data.runtime || null,
+        releaseDate: data.release_date ? new Date(data.release_date) : null,
+        posterImageUrl: data.poster_path
+        ? configuration.base_url +
+            configuration.poster_sizes[
+            configuration.poster_sizes.length - 2
+            ] +
+            data.poster_path
+        : null,
+        backdropImageUrl: data.backdrop_path
+        ? configuration.base_url +
+            configuration.backdrop_sizes[
+            configuration.backdrop_sizes.length - 2
+            ] +
+            data.backdrop_path
+        : null,
+        tagline: data.tagline || null,
+        tmdbPopularity: data.popularity || null,
+        tmdbVoteCount: data.vote_count || null,
+    },
+    });
+
   });
 }
