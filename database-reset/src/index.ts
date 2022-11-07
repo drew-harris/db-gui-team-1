@@ -7,12 +7,14 @@ async function clearDb(prisma: PrismaClient) {
   await prisma.rating.deleteMany({});
   await prisma.movie.deleteMany({});
   await prisma.movieRequest.deleteMany({});
-  //await prisma.user.deleteMany({});
+  await prisma.user.deleteMany({});
 }
 async function main() {
   try {
     const prisma = new PrismaClient();
+    console.log("Clearing db");
     await clearDb(prisma);
+    console.log("Db cleared");
     await movies(prisma);
     await users(prisma);
     await reviews(prisma);

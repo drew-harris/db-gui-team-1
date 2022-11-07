@@ -84,8 +84,8 @@ export async function movies(prisma: PrismaClient) {
   });
 }
 
-// @ts-ignore
 async function addReviewsForPage(
+  // @ts-ignore
   userIds,
   prisma: PrismaClient,
   movieId: number
@@ -111,6 +111,14 @@ async function addReviewsForPage(
         userId: randomElement.id,
       },
     });
+    if (!item?.author_details?.rating) return;
+    await prisma.rating.create({
+      data: {
+        score: item.author_details.rating,
+        movieId,
+        userId: randomElement.id,
+      },
+    });
   });
 }
 export async function reviews(prisma: PrismaClient) {
@@ -124,7 +132,7 @@ export async function reviews(prisma: PrismaClient) {
   });
 
   while (i < TOTAL_MOVIES) {
-    console.log(`adding reviews for movie ${i + 1}`);
+    console.log(`adding reviews/ratings for movie ${i + 1}`);
     await addReviewsForPage(userIds, prisma, movieIds[i]);
 
     i++;

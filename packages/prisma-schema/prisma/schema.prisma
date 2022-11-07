@@ -71,7 +71,7 @@ model Review {
 
 model Rating {
   id          String   @id @default(cuid())
-  score       Int
+  score       Float
   submittedAt DateTime @default(now())
 
   for     Movie @relation(fields: [movieId], references: [id])
