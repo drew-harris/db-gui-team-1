@@ -30,6 +30,8 @@ export async function getReviewHandler(req, res: Response) {
         movieId: req.query.movieId
           ? parseInt(req.query.movieId.toString())
           : undefined,
+
+        userId: req.query.userId,
       },
       take: req.query.limit ? parseInt(req.query.limit) : undefined,
       include: {
