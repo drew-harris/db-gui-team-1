@@ -6,6 +6,7 @@ import { getMovieById } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
 import AuthOnly from "../components/layouts/AuthOnly";
+import { MovieRatingInput } from "../components/ratings/MovieRatingInput";
 import Review from "../components/reviews/Review";
 import { NewReviewModal } from "../modals/NewReviewModal";
 
@@ -45,12 +46,16 @@ export const MoviePage = () => {
       <Title>Ratings</Title>
       {average?.average ? (
         <Group>
-          <Rating value={average.average}></Rating>
           <Text color="dimmed">{average.count} ratings</Text>
         </Group>
       ) : (
         <Text>No ratings yet</Text>
       )}
+
+      <AuthOnly>
+        <Text mt="lg">Leave A Rating</Text>
+        <MovieRatingInput movieId={id} />
+      </AuthOnly>
 
       <Group position="apart" align={"center"}>
         <Title order={2} mt="md">
