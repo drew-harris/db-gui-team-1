@@ -49,6 +49,25 @@ export async function getAverageRatingHandler(req, res: Response) {
   }
 }
 
+export async function getRatingByIDHandler(req, res: Response) {
+  try {
+    const ident = req.params.id;
+    const ratings = await prisma.rating.findUnique({
+      where: {
+        id: ident,
+      },
+    });
+    return res.json(ratings);
+  } catch (error) {
+    return res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not find rating (id might not exist)",
+      },
+    });
+  }
+}
+
 export async function getRatingHandler(req, res: Response) {
   try {
     const ratings = await prisma.rating.findMany({
