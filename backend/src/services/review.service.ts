@@ -4,7 +4,7 @@ export async function createReview(body: Record<string, string>) {
   return prisma.review.create({
     data: {
       content: body.content,
-      movieId: +body.movieId || null,
+      movieId: body.movieId || null,
       userId: body.userId || null,
     },
   });
@@ -48,7 +48,7 @@ export async function getReviewByUserId(userId) {
   });
 }
 
-export async function getReviewByMovieId(movieId: number) {
+export async function getReviewByMovieId(movieId: string) {
   return await prisma.review.findMany({
     where: {
       movieId,
