@@ -114,7 +114,7 @@ async function addReviewsForPage(
     if (!item?.author_details?.rating) return;
     await prisma.rating.create({
       data: {
-        score: item.author_details.rating,
+        score: (item.author_details.rating % 5) + 1,
         movieId,
         userId: randomElement.id,
       },
