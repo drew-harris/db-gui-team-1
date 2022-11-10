@@ -81,7 +81,7 @@ export function filterMovies({
   });
 }
 
-export async function getMovieById(id: number) {
+export async function getMovieById(id: string) {
   return await prisma.movie.findUnique({
     where: {
       id,
