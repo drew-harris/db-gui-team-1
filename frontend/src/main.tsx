@@ -12,10 +12,12 @@ import SignUp from "./pages/accounts/SignUp";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
-import Account from "./pages/accounts/Account";
-import Reviews from "./pages/Reviews";
-import Ratings from "./pages/Ratings";
+import Account from "./pages/profile/MainProfile";
 import Lists from "./pages/Lists";
+import { EditProfilePage } from "./pages/profile/EditProfile";
+import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
+import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
+import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
 
 const router = createBrowserRouter([
   {
@@ -36,20 +38,24 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/account",
+        path: "/profile/:id",
         element: <Account />,
       },
       {
-        path: "/myreviews",
-        element: <Reviews />,
+        path: "/profile/:id/reviews",
+        element: <ProfileReviewsPage />,
       },
       {
-        path: "/myratings",
-        element: <Ratings />,
+        path: "/profile/:id/ratings",
+        element: <ProfileRatingsPage />,
       },
       {
-        path: "/mylists",
-        element: <Lists />,
+        path: "/profile/:id/lists",
+        element: <ProfileListsPage />,
+      },
+      {
+        path: "/profile/edit",
+        element: <EditProfilePage />,
       },
       {
         path: "/movie/:id",
