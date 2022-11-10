@@ -78,6 +78,15 @@ export function filterMovies({
         [sortDown]: "desc",
       }),
     },
+    include: {
+      _count: {
+        select: {
+          inLists: true,
+          ratings: true,
+          reviews: true,
+        },
+      },
+    },
   });
 }
 
