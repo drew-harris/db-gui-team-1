@@ -49,34 +49,35 @@ export async function getAverageRatingHandler(req, res: Response) {
   }
 }
 
+export async function getRatingByIDHandler(req, res: Response) {
+  try {
+    const ident = req.params.id;
+    const ratings = await prisma.rating.findUnique({
+      where: {
+        id: ident,
+      },
+    });
+    return res.json(ratings);
+  } catch (error) {
+    return res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not find rating (id might not exist)",
+      },
+    });
+  }
+}
+
 export async function getRatingHandler(req, res: Response) {
   try {
-    if (req.query.movieId) {
-      if (!req.query.userID) {
-        if (!req.query.score) {
-          //Get Ratings by ID
-          const rating = await getRatingById(+req.query.movieId);
-          return res.json(rating);
-        } else {
-          //Get Average
-          const rating = await getAverage(req);
-          return res.json(rating);
-        }
-      } else {
-        //Get all ratings of a certain movie by a user
-        const rating = await getAllMoviesRatingsByUser(
-          +req.query.movieId,
-          req.query.userID
-        );
-        return res.json(rating);
-      }
-    } else if (req.query.userID) {
-      //Get all ratings by a user
-      const rating = await getRatingByUser(req.query.userID);
-      return res.json(rating);
-    }
-    const rating = await getRatings();
-    return res.json(rating);
+    const ratings = await prisma.rating.findMany({
+      where: {
+        id: req.query.id,
+        movieId: req.query.movieId ? parseInt(req.query.movieId) : undefined,
+        userId: req.query.userId,
+      },
+    });
+    return res.json(ratings);
   } catch (error) {
     console.error(error);
     res.status(500).json({

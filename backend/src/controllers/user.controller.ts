@@ -6,6 +6,7 @@ import {
   editBio,
   editImage,
 } from "../services/user.service";
+import prisma from "../utils/prisma.util";
 import { getReviewByUserId } from "../services/review.service";
 import { signJwt } from "../utils/jwt.util";
 import { getRatingByUser } from "../services/rating.service";
@@ -29,12 +30,12 @@ export async function createUserHandler(req: Request, res: Response) {
 
 export async function getUsersHandler(req: Request, res: Response) {
   try {
-    if (req.query.id) {
-      const user = await getUserById(req.query.id);
-
-      return res.json(user);
-    }
-    const user = await getUsers();
+    const user = await prisma.user.findMany({
+      where: {
+        id: req.query.id?.toString(),
+        username: req.query.username?.toString(),
+      },
+    });
 
     return res.json(user);
   } catch (e) {
