@@ -1,9 +1,39 @@
-import { Box, Text } from "@mantine/core";
+import { Button, Textarea } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { closeAllModals } from "@mantine/modals";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { leaveReview } from "../api/reviews";
 
-export const NewReviewModal = (movieId: number) => {
+interface NewReviewModalProps {
+  movieId: string;
+}
+
+export const NewReviewModal = ({ movieId }: NewReviewModalProps) => {
+  const form = useForm({
+    initialValues: {
+      content: "",
+    },
+  });
+  const client = useQueryClient();
+
+  const newReviewMutation = useMutation({
+    mutationFn: leaveReview,
+    onSuccess: async () => {
+      client.invalidateQueries(["reviews", { movieId }]);
+      closeAllModals();
+    },
+  });
+
+  const submit = () => {
+    newReviewMutation.mutate({ content: form.values.content, movieId });
+  };
+
   return (
-    <Box>
-      <Text>Look at me</Text>
-    </Box>
+    <>
+      <Textarea minRows={6} {...form.getInputProps("content")}></Textarea>
+      <Button onClick={submit} mt="md">
+        Submit
+      </Button>
+    </>
   );
 };

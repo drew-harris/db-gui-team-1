@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { getMovieById } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
+import AuthOnly from "../components/layouts/AuthOnly";
 import Review from "../components/reviews/Review";
 import { NewReviewModal } from "../modals/NewReviewModal";
 
@@ -55,16 +56,20 @@ export const MoviePage = () => {
         <Title order={2} mt="md">
           Reviews
         </Title>
-        <Button
-          onClick={() =>
-            openModal({
-              title: "Leave A Review",
-              // children: <NewReviewModal id={id} />,
-            })
-          }
-        >
-          Leave A Review
-        </Button>
+
+        <AuthOnly>
+          <Button
+            onClick={() =>
+              openModal({
+                title: "Leave A Review",
+                children: <NewReviewModal movieId={id} />,
+                size: "xl",
+              })
+            }
+          >
+            Leave A Review
+          </Button>
+        </AuthOnly>
       </Group>
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
       {reviews &&

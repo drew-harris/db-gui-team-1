@@ -1,12 +1,8 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import {
-  getRatings,
-  getRatingById,
   createRating,
   deleteRatingById,
-  getRatingByUser,
-  getAllMoviesRatingsByUser,
-  getAverage,
+  getRatingById,
   updateMovieScore,
 } from "../services/rating.service";
 import prisma from "../utils/prisma.util";
