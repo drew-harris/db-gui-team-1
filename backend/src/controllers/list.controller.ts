@@ -25,5 +25,35 @@ export function getList() {
     return list;
 }
 
+export function deleteList(req, res) {
+    try{
+        const listDelete = await prisma.list.findFirst({
+            where: {
+                id: req.body.id,
+            },
+        });
+        
+        if(listDelete.userId != req.user.id) {
+            res.status(401).json({
+                error: {
+                    message: "Access denied, you do not own this list",
+                },
+            });
+        }
+        await prisma.list.delete({
+            where: {
+                id: req.body.id,
+            },
+        });
+        return res.json(listDelete);
+    } catch (error) {
+        res.status(500).json({
+            error: {
+                message: "Error deleting list",
+            },
+        });
+    }
+}
+
 
 
