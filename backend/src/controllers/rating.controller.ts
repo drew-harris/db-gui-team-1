@@ -116,9 +116,54 @@ export async function deleteRatingByIdHandler(req, res: Response) {
 }
 
 export async function updateScoreHandler(req, res: Response) {
+  if (!req.body.movieId) {
+    return res.status(400).json({
+      error: {
+        message: "No movieid given",
+      },
+    });
+  }
+
+  console.log(req.body);
   try {
-    const rating = await updateMovieScore(req.query.id, +req.query.score);
-    return res.json(rating);
+    const rating = await prisma.rating.findFirst({
+      where: {
+        movieId: req.body.movieId,
+        userId: req.user.id,
+      },
+    });
+    console.log("RATING: ", rating);
+
+    let newRating;
+    if (rating) {
+      newRating = await prisma.rating.update({
+        where: {
+          id: rating.id,
+        },
+        data: {
+          score: req.body.score || 0,
+          submittedAt: new Date(),
+        },
+      });
+    } else {
+      newRating = await prisma.rating.create({
+        data: {
+          for: {
+            connect: {
+              id: req.body.movieId,
+            },
+          },
+          score: req.body.score,
+          by: {
+            connect: {
+              id: req.user.id,
+            },
+          },
+        },
+      });
+    }
+    console.log(newRating);
+    return res.json(newRating);
   } catch (error) {
     console.error(error);
     res.status(500).json({
