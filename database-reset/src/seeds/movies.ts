@@ -58,7 +58,6 @@ export async function movies(prisma: PrismaClient) {
 
     const createdMovie = await prisma.movie.create({
       data: {
-        id: data.id,
         title: data.title,
         description: data.overview || null,
         genre: data.genres?.at(0)?.name || null,

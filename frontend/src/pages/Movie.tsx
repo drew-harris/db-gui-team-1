@@ -1,11 +1,12 @@
-import { Box, Group, Image, Title, Text, Rating } from "@mantine/core";
-import { Movie } from "@prisma/client";
+import { Box, Button, Group, Image, Rating, Text, Title } from "@mantine/core";
+import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getMovieById } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
 import Review from "../components/reviews/Review";
+import { NewReviewModal } from "../modals/NewReviewModal";
 
 export const MoviePage = () => {
   const { id } = useParams();
@@ -50,9 +51,21 @@ export const MoviePage = () => {
         <Text>No ratings yet</Text>
       )}
 
-      <Title order={2} mt="md">
-        Reviews
-      </Title>
+      <Group position="apart" align={"center"}>
+        <Title order={2} mt="md">
+          Reviews
+        </Title>
+        <Button
+          onClick={() =>
+            openModal({
+              title: "Leave A Review",
+              // children: <NewReviewModal id={id} />,
+            })
+          }
+        >
+          Leave A Review
+        </Button>
+      </Group>
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
       {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
