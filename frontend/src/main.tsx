@@ -18,6 +18,8 @@ import { EditProfilePage } from "./pages/profile/EditProfile";
 import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
 import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
 import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
+import { MovieReviewPage } from "./pages/movies/MovieReviews";
+import { MovieRatingsPage } from "./pages/movies/MovieRatingsPage";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +62,14 @@ const router = createBrowserRouter([
       {
         path: "/movie/:id",
         element: <MoviePage />,
+      },
+      {
+        path: "/movie/:id/reviews",
+        element: <MovieReviewPage />,
+      },
+      {
+        path: "/movie/:id/ratings",
+        element: <MovieRatingsPage />,
       },
     ],
   },
