@@ -1,4 +1,5 @@
 import { MantineProvider } from "@mantine/core";
+import { ModalsProvider } from "@mantine/modals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
@@ -12,10 +13,13 @@ import SignUp from "./pages/accounts/SignUp";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
-import Account from "./pages/accounts/Account";
-import Reviews from "./pages/Reviews";
-import Ratings from "./pages/Ratings";
-import Lists from "./pages/Lists";
+import { MovieRatingsPage } from "./pages/movies/MovieRatingsPage";
+import { MovieReviewPage } from "./pages/movies/MovieReviews";
+import { EditProfilePage } from "./pages/profile/EditProfile";
+import Account from "./pages/profile/MainProfile";
+import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
+import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
+import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
 
 const router = createBrowserRouter([
   {
@@ -36,24 +40,36 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/account",
+        path: "/profile/:id",
         element: <Account />,
       },
       {
-        path: "/myreviews",
-        element: <Reviews />,
+        path: "/profile/:id/reviews",
+        element: <ProfileReviewsPage />,
       },
       {
-        path: "/myratings",
-        element: <Ratings />,
+        path: "/profile/:id/ratings",
+        element: <ProfileRatingsPage />,
       },
       {
-        path: "/mylists",
-        element: <Lists />,
+        path: "/profile/:id/lists",
+        element: <ProfileListsPage />,
+      },
+      {
+        path: "/profile/edit",
+        element: <EditProfilePage />,
       },
       {
         path: "/movie/:id",
         element: <MoviePage />,
+      },
+      {
+        path: "/movie/:id/reviews",
+        element: <MovieReviewPage />,
+      },
+      {
+        path: "/movie/:id/ratings",
+        element: <MovieRatingsPage />,
       },
     ],
   },
@@ -70,7 +86,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           withGlobalStyles
           withNormalizeCSS
         >
-          <RouterProvider router={router} />
+          <ModalsProvider>
+            <RouterProvider router={router} />
+          </ModalsProvider>
         </MantineProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </AuthContextProvider>

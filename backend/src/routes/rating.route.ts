@@ -21,6 +21,6 @@ ratingRouter.post("/", decodeUser, createRatingHandler);
 
 ratingRouter.delete("/", deleteRatingByIdHandler);
 
-ratingRouter.put("/", updateScoreHandler);
+ratingRouter.put("/", decodeUser, updateScoreHandler);
 
 export default ratingRouter;

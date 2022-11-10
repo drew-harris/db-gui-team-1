@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  getReviewHandler,
   createReviewHandler,
-  editReviewByIdHandler,
-  reviewIdHandler,
   deleteReviewHandler,
+  editReviewByIdHandler,
+  getReviewHandler,
+  reviewIdHandler,
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
 
-import { createReviewSchema, getReviewSchema } from "schemas";
+import { createReviewSchema } from "schemas";
 import decodeUser from "../middleware/requireUser";
 const reviewRouter = express.Router();
 
-reviewRouter.get("/", validate(getReviewSchema, "query"), getReviewHandler);
+reviewRouter.get("/", getReviewHandler);
 
 reviewRouter.get("/:id", reviewIdHandler);
 reviewRouter.put("/", editReviewByIdHandler);

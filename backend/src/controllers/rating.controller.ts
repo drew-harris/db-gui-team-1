@@ -1,12 +1,8 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import {
-  getRatings,
-  getRatingById,
   createRating,
   deleteRatingById,
-  getRatingByUser,
-  getAllMoviesRatingsByUser,
-  getAverage,
+  getRatingById,
   updateMovieScore,
 } from "../services/rating.service";
 import prisma from "../utils/prisma.util";
@@ -35,7 +31,7 @@ export async function getAverageRatingHandler(req, res: Response) {
       },
       _count: true,
       where: {
-        movieId: +id,
+        movieId: id,
       },
     });
     res.json({ average: aggregations._avg.score, count: aggregations._count });
@@ -73,7 +69,7 @@ export async function getRatingHandler(req, res: Response) {
     const ratings = await prisma.rating.findMany({
       where: {
         id: req.query.id,
-        movieId: req.query.movieId ? parseInt(req.query.movieId) : undefined,
+        movieId: req.query.movieId,
         userId: req.query.userId,
       },
     });
@@ -120,9 +116,54 @@ export async function deleteRatingByIdHandler(req, res: Response) {
 }
 
 export async function updateScoreHandler(req, res: Response) {
+  if (!req.body.movieId) {
+    return res.status(400).json({
+      error: {
+        message: "No movieid given",
+      },
+    });
+  }
+
+  console.log(req.body);
   try {
-    const rating = await updateMovieScore(req.query.id, +req.query.score);
-    return res.json(rating);
+    const rating = await prisma.rating.findFirst({
+      where: {
+        movieId: req.body.movieId,
+        userId: req.user.id,
+      },
+    });
+    console.log("RATING: ", rating);
+
+    let newRating;
+    if (rating) {
+      newRating = await prisma.rating.update({
+        where: {
+          id: rating.id,
+        },
+        data: {
+          score: req.body.score || 0,
+          submittedAt: new Date(),
+        },
+      });
+    } else {
+      newRating = await prisma.rating.create({
+        data: {
+          for: {
+            connect: {
+              id: req.body.movieId,
+            },
+          },
+          score: req.body.score,
+          by: {
+            connect: {
+              id: req.user.id,
+            },
+          },
+        },
+      });
+    }
+    console.log(newRating);
+    return res.json(newRating);
   } catch (error) {
     console.error(error);
     res.status(500).json({

@@ -51,3 +51,26 @@ Note: For docker setup on aws you need to replace `CHANGE_ME` with the proper da
 ### Backend
 * [Express](https://expressjs.com/en/guide/routing.html)
 * [Prisma](https://www.prisma.io/docs/concepts/components/prisma-client)
+
+
+## Frontend Routes
+/home
+/login
+/signup
+
+/profile/me
+/profile/me/edit
+/profile/:id
+/profile/:id/reviews
+/profile/:id/ratings
+/profile/:id/lists
+
+/movie/:id
+/movie/:id/reviews
+/movie/:id/ratings
+
+/requests
+/requests/new
+
+/list/:id
+/lists/(searchable)
