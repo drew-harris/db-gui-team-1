@@ -16,6 +16,7 @@ export const NewReviewModal = ({ movieId }: NewReviewModalProps) => {
   });
   const client = useQueryClient();
 
+  //TODO: Maybe move to separate file
   const newReviewMutation = useMutation({
     mutationFn: leaveReview,
     onSuccess: async () => {

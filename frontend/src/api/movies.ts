@@ -1,4 +1,5 @@
 import { Movie } from "@prisma/client";
+import { MovieWithCounts } from "../types";
 import { getJwt } from "../utils/jwt";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -21,7 +22,7 @@ export default async function getMovies({ page }) {
 
     const data = await response.json();
 
-    return data as Movie[];
+    return data as MovieWithCounts[];
   } catch (error) {
     console.error(error);
     throw new Error("Error getting list of movies");
