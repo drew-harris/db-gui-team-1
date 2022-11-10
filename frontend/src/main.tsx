@@ -12,14 +12,13 @@ import SignUp from "./pages/accounts/SignUp";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
-import Account from "./pages/profile/MainProfile";
-import Lists from "./pages/Lists";
-import { EditProfilePage } from "./pages/profile/EditProfile";
-import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
-import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
-import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
-import { MovieReviewPage } from "./pages/movies/MovieReviews";
 import { MovieRatingsPage } from "./pages/movies/MovieRatingsPage";
+import { MovieReviewPage } from "./pages/movies/MovieReviews";
+import { EditProfilePage } from "./pages/profile/EditProfile";
+import Account from "./pages/profile/MainProfile";
+import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
+import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
+import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
 
 const router = createBrowserRouter([
   {
