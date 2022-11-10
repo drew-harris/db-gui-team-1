@@ -27,9 +27,7 @@ export async function getReviewHandler(req, res: Response) {
   try {
     const reviews = await prisma.review.findMany({
       where: {
-        movieId: req.query.movieId
-          ? parseInt(req.query.movieId.toString())
-          : undefined,
+        movieId: req.query.movieId,
 
         userId: req.query.userId,
       },

@@ -48,7 +48,7 @@ export async function getMovieHandler(req, res: Response) {
 }
 export async function getMovieByIdHandler(req, res: Response) {
   try {
-    const movie = await getMovieById(+req.params.id);
+    const movie = await getMovieById(req.params.id);
     return res.json(movie);
   } catch (error) {
     console.error(error);

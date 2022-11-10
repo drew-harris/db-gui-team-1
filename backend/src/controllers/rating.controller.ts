@@ -35,7 +35,7 @@ export async function getAverageRatingHandler(req, res: Response) {
       },
       _count: true,
       where: {
-        movieId: +id,
+        movieId: id,
       },
     });
     res.json({ average: aggregations._avg.score, count: aggregations._count });
@@ -73,7 +73,7 @@ export async function getRatingHandler(req, res: Response) {
     const ratings = await prisma.rating.findMany({
       where: {
         id: req.query.id,
-        movieId: req.query.movieId ? parseInt(req.query.movieId) : undefined,
+        movieId: req.query.movieId,
         userId: req.query.userId,
       },
     });
