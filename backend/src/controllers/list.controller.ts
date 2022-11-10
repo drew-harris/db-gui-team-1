@@ -12,5 +12,17 @@ export async function createList(body: Record<string, string>) {
     }); 
 }
 
+export function getList() {
+    const list = prisma.list.findMany({
+        select: {
+        id: true,
+        name: true,
+        createdAt: true,
+        movies: true,
+        user: true,
+        },
+    });
+    return list;
+}
 
 
