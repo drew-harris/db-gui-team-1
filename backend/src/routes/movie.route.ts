@@ -10,12 +10,7 @@ import validate from "../middleware/validateRequest";
 
 const movieRouter = express.Router();
 
-movieRouter.get(
-  "/",
-  optionalUser,
-  validate(getMoviesFilterSchema, "query"),
-  getMovieHandler
-);
+movieRouter.get("/", optionalUser, getMovieHandler);
 
 movieRouter.get("/:id", getMovieByIdHandler);
 

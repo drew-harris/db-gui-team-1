@@ -1,26 +1,35 @@
 import { Center, Pagination, SimpleGrid, Text, Title } from "@mantine/core";
-import { usePagination } from "@mantine/hooks";
+import { useDebouncedValue, usePagination } from "@mantine/hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import getMovies from "../api/movies";
+import { MovieFilterBar } from "../components/layouts/MovieFilterBar";
 import MovieCard from "../components/MovieCard";
 import "../index.css";
 
 function Home() {
   const [page, onPageChange] = useState(1);
-  const pagination = usePagination({ total: 10, page, onChange: onPageChange });
-  const client = useQueryClient();
-  const {
-    data: movies,
-    status,
-    error,
-  } = useQuery(["movies", { page: page }], () => getMovies({ page: page }), {
-    retry: false,
+  const [filters, setFilters] = useState({
+    sortBy: "popularity",
+    title: "",
+    genre: null,
   });
 
+  const [debouncedFilters] = useDebouncedValue(filters, 200);
+  const pagination = usePagination({ total: 10, page, onChange: onPageChange });
+  const client = useQueryClient();
+  const { data: movies, error } = useQuery(
+    ["movies", { page: page, ...debouncedFilters }],
+    () => getMovies({ page: page, ...debouncedFilters }),
+    {
+      retry: false,
+    }
+  );
+
   useEffect(() => {
-    client.prefetchQuery(["movies", { page: page + 1 }], () =>
-      getMovies({ page: page + 1 })
+    client.prefetchQuery(
+      ["movies", { page: page + 1, ...debouncedFilters }],
+      () => getMovies({ page: page + 1, ...debouncedFilters })
     );
   }, [page]);
 
@@ -32,6 +41,7 @@ function Home() {
           <Text color="red">{error.message || "Error getting movies"}</Text>
         </Center>
       )}
+      <MovieFilterBar filters={filters} setFilters={setFilters} />
       <SimpleGrid cols={4}>
         {movies &&
           movies.map((movie) => {

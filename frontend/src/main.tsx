@@ -1,9 +1,3 @@
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-} from "@mantine/core";
-import { useLocalStorage } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
