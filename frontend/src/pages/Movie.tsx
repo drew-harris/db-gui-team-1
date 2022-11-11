@@ -97,7 +97,7 @@ export const MoviePage = () => {
               </Button>
               <MovieRatingInput movieId={id} />
               <MultiSelect
-                placeholder="Add To List"
+                placeholder="Add To List..."
                 icon={<FontAwesomeIcon icon={faList} />}
                 data={[]}
               ></MultiSelect>

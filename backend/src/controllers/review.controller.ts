@@ -42,6 +42,9 @@ export async function getReviewHandler(req, res: Response) {
           },
         },
       },
+      orderBy: {
+        submittedAt: "desc",
+      },
     });
     res.json(reviews);
   } catch (error) {
