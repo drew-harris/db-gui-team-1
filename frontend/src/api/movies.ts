@@ -70,3 +70,21 @@ export async function searchMovies(title) {
     throw new Error(error.message);
   }
 }
+
+export async function getMovieRanking(movieId: string) {
+  try {
+    const response = await fetch(API_URL + "/api/movies/ranking/" + movieId, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

@@ -1,3 +1,4 @@
+import { triggerAsyncId } from "async_hooks";
 import { Request, Response } from "express";
 import { createMovie, getMovieById } from "../services/movie.service";
 import prisma from "../utils/prisma.util";
@@ -111,6 +112,43 @@ export async function createMovieHandler(req: Request, res: Response) {
       error: {
         error: error.message,
         message: "Could not create new movie",
+      },
+    });
+  }
+}
+
+export async function getMovieRankingHandler(req: Request, res: Response) {
+  try {
+    const movie = await prisma.movie.findFirst({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!movie) {
+      return res.status(400).json({
+        error: {
+          message: "No movie with that id",
+        },
+      });
+    }
+    const ranking = await prisma.rating.groupBy({
+      by: ["movieId"],
+      _avg: {
+        score: true,
+      },
+      orderBy: {
+        _avg: {
+          score: "desc",
+        },
+      },
+    });
+    const orderedIds = ranking.map((ratingGroup) => ratingGroup.movieId);
+    res.json(orderedIds.indexOf(movie.id) + 1);
+  } catch (error) {
+    res.status(500).json({
+      error: {
+        error: error,
+        message: "Could not get ranking",
       },
     });
   }

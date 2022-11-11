@@ -4,6 +4,7 @@ import {
   createMovieHandler,
   getMovieHandler,
   getMovieByIdHandler,
+  getMovieRankingHandler,
 } from "../controllers/movie.controller";
 import optionalUser from "../middleware/optionalUser";
 import validate from "../middleware/validateRequest";
@@ -11,6 +12,8 @@ import validate from "../middleware/validateRequest";
 const movieRouter = express.Router();
 
 movieRouter.get("/", optionalUser, getMovieHandler);
+
+movieRouter.get("/ranking/:id", getMovieRankingHandler);
 
 movieRouter.get("/:id", getMovieByIdHandler);
 
