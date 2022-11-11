@@ -11,7 +11,8 @@ export async function logIn({ email, password }) {
     });
     if (!response.ok) {
       const data = await response.json();
-      throw new Error(data.message);
+      console.log(data);
+      throw new Error(data?.error?.message || "Something went wrong");
     }
     return await response.json();
   } catch (error) {
@@ -31,10 +32,11 @@ export async function signUp(body) {
     if (!response.ok) {
       const data = await response.json();
       console.log(data);
-      throw new Error(data.message);
+      throw new Error(data.error.message);
     }
     return await response.json();
   } catch (error) {
+    console.error(error);
     throw new Error(error.message || "Something went wrong");
   }
 }
