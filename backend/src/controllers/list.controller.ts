@@ -16,3 +16,25 @@ export async function createListHandler(req, res: Response) {
     });
   }
 }
+
+export async function getListHandler(req, res: Response) {
+  try {
+    const lists = await prisma.list.findMany({
+      where: {
+        id: req.query.id,
+        name: req.query.name,
+        movies: req.query.movies,
+        userId: req.query.userId,
+      },
+    });
+    return res.json(lists);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not fetch lists from database",
+      },
+    });
+  }
+}
