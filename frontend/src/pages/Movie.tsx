@@ -1,8 +1,12 @@
+import { faList, faPlug, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  ActionIcon,
   Box,
   Button,
   Group,
   Image,
+  MultiSelect,
   Paper,
   Space,
   Stack,
@@ -12,7 +16,7 @@ import {
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getMovieById } from "../api/movies";
+import { getMovieById, getMovieRanking } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
 import AuthOnly from "../components/layouts/AuthOnly";
@@ -37,6 +41,10 @@ export const MoviePage = () => {
   const { data: ratingStats } = useQuery(
     ["average-rating", { movieId: id }],
     () => getAverageRating(id)
+  );
+
+  const { data: ranking } = useQuery(["movie-ranking", { movieId: id }], () =>
+    getMovieRanking(id)
   );
 
   if (!movie) {
@@ -69,34 +77,38 @@ export const MoviePage = () => {
               value={ratingStats?.average.toFixed(2)}
             />
             <DataSquare label="Reviews" value={reviews?.length} />
+            <DataSquare label="Rank" value={"#" + ranking} />
           </Group>
+          <Space h="md"></Space>
+          <AuthOnly>
+            <Group>
+              <Button
+                variant="light"
+                leftIcon={<FontAwesomeIcon icon={faPlus} />}
+                onClick={() =>
+                  openModal({
+                    title: "Leave A Review",
+                    children: <NewReviewModal movieId={id} />,
+                    size: "xl",
+                  })
+                }
+              >
+                Leave A Review
+              </Button>
+              <MovieRatingInput movieId={id} />
+              <MultiSelect
+                placeholder="Add To List"
+                icon={<FontAwesomeIcon icon={faList} />}
+                data={[]}
+              ></MultiSelect>
+            </Group>
+          </AuthOnly>
         </Box>
       </Group>
 
-      <AuthOnly>
-        <Text mt="lg">Leave A Rating</Text>
-        <MovieRatingInput movieId={id} />
-      </AuthOnly>
-
-      <Group position="apart" align={"center"}>
-        <Title order={2} mt="md">
-          Reviews
-        </Title>
-
-        <AuthOnly>
-          <Button
-            onClick={() =>
-              openModal({
-                title: "Leave A Review",
-                children: <NewReviewModal movieId={id} />,
-                size: "xl",
-              })
-            }
-          >
-            Leave A Review
-          </Button>
-        </AuthOnly>
-      </Group>
+      <Title order={2} mt="md">
+        Reviews
+      </Title>
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
       {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
