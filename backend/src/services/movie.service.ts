@@ -14,10 +14,10 @@ export async function createMovie(body: Record<string, string>) {
   });
 }
 
-export async function getMovieById(id: string) {
-  return await prisma.movie.findUnique({
-    where: {
-      id,
-    },
-  });
-}
+// export async function getMovieById(id: string) {
+//   return await prisma.movie.findUnique({
+//     where: {
+//       id,
+//     },
+//   });
+// }

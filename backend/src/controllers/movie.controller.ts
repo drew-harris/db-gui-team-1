@@ -1,6 +1,6 @@
 import { triggerAsyncId } from "async_hooks";
 import { Request, Response } from "express";
-import { createMovie, getMovieById } from "../services/movie.service";
+import { createMovie } from "../services/movie.service";
 import prisma from "../utils/prisma.util";
 
 export async function getMovieHandler(req, res: Response) {
@@ -89,8 +89,13 @@ export async function getMovieHandler(req, res: Response) {
 }
 export async function getMovieByIdHandler(req, res: Response) {
   try {
-    const movie = await getMovieById(req.params.id);
-    return res.json(movie);
+    const ident = req.params.id;
+    const movies = await prisma.movie.findUnique({
+      where: {
+        id: ident,
+      },
+    });
+    return res.json(movies);
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -117,7 +122,7 @@ export async function createMovieHandler(req: Request, res: Response) {
   }
 }
 
-export async function getMovieRankingHandler(req: Request, res: Response) {
+export async function getMovieRankingHandler(req, res: Response) {
   try {
     const movie = await prisma.movie.findFirst({
       where: {
