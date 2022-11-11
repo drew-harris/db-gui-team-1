@@ -83,7 +83,7 @@ model Rating {
 
 model List {
   id   String @id @default(cuid())
-  name String @default("Watched")
+  name String @default(cuid())
 
   createdAt DateTime @default(now())
 

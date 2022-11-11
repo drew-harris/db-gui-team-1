@@ -38,3 +38,22 @@ export async function getListHandler(req, res: Response) {
     });
   }
 }
+
+export async function deleteListHandler(req, res: Response) {
+  try {
+    const lists = await prisma.list.delete({
+      where: {
+        id: req.query.id,
+      },
+    });
+    return res.json(lists);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not find list to delete",
+      },
+    });
+  }
+}
