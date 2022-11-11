@@ -18,11 +18,7 @@ function Home() {
   const [debouncedFilters] = useDebouncedValue(filters, 200);
   const pagination = usePagination({ total: 10, page, onChange: onPageChange });
   const client = useQueryClient();
-  const {
-    data: movies,
-    status,
-    error,
-  } = useQuery(
+  const { data: movies, error } = useQuery(
     ["movies", { page: page, ...debouncedFilters }],
     () => getMovies({ page: page, ...debouncedFilters }),
     {

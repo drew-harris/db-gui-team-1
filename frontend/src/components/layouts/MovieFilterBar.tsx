@@ -1,4 +1,4 @@
-import { Box, Group, Select, TextInput } from "@mantine/core";
+import { Group, Select, TextInput } from "@mantine/core";
 
 const genres = [
   "Animation",
