@@ -19,7 +19,7 @@ export default function MovieCard({ movie }: { movie: MovieWithCounts }) {
       </Text>
       <Group mt="md" position="apart" align="center">
         <Text size="sm" color="dimmed">
-          {movie._count.reviews} Reviews
+          {movie?._count?.reviews} Reviews
         </Text>
       </Group>
     </Card>

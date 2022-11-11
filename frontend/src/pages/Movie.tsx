@@ -1,4 +1,4 @@
-import { Box, Button, Group, Image, Rating, Text, Title } from "@mantine/core";
+import { Box, Button, Group, Image, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
