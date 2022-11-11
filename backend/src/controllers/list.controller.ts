@@ -1,7 +1,7 @@
 import { Response } from "express";
 import prisma from "../utils/prisma.util";
 import {
-    createList
+    createList,
 } from "../services/list.services";
 
 
