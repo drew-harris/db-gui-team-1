@@ -4,8 +4,6 @@ import prisma from "../utils/prisma.util";
 
 export async function getMovieHandler(req, res: Response) {
   try {
-    console.log("getting all movies");
-
     const limit = parseInt(req.query.limit || 24);
 
     const sensibleDefaults = {
@@ -21,16 +19,12 @@ export async function getMovieHandler(req, res: Response) {
         },
       },
 
-      populartity: {
-        tmdbPopularity: "desc",
+      popularity: {
+        tmdbVoteCount: "desc",
       },
 
       runtime: {
         runTime: "desc",
-      },
-
-      voteCount: {
-        tmdbVoteCount: "desc",
       },
     };
 
@@ -44,10 +38,11 @@ export async function getMovieHandler(req, res: Response) {
         },
       });
     }
+    console.log(req.query);
     const movies = await prisma.movie.findMany({
       where: {
         id: req.query.id,
-        genre: req.query.genre,
+        genre: req.query.genre !== "null" ? req.query.genre : undefined,
         releaseDate: req.query.minDate
           ? {
               gt: new Date(req.query.minDate),
