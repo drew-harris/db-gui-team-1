@@ -1,8 +1,10 @@
 import {
   Button,
   Center,
+  LoadingOverlay,
   Paper,
   PasswordInput,
+  Stack,
   Text,
   TextInput,
   Title,
@@ -17,11 +19,17 @@ import { AuthContext } from "../../context/AuthContext";
 export default function Login() {
   const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
       email: "",
       password: "",
+    },
+    validate: {
+      password: (value) =>
+        value.length < 8 ? "Password must be 8 characters long" : null,
+      email: (value) => (!value ? "Email is required" : null),
     },
   });
 
@@ -29,6 +37,7 @@ export default function Login() {
 
   const submit = async (values) => {
     try {
+      setLoading(true);
       const body = {
         email: values.email,
         password: values.password,
@@ -42,10 +51,13 @@ export default function Login() {
         navigate("/");
       }
     } catch (error) {
+      setLoading(false);
       // If zod error
       if (error.issues) {
         setErrorText(error.issues[0].message);
         console.log(error?.issues[0]?.message);
+      } else {
+        setErrorText(error.message);
       }
       console.log(error);
     }
@@ -58,32 +70,38 @@ export default function Login() {
           sx={(theme) => ({
             maxWidth: 400,
             width: "100%",
+            position: "relative",
           })}
           shadow="lg"
           p="md"
           withBorder
           m="lg"
         >
+          <LoadingOverlay visible={loading} />
           <Title order={2} align="center">
             Log In
           </Title>
           <form onSubmit={form.onSubmit((values) => submit(values))}>
-            <TextInput
-              label="Email"
-              type="email"
-              {...form.getInputProps("email")}
-            />
-            <PasswordInput
-              label="Password"
-              type="password"
-              {...form.getInputProps("password")}
-            />
-            {errorText && <Text color="red">{errorText}</Text>}
-            <Center>
-              <Button mt="lg" type="submit">
-                Log In
-              </Button>
-            </Center>
+            <Stack>
+              <TextInput
+                label="Email"
+                type="email"
+                {...form.getInputProps("email")}
+              />
+              <PasswordInput
+                label="Password"
+                type="password"
+                {...form.getInputProps("password")}
+              />
+              {errorText && (
+                <Text align="center" color="red">
+                  {errorText}
+                </Text>
+              )}
+              <Center>
+                <Button type="submit">Log In</Button>
+              </Center>
+            </Stack>
           </form>
         </Paper>
       </Center>

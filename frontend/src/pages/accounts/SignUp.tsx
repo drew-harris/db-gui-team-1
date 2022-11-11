@@ -1,8 +1,10 @@
 import {
   Button,
   Center,
+  LoadingOverlay,
   Paper,
   PasswordInput,
+  Stack,
   Text,
   TextInput,
   Title,
@@ -16,6 +18,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function SignUp() {
   const { setUser } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -24,6 +27,14 @@ export default function SignUp() {
       username: "",
       confirmPassword: "",
     },
+    validate: {
+      password: (value) =>
+        value.length < 8 ? "Password must be 8 characters long" : null,
+      email: (value) => (!value ? "Email is required" : null),
+      confirmPassword: (value, others) =>
+        value !== others.password || !value ? "Passwords must match" : null,
+      username: (value) => (!value ? "Username is required" : null),
+    },
   });
   const navigate = useNavigate();
 
@@ -31,11 +42,12 @@ export default function SignUp() {
 
   const submit = async (values) => {
     try {
+      setLoading(true);
       const body = {
         email: values.email,
         password: values.password,
         username: values.username,
-        confirmPassword: values.confirmPassword,
+        passwordConfirmation: values.confirmPassword,
       };
       createUserSchema.parse(body);
       const data = await signUp(body);
@@ -47,6 +59,7 @@ export default function SignUp() {
       }
     } catch (error) {
       // If zod error
+      setLoading(false);
       if (error.issues) {
         setErrorText(error.issues[0].message);
         console.log(error?.issues[0]?.message);
@@ -64,42 +77,48 @@ export default function SignUp() {
           sx={(theme) => ({
             maxWidth: 400,
             width: "100%",
+            position: "relative",
           })}
           shadow="lg"
           p="md"
           withBorder
           m="lg"
         >
+          <LoadingOverlay visible={loading} />
           <Title order={2} align="center">
             Sign Up
           </Title>
           <form onSubmit={form.onSubmit((values) => submit(values))}>
-            <TextInput
-              label="Email"
-              type="email"
-              {...form.getInputProps("email")}
-            />
-            <TextInput
-              label="Username"
-              type="text"
-              {...form.getInputProps("username")}
-            />
-            <PasswordInput
-              label="Password"
-              type="password"
-              {...form.getInputProps("password")}
-            />
-            <PasswordInput
-              label="Confirm Password"
-              type="password"
-              {...form.getInputProps("confirmPassword")}
-            />
-            {errorText && <Text color="red">{errorText}</Text>}
-            <Center>
-              <Button mt="lg" type="submit">
-                Sign Up
-              </Button>
-            </Center>
+            <Stack>
+              <TextInput
+                label="Email"
+                type="email"
+                {...form.getInputProps("email")}
+              />
+              <TextInput
+                label="Username"
+                type="text"
+                {...form.getInputProps("username")}
+              />
+              <PasswordInput
+                label="Password"
+                type="password"
+                {...form.getInputProps("password")}
+              />
+              <PasswordInput
+                label="Confirm Password"
+                type="password"
+                {...form.getInputProps("confirmPassword")}
+              />
+              {errorText && (
+                <Text align="center" color="red">
+                  {errorText}
+                </Text>
+              )}
+              <Center>
+                <Button type="submit">Sign Up</Button>
+              </Center>
+            </Stack>
           </form>
         </Paper>
       </Center>
