@@ -23,7 +23,7 @@ export const HeaderAuthLinks = () => {
   return (
     <Group>
       {user ? (
-        <Link to="/account">
+        <Link to={"/profile/" + user.id}>
           <ActionIcon variant="filled" p="xs" radius="xl">
             <FontAwesomeIcon icon={faUser} />
           </ActionIcon>

@@ -3,6 +3,7 @@ import { useDebouncedValue, usePagination } from "@mantine/hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import getMovies from "../api/movies";
+import AuthOnly from "../components/layouts/AuthOnly";
 import { MovieFilterBar } from "../components/layouts/MovieFilterBar";
 import MovieCard from "../components/MovieCard";
 import "../index.css";
@@ -33,6 +34,10 @@ function Home() {
     );
   }, [page]);
 
+  useEffect(() => {
+    pagination.setPage(1);
+  }, [filters]);
+
   return (
     <>
       <Title mb="md">All Movies</Title>
@@ -41,7 +46,9 @@ function Home() {
           <Text color="red">{error.message || "Error getting movies"}</Text>
         </Center>
       )}
-      <MovieFilterBar filters={filters} setFilters={setFilters} />
+      <AuthOnly>
+        <MovieFilterBar filters={filters} setFilters={setFilters} />
+      </AuthOnly>
       <SimpleGrid cols={4}>
         {movies &&
           movies.map((movie) => {
