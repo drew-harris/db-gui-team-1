@@ -1,39 +1,84 @@
 import { Request, Response } from "express";
-import {
-  createMovie,
-  get100Movies,
-  getMovieById,
-  filterMovies,
-} from "../services/movie.service";
+import { createMovie, getMovieById } from "../services/movie.service";
+import prisma from "../utils/prisma.util";
 
 export async function getMovieHandler(req, res: Response) {
   try {
-    if (!res.locals.valid) {
-      const movies = await get100Movies();
-      return res.json(movies);
-    }
+    console.log("getting all movies");
 
-    const filterBody = {
-      page: +req.query.page,
-      title: req.query.title,
-      genre: req.query.genre,
-      date: {
-        from: req.query.fromDate,
-        to: req.query.toDate,
+    const limit = parseInt(req.query.limit || 24);
+
+    const sensibleDefaults = {
+      ratings: {
+        ratings: {
+          _count: "desc",
+        },
       },
-      tmdb: {
-        low: req.query.tmdbLow,
-        high: req.query.tmdbHigh,
+
+      reviews: {
+        reviews: {
+          _count: "desc",
+        },
       },
+
+      populartity: {
+        tmdbPopularity: "desc",
+      },
+
       runtime: {
-        begin: +req.query.runTimeBegin,
-        end: +req.query.runTimeEnd,
+        runTime: "desc",
       },
-      sortUp: req.query.sortUp,
-      sortDown: req.query.sortDown,
+
+      voteCount: {
+        tmdbVoteCount: "desc",
+      },
     };
 
-    const movies = await filterMovies(filterBody);
+    if (
+      req.query.sortBy &&
+      !Object.keys(sensibleDefaults).includes(req.query.sortBy)
+    ) {
+      return res.status(401).json({
+        error: {
+          message: "Invalid sort field",
+        },
+      });
+    }
+    const movies = await prisma.movie.findMany({
+      where: {
+        id: req.query.id,
+        genre: req.query.genre,
+        releaseDate: req.query.minDate
+          ? {
+              gt: new Date(req.query.minDate),
+            }
+          : undefined,
+        runTime: req.query.minRuntime
+          ? {
+              gt: parseInt(req.query.minRuntime),
+            }
+          : undefined,
+
+        title: req.query.title
+          ? {
+              contains: req.query.title,
+            }
+          : undefined,
+      },
+      take: limit,
+      skip: req.query.page ? (parseInt(req.query.page) - 1) * limit : 0,
+      orderBy: req.query.sortBy
+        ? sensibleDefaults[req.query.sortBy]
+        : { tmdbVoteCount: "desc" },
+      include: {
+        _count: {
+          select: {
+            ratings: true,
+            reviews: true,
+          },
+        },
+      },
+    });
 
     return res.json(movies);
   } catch (error) {
