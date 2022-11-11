@@ -1,22 +1,22 @@
-import { Box, Group, Image, Title, Text, Rating } from "@mantine/core";
-import { Movie } from "@prisma/client";
+import { Box, Button, Group, Image, Text, Title } from "@mantine/core";
+import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getMovieById } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
+import AuthOnly from "../components/layouts/AuthOnly";
+import { MovieRatingInput } from "../components/ratings/MovieRatingInput";
 import Review from "../components/reviews/Review";
+import { NewReviewModal } from "../modals/NewReviewModal";
 
 export const MoviePage = () => {
-  const initialMovies = useLoaderData() as Movie;
   const { id } = useParams();
 
   const { data: movie } = useQuery(
-    ["movie", { id: initialMovies.id }],
+    ["movie", { id }],
     () => getMovieById(id),
-    {
-      initialData: initialMovies,
-    }
+    {}
   );
 
   const { data: reviews, status: reviewsStatus } = useQuery(
@@ -46,16 +46,36 @@ export const MoviePage = () => {
       <Title>Ratings</Title>
       {average?.average ? (
         <Group>
-          <Rating value={average.average}></Rating>
           <Text color="dimmed">{average.count} ratings</Text>
         </Group>
       ) : (
         <Text>No ratings yet</Text>
       )}
 
-      <Title order={2} mt="md">
-        Reviews
-      </Title>
+      <AuthOnly>
+        <Text mt="lg">Leave A Rating</Text>
+        <MovieRatingInput movieId={id} />
+      </AuthOnly>
+
+      <Group position="apart" align={"center"}>
+        <Title order={2} mt="md">
+          Reviews
+        </Title>
+
+        <AuthOnly>
+          <Button
+            onClick={() =>
+              openModal({
+                title: "Leave A Review",
+                children: <NewReviewModal movieId={id} />,
+                size: "xl",
+              })
+            }
+          >
+            Leave A Review
+          </Button>
+        </AuthOnly>
+      </Group>
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
       {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}

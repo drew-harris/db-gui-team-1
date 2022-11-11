@@ -3,6 +3,7 @@ import {
   createRatingHandler,
   deleteRatingByIdHandler,
   getAverageRatingHandler,
+  getRatingByIDHandler,
   getRatingHandler,
   updateScoreHandler,
 } from "../controllers/rating.controller";
@@ -12,12 +13,14 @@ const ratingRouter = express.Router();
 
 ratingRouter.get("/", getRatingHandler);
 
+ratingRouter.get("/:id", getRatingByIDHandler);
+
 ratingRouter.get("/average/:movieId", getAverageRatingHandler);
 
 ratingRouter.post("/", decodeUser, createRatingHandler);
 
 ratingRouter.delete("/", deleteRatingByIdHandler);
 
-ratingRouter.put("/", updateScoreHandler);
+ratingRouter.put("/", decodeUser, updateScoreHandler);
 
 export default ratingRouter;

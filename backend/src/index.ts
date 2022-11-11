@@ -7,7 +7,6 @@ import ratingRouter from "./routes/rating.route";
 import reviewRouter from "./routes/review.route";
 import sessionRouter from "./routes/session.route";
 import userRouter from "./routes/user.route";
-import swaggerDocs from "./utils/swagger";
 // Load enviornment variables from .env file
 dotenv.config();
 
@@ -47,8 +46,6 @@ app.use("/api/movierequests", movieRequestRouter);
 app
   .listen(port, () => {
     console.log(`Backend is running at http://localhost:${port}`);
-
-    swaggerDocs(app, port);
   })
   .on("error", (error) => {
     console.log(error);

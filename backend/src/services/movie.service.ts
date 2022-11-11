@@ -78,10 +78,19 @@ export function filterMovies({
         [sortDown]: "desc",
       }),
     },
+    include: {
+      _count: {
+        select: {
+          inLists: true,
+          ratings: true,
+          reviews: true,
+        },
+      },
+    },
   });
 }
 
-export async function getMovieById(id: number) {
+export async function getMovieById(id: string) {
   return await prisma.movie.findUnique({
     where: {
       id,

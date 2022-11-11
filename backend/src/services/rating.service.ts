@@ -5,7 +5,7 @@ export async function createRating(body, user) {
     data: {
       score: body.score,
       by: { connect: { id: user.id } },
-      for: { connect: { id: parseInt(body.movieId) } },
+      for: { connect: { id: body.movieId } },
     },
   });
 }
@@ -37,7 +37,7 @@ export async function getAverage(id) {
       score: true,
     },
     where: {
-      movieId: +id,
+      movieId: id,
     },
   });
 

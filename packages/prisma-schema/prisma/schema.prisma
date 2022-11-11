@@ -20,16 +20,16 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
-  reviews Review[]
-  ratings Rating[]
-  lists   List[]
-  requests MovieRequest[]
-  bio String?
+  reviews         Review[]
+  ratings         Rating[]
+  lists           List[]
+  requests        MovieRequest[]
+  bio             String?
   profileImageUrl String?
 }
 
 model Movie {
-  id               Int       @id @default(autoincrement())
+  id               String    @id @default(cuid())
   title            String
   description      String?   @db.VarChar(1000)
   posterImageUrl   String?
@@ -47,13 +47,13 @@ model Movie {
 }
 
 model MovieRequest {
-  id String @id @default(cuid())
-  title String
-  message String?
-  approved Boolean @default(false)
+  id          String   @id @default(cuid())
+  title       String
+  message     String?
+  approved    Boolean  @default(false)
   submittedAt DateTime @default(now())
 
-  user User @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
   userId String
 }
 
@@ -62,8 +62,8 @@ model Review {
   content     String   @db.VarChar(1000)
   submittedAt DateTime @default(now())
 
-  for     Movie @relation(fields: [movieId], references: [id])
-  movieId Int
+  for     Movie  @relation(fields: [movieId], references: [id])
+  movieId String
 
   by     User   @relation(fields: [userId], references: [id])
   userId String
@@ -74,8 +74,8 @@ model Rating {
   score       Int
   submittedAt DateTime @default(now())
 
-  for     Movie @relation(fields: [movieId], references: [id])
-  movieId Int
+  for     Movie  @relation(fields: [movieId], references: [id])
+  movieId String
 
   by     User   @relation(fields: [userId], references: [id])
   userId String
