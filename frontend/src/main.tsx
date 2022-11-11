@@ -1,4 +1,9 @@
-import { MantineProvider } from "@mantine/core";
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core";
+import { useLocalStorage } from "@mantine/hooks";
 import { ModalsProvider } from "@mantine/modals";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -7,6 +12,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MainLayout } from "./components/layouts/MainLayout";
 import AuthContextProvider from "./context/AuthContext";
+import { CustomMantineProvider } from "./context/Mantine";
 import "./index.css";
 import Login from "./pages/accounts/Login";
 import SignUp from "./pages/accounts/SignUp";
@@ -81,15 +87,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <MantineProvider
-          theme={{ colorScheme: "dark" }}
-          withGlobalStyles
-          withNormalizeCSS
-        >
+        <CustomMantineProvider>
           <ModalsProvider>
             <RouterProvider router={router} />
           </ModalsProvider>
-        </MantineProvider>
+        </CustomMantineProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </AuthContextProvider>
     </QueryClientProvider>
