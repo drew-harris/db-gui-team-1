@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
+import listRouter from "./routes/list.route";
 import movieRouter from "./routes/movie.route";
 import { movieRequestRouter } from "./routes/movieRequests.route";
 import ratingRouter from "./routes/rating.route";
@@ -42,6 +43,7 @@ app.use("/api/reviews", reviewRouter);
 
 app.use("/api/ratings", ratingRouter);
 app.use("/api/movierequests", movieRequestRouter);
+app.use("/api/list", listRouter);
 
 app
   .listen(port, () => {
