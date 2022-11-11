@@ -1,6 +1,7 @@
 import { Response } from "express";
 import prisma from "../utils/prisma.util";
 import { createList } from "../services/list.service";
+import { identity } from "lodash";
 
 export async function createListHandler(req, res: Response) {
   try {
@@ -39,6 +40,31 @@ export async function getListHandler(req, res: Response) {
   }
 }
 
+export async function getMoviesInList(req, res: Response) {
+  try {
+    const ident = req.params.id;
+    const lists = await prisma.list.findMany({
+      where: {
+        id: ident,
+      },
+      select: {
+        id: true,
+        name: true,
+        movies: true,
+      },
+    });
+    return res.json(lists);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not fetch lists from database",
+      },
+    });
+  }
+}
+
 export async function deleteListHandler(req, res: Response) {
   try {
     const lists = await prisma.list.delete({
@@ -53,6 +79,32 @@ export async function deleteListHandler(req, res: Response) {
       error: {
         error: error.message,
         message: "Could not find list to delete",
+      },
+    });
+  }
+}
+
+export async function addToMovieListHandler(req, res: Response) {
+  try {
+    const lists = await prisma.list.update({
+      where: {
+        id: req.query.id,
+      },
+      data: {
+        movies: {
+          connect: {
+            id: req.query.movieId,
+          },
+        },
+      },
+    });
+    return res.json(lists);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not add to movie list",
       },
     });
   }
