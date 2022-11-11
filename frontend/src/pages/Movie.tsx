@@ -1,4 +1,14 @@
-import { Box, Button, Group, Image, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Group,
+  Image,
+  Paper,
+  Space,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -24,33 +34,44 @@ export const MoviePage = () => {
     () => getReviewsForMovie(id)
   );
 
-  const { data: average } = useQuery(["average-rating", { movieId: id }], () =>
-    getAverageRating(id)
+  const { data: ratingStats } = useQuery(
+    ["average-rating", { movieId: id }],
+    () => getAverageRating(id)
   );
 
   if (!movie) {
     return null;
   }
 
+  const releaseDate = new Date(movie.releaseDate);
+
   return (
     <>
-      <Group mb="lg">
-        <Image src={movie.posterImageUrl} width={80}></Image>
-        <Box>
-          <Title>{movie.title}</Title>
+      <Group mb="lg" spacing={40} noWrap align="start">
+        <Box
+          sx={(theme) => ({
+            boxShadow: theme.shadows.xl,
+            maxWidth: 200,
+          })}
+        >
+          <Image radius="md" src={movie.posterImageUrl}></Image>
+        </Box>
+        <Box style={{ flexShrink: 1 }}>
+          <Title size={40}>{movie.title}</Title>
+          <Text mb="md">{movie.description}</Text>
+          <Space />
+          <Group>
+            <DataSquare label="Genre" value={movie.genre} />
+            <DataSquare label="Runtime" value={movie.runTime + " mins."} />
+            <DataSquare label="Released" value={releaseDate.getFullYear()} />
+            <DataSquare
+              label="Rating"
+              value={ratingStats?.average.toFixed(2)}
+            />
+            <DataSquare label="Reviews" value={reviews?.length} />
+          </Group>
         </Box>
       </Group>
-
-      <Text mb="md">{movie.description}</Text>
-
-      <Title>Ratings</Title>
-      {average?.average ? (
-        <Group>
-          <Text color="dimmed">{average.count} ratings</Text>
-        </Group>
-      ) : (
-        <Text>No ratings yet</Text>
-      )}
 
       <AuthOnly>
         <Text mt="lg">Leave A Rating</Text>
@@ -80,5 +101,19 @@ export const MoviePage = () => {
       {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
     </>
+  );
+};
+
+const DataSquare = ({ label, value, lowerLabel = null }) => {
+  return (
+    <Paper radius="md" withBorder py="sm" px="md">
+      <Stack align="center" spacing={0}>
+        <Text size="lg" weight="bold">
+          {label}
+        </Text>
+        <Text>{value}</Text>
+        <Text>{lowerLabel}</Text>
+      </Stack>
+    </Paper>
   );
 };
