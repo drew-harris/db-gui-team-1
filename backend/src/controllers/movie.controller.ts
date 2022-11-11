@@ -122,11 +122,11 @@ export async function createMovieHandler(req: Request, res: Response) {
   }
 }
 
-export async function getMovieRankingHandler(req: Request, res: Response) {
+export async function getMovieRankingHandler(req, res: Response) {
   try {
     const movie = await prisma.movie.findFirst({
       where: {
-        id: parseInt(req.params.id),
+        id: req.params.id,
       },
     });
     if (!movie) {
