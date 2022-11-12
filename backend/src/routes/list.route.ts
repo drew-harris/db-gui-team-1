@@ -6,6 +6,7 @@ import {
   getListHandler,
   addToMovieListHandler,
   getMoviesInList,
+  removeFromMovieListHandler,
 } from "../controllers/list.controller";
 
 const listRouter = express.Router();
@@ -19,5 +20,7 @@ listRouter.get("/:id", decodeUser, getMoviesInList);
 listRouter.delete("/", decodeUser, deleteListHandler);
 
 listRouter.put("/add/", decodeUser, addToMovieListHandler);
+
+listRouter.put("/remove/", decodeUser, removeFromMovieListHandler);
 
 export default listRouter;

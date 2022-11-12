@@ -109,3 +109,29 @@ export async function addToMovieListHandler(req, res: Response) {
     });
   }
 }
+
+export async function removeFromMovieListHandler(req, res: Response) {
+  try {
+    const lists = await prisma.list.update({
+      where: {
+        id: req.query.id,
+      },
+      data: {
+        movies: {
+          disconnect: {
+            id: req.query.movieId,
+          },
+        },
+      },
+    });
+    return res.json(lists);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not find movie to remove",
+      },
+    });
+  }
+}
