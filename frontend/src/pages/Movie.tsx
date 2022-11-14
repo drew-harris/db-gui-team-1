@@ -1,24 +1,22 @@
-import { faList, faPlug, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faList, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  ActionIcon,
   Box,
   Button,
   Group,
   Image,
   MultiSelect,
-  Paper,
   Space,
-  Stack,
   Text,
   Title,
 } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getMovieById, getMovieRanking } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
+import { DataSquare } from "../components/DataSquare";
 import AuthOnly from "../components/layouts/AuthOnly";
 import { MovieRatingInput } from "../components/ratings/MovieRatingInput";
 import Review from "../components/reviews/Review";
@@ -26,6 +24,8 @@ import { NewReviewModal } from "../modals/NewReviewModal";
 
 export const MoviePage = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const { data: movie } = useQuery(
     ["movie", { id }],
@@ -74,9 +74,14 @@ export const MoviePage = () => {
             <DataSquare label="Released" value={releaseDate.getFullYear()} />
             <DataSquare
               label="Rating"
+              onClick={() => navigate(`/movie/${id}/ratings`)}
               value={ratingStats?.average.toFixed(2)}
             />
-            <DataSquare label="Reviews" value={reviews?.length} />
+            <DataSquare
+              onClick={() => navigate(`/movie/${id}/ratings`)}
+              label="Reviews"
+              value={reviews?.length}
+            />
             <DataSquare label="Rank" value={"#" + ranking} />
           </Group>
           <Space h="md"></Space>
@@ -113,19 +118,5 @@ export const MoviePage = () => {
       {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
     </>
-  );
-};
-
-const DataSquare = ({ label, value, lowerLabel = null }) => {
-  return (
-    <Paper radius="md" withBorder py="sm" px="md">
-      <Stack align="center" spacing={0}>
-        <Text size="lg" weight="bold">
-          {label}
-        </Text>
-        <Text>{value}</Text>
-        <Text>{lowerLabel}</Text>
-      </Stack>
-    </Paper>
   );
 };
