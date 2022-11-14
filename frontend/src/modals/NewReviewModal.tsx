@@ -1,5 +1,4 @@
-import { Button, Textarea } from "@mantine/core";
-import { useForm } from "@mantine/form";
+import { Button } from "@mantine/core";
 import { closeAllModals } from "@mantine/modals";
 import RichTextEditor from "@mantine/rte";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

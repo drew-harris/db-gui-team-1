@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { searchMovies } from "../../api/movies";
 
 // TODO: Debounce this
-function GloablMovieSearch() {
+function GlobalMovieSearch() {
   const navigate = useNavigate();
   const form = useForm({
     initialValues: {
@@ -44,4 +44,4 @@ function GloablMovieSearch() {
   );
 }
 
-export default GloablMovieSearch;
+export default GlobalMovieSearch;
