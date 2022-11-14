@@ -80,6 +80,9 @@ export async function getRatingHandler(req, res: Response) {
           },
         },
       },
+      orderBy: {
+        submittedAt: "desc",
+      },
     });
     return res.json(ratings);
   } catch (error) {

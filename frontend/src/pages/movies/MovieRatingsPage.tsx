@@ -22,7 +22,7 @@ export const MovieRatingsPage = () => {
 
   return (
     <div>
-      <Title>Ratings For: {movie.title}</Title>
+      <Title mb="md">All Ratings For: {movie.title}</Title>
       <Box
         sx={(theme) => ({
           display: "flex",

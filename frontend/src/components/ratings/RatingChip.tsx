@@ -1,9 +1,9 @@
-import { Box, Group, Paper, Rating, Text } from "@mantine/core";
+import { Group, Paper, Rating, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 export const RatingChip = ({ rating, showUser = false }) => {
   return (
-    <Paper p="sm">
+    <Paper p="sm" shadow="xs">
       <Group>
         {showUser && (
           <Text component={Link} to={"/profile/" + rating.by.id}>
