@@ -12,6 +12,7 @@ export const EditProfilePage = () => {
     setUser(null);
     navigate("/");
   };
+
   return (
     <div>
       <div>Edit profile</div>
