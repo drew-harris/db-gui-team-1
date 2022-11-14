@@ -23,6 +23,26 @@ export async function getReviewsForMovie(movieId) {
   }
 }
 
+export async function getReviewsForUser(userId) {
+  try {
+    const response = await fetch(
+      API_URL +
+        "/api/reviews?" +
+        new URLSearchParams({
+          userId,
+        })
+    );
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return (await response.json());
+  } catch (error) {
+    throw new Error("Could not fetch reviews for user");
+  }
+}
+
 export async function leaveReview({ movieId, content }) {
   try {
     const response = await fetch(API_URL + "/api/reviews", {
