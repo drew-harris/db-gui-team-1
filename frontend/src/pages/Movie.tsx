@@ -78,7 +78,7 @@ export const MoviePage = () => {
               value={ratingStats?.average.toFixed(2)}
             />
             <DataSquare
-              onClick={() => navigate(`/movie/${id}/ratings`)}
+              onClick={() => navigate(`/movie/${id}/reviews`)}
               label="Reviews"
               value={reviews?.length}
             />
