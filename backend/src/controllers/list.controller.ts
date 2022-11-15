@@ -27,6 +27,13 @@ export async function getListHandler(req, res: Response) {
         movies: req.query.movies,
         userId: req.query.userId,
       },
+      include: {
+        _count: {
+          select: {
+            movies: true,
+          },
+        },
+      },
     });
     return res.json(lists);
   } catch (error) {

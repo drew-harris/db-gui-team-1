@@ -1,4 +1,5 @@
 import { ModalsProvider } from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
@@ -83,7 +84,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <AuthContextProvider>
         <CustomMantineProvider>
           <ModalsProvider>
-            <RouterProvider router={router} />
+            <NotificationsProvider>
+              <RouterProvider router={router} />
+            </NotificationsProvider>
           </ModalsProvider>
         </CustomMantineProvider>
         <ReactQueryDevtools initialIsOpen={false} />
