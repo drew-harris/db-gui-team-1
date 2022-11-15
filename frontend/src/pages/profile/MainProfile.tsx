@@ -19,7 +19,7 @@ function MainProfilePage() {
     return null;
   }
 
-  const isCurrentUser = user.id === userInfo?.user?.id;
+  const isCurrentUser = user?.id === userInfo?.user?.id;
 
   return (
     <>

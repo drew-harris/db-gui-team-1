@@ -29,6 +29,7 @@ export const MovieFilterBar = ({ filters, setFilters }) => {
         <Select
           size="sm"
           placeholder="Genre"
+          clearable
           data={genres}
           value={filters.genre || null}
           searchable

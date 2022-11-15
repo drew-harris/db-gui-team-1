@@ -72,6 +72,17 @@ export async function getRatingHandler(req, res: Response) {
         movieId: req.query.movieId,
         userId: req.query.userId,
       },
+      include: {
+        by: {
+          select: {
+            username: true,
+            id: true,
+          },
+        },
+      },
+      orderBy: {
+        submittedAt: "desc",
+      },
     });
     return res.json(ratings);
   } catch (error) {

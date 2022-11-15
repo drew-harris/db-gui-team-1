@@ -59,3 +59,24 @@ export async function rateMovie({ movieId, score }) {
     throw new Error(error.message);
   }
 }
+
+export async function getAllRatingsByMovieId(movieId) {
+  try {
+    const response = await fetch(
+      API_URL + "/api/ratings?" + new URLSearchParams({ movieId }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          jwt: getJwt(),
+        },
+      }
+    );
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
