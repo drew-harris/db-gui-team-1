@@ -1,19 +1,12 @@
-import { getJwt } from "../utils/jwt";
-
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function getUserInfo(userId?: string) {
+export async function getListsByUserId(userId) {
   try {
     const response = await fetch(
-      API_URL +
-        "/api/users/about?" +
-        new URLSearchParams({
-          id: userId,
-        }),
+      API_URL + "/api/list?" + new URLSearchParams({ userId }),
       {
         headers: {
           "Content-Type": "application/json",
-          jwt: getJwt(),
         },
       }
     );
@@ -25,6 +18,6 @@ export async function getUserInfo(userId?: string) {
     console.log(data);
     return data;
   } catch (error) {
-    throw new Error("Could not fetch user info");
+    throw new Error(error.message);
   }
 }

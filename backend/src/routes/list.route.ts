@@ -8,12 +8,13 @@ import {
   getMoviesInList,
   removeFromMovieListHandler,
 } from "../controllers/list.controller";
+import optionalUser from "../middleware/optionalUser";
 
 const listRouter = express.Router();
 
 listRouter.post("/", decodeUser, createListHandler);
 
-listRouter.get("/", decodeUser, getListHandler);
+listRouter.get("/", optionalUser, getListHandler);
 
 listRouter.get("/:id", decodeUser, getMoviesInList);
 
