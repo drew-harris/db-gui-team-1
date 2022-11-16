@@ -1,7 +1,6 @@
 import { Response } from "express";
-import prisma from "../utils/prisma.util";
 import { createList } from "../services/list.service";
-import { identity } from "lodash";
+import prisma from "../utils/prisma.util";
 
 export async function createListHandler(req, res: Response) {
   try {
@@ -24,8 +23,19 @@ export async function getListHandler(req, res: Response) {
       where: {
         id: req.query.id,
         name: req.query.name,
-        movies: req.query.movies,
+        movies: req.query.movieId
+          ? {
+              some: { id: req.query.movieId },
+            }
+          : undefined,
         userId: req.query.userId,
+      },
+      include: {
+        _count: {
+          select: {
+            movies: true,
+          },
+        },
       },
     });
     return res.json(lists);

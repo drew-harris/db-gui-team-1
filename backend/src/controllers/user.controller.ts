@@ -19,11 +19,15 @@ export async function createUserHandler(req: Request, res: Response) {
   } catch (e) {
     if (e.code === 409) {
       return res.status(409).json({
-        message: e.message,
+        error: {
+          message: e.message,
+        },
       });
     }
     return res.status(400).json({
-      message: e.message,
+      error: {
+        message: e.message,
+      },
     });
   }
 }

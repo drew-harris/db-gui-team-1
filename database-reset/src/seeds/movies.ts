@@ -95,7 +95,7 @@ async function addReviewsForPage(
   });
 
   reviews.results.forEach(async (item: any, index: any) => {
-  const randomElement = userIds[Math.floor(Math.random() * userIds.length)];
+    const randomElement = userIds[Math.floor(Math.random() * userIds.length)];
 
     const foundMovie = await prisma.movie.findFirst({
       where: {
@@ -113,7 +113,7 @@ async function addReviewsForPage(
       },
     });
     if (!item?.author_details?.rating) return;
-    
+
     await prisma.rating.create({
       data: {
         score: (parseInt(item.author_details.rating) % 5) + 1,

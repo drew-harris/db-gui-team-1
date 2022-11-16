@@ -1,4 +1,3 @@
-import { triggerAsyncId } from "async_hooks";
 import { Request, Response } from "express";
 import { createMovie } from "../services/movie.service";
 import prisma from "../utils/prisma.util";
@@ -154,6 +153,31 @@ export async function getMovieRankingHandler(req, res: Response) {
       error: {
         error: error,
         message: "Could not get ranking",
+      },
+    });
+  }
+}
+
+export async function setListsForMovieHandler(req, res) {
+  try {
+    const listIds = req.body.listIds as string[];
+    const movieId = req.params.id;
+    console.log("LISTS: ", listIds);
+    const connectField = listIds.map((id) => ({ id: id }));
+    const newMovie = await prisma.movie.update({
+      where: {
+        id: movieId,
+      },
+      data: {
+        inLists: { set: connectField },
+      },
+    });
+    return res.json(newMovie);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: {
+        message: "Error setting lists for movie",
       },
     });
   }

@@ -4,8 +4,9 @@ import { getJwt } from "../utils/jwt";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default async function getMovies(filters) {
+export default async function getMovies({ filters }) {
   try {
+    console.log("FILTERS:", filters);
     const response = await fetch(
       API_URL + "/api/movies?" + new URLSearchParams({ ...filters }),
       {

@@ -21,7 +21,9 @@ export async function getUserInfo(userId?: string) {
       const data = await response.json();
       throw new Error(data.message);
     }
-    return await response.json();
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
     throw new Error("Could not fetch user info");
   }

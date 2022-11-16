@@ -6,6 +6,7 @@ import {
   Group,
   Image,
   MultiSelect,
+  Rating,
   Space,
   Text,
   Title,
@@ -18,6 +19,7 @@ import { getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
 import { DataSquare } from "../components/DataSquare";
 import AuthOnly from "../components/layouts/AuthOnly";
+import { ListSelect } from "../components/lists/ListSelect";
 import { MovieRatingInput } from "../components/ratings/MovieRatingInput";
 import Review from "../components/reviews/Review";
 import { NewReviewModal } from "../modals/NewReviewModal";
@@ -47,7 +49,7 @@ export const MoviePage = () => {
     getMovieRanking(id)
   );
 
-  if (!movie) {
+  if (!movie || !ranking || !ratingStats || !reviews) {
     return null;
   }
 
@@ -101,11 +103,7 @@ export const MoviePage = () => {
                 Leave A Review
               </Button>
               <MovieRatingInput movieId={id} />
-              <MultiSelect
-                placeholder="Add To List..."
-                icon={<FontAwesomeIcon icon={faList} />}
-                data={[]}
-              ></MultiSelect>
+              <ListSelect movieId={id} />
             </Group>
           </AuthOnly>
         </Box>
