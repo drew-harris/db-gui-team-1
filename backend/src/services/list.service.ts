@@ -10,10 +10,10 @@ export async function createList(body, user) {
 }
 
 export async function createListForNewUser(u) {
-    return prisma.list.create({
-        data: {
-            name: "Watched",
-            user: {connect: {id: u}},
-        }
-    })
+  return prisma.list.create({
+    data: {
+      name: "Watched",
+      user: { connect: { id: u } },
+    },
+  });
 }

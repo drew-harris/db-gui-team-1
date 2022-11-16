@@ -1,10 +1,11 @@
-import { Box, Title, Text, Group, Button } from "@mantine/core";
+import { Box, Button, Group, Stack, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getListsByUserId } from "../../api/lists";
 import { getUserInfo } from "../../api/userInfo";
+import ListLink from "../../components/lists/ListLink";
 import { AuthContext } from "../../context/AuthContext";
 import { NewListModal } from "../../modals/NewListModal";
 
@@ -44,7 +45,11 @@ export const ProfileListsPage = () => {
           </Button>
         )}
       </Group>
-      <Box>{JSON.stringify(lists)}</Box>
+      <Stack>
+        {lists.map((list) => (
+          <ListLink key={list.id} list={list} />
+        ))}
+      </Stack>
     </Box>
   );
 };

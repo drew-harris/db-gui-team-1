@@ -2,6 +2,7 @@ import { Center, Pagination, SimpleGrid, Text, Title } from "@mantine/core";
 import { useDebouncedValue, usePagination } from "@mantine/hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import getMovies from "../api/movies";
 import AuthOnly from "../components/layouts/AuthOnly";
 import { MovieFilterBar } from "../components/layouts/MovieFilterBar";
@@ -22,7 +23,7 @@ function Home() {
   const client = useQueryClient();
   const { data: movies, error } = useQuery(
     ["movies", { page: page, ...debouncedFilters }],
-    () => getMovies({ page: page, ...debouncedFilters }),
+    () => getMovies({ filters: { page: page, ...debouncedFilters } }),
     {
       retry: false,
     }
@@ -31,7 +32,7 @@ function Home() {
   useEffect(() => {
     client.prefetchQuery(
       ["movies", { page: page + 1, ...debouncedFilters }],
-      () => getMovies({ page: page + 1, ...debouncedFilters })
+      () => getMovies({ filters: { page: page + 1, ...debouncedFilters } })
     );
   }, [page]);
 

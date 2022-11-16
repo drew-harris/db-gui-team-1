@@ -1,7 +1,29 @@
-import errorMap from "zod/lib/locales/en";
 import { getJwt } from "../utils/jwt";
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+export async function getMyListsForMovie({ movieId, userId }) {
+  try {
+    const response = await fetch(
+      API_URL + "endpoint" + new URLSearchParams({ userId, movieId }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          jwt: getJwt(),
+        },
+      }
+    );
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    const data = await response.json();
+    console.log(data);
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
 
 export async function getListsByUserId(userId) {
   try {
