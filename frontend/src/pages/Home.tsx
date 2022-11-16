@@ -1,13 +1,11 @@
 import { Center, Pagination, SimpleGrid, Text, Title } from "@mantine/core";
 import { useDebouncedValue, usePagination } from "@mantine/hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import getMovies from "../api/movies";
 import AuthOnly from "../components/layouts/AuthOnly";
 import { MovieFilterBar } from "../components/layouts/MovieFilterBar";
 import MovieCard from "../components/MovieCard";
-import { AuthContext } from "../context/AuthContext";
 import "../index.css";
 
 function Home() {
