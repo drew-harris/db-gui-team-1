@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMovieById, getMovieRanking } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
@@ -24,6 +25,8 @@ import { NewReviewModal } from "../modals/NewReviewModal";
 
 export const MoviePage = () => {
   const { id } = useParams();
+
+  const [showReviews, setShowReviews] = useState(false);
 
   const navigate = useNavigate();
 
@@ -112,10 +115,10 @@ export const MoviePage = () => {
       </Group>
 
       <Title order={2} mt="md">
-        Reviews
+      <Button onClick={() => setShowReviews(!showReviews)}>{showReviews ? "Hide " : "Show "}Reviews</Button>
       </Title>
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
-      {reviews &&
+      {showReviews && reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
     </>
   );

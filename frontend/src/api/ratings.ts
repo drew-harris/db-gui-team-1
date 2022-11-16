@@ -80,3 +80,24 @@ export async function getAllRatingsByMovieId(movieId) {
     throw new Error(error.message);
   }
 }
+
+export async function getAllRatingsByUserId(userId) {
+  try {
+    const response = await fetch(
+      API_URL + "/api/ratings?" + new URLSearchParams({ userId }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          
+        },
+      }
+    );
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
