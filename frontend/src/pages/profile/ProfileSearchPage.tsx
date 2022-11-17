@@ -45,7 +45,7 @@ const User = ({ user }) => {
       p="sm"
     >
       <Group noWrap sx={{ overflow: "hidden" }}>
-        <Avatar size="md" src={user.profileImageUrl} />
+        <Avatar radius="xl" size="md" src={user.profileImageUrl} />
         <Text sx={{ textOverflow: "ellipsis" }} lineClamp={1}>
           {user.username}
         </Text>
