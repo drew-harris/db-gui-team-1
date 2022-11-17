@@ -24,7 +24,7 @@ export const MovieRatingInput = ({ movieId }: { movieId: string }) => {
   });
 
   const changeRating = (value) => {
-    console.log(value);
+    
     changeRatingMutation.mutate({ movieId: movieId, score: value });
   };
 

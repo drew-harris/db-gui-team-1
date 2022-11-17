@@ -22,7 +22,7 @@ export async function getUserInfo(userId?: string) {
       throw new Error(data.message);
     }
     const data = await response.json();
-    console.log(data);
+ 
     return data;
   } catch (error) {
     throw new Error("Could not fetch user info");

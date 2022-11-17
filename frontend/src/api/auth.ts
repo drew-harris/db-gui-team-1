@@ -11,7 +11,7 @@ export async function logIn({ email, password }) {
     });
     if (!response.ok) {
       const data = await response.json();
-      console.log(data);
+      
       throw new Error(data?.error?.message || "Something went wrong");
     }
     return await response.json();
@@ -31,7 +31,7 @@ export async function signUp(body) {
     });
     if (!response.ok) {
       const data = await response.json();
-      console.log(data);
+
       throw new Error(data.error.message);
     }
     return await response.json();
