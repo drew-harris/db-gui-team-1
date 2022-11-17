@@ -28,3 +28,24 @@ export async function getUserInfo(userId?: string) {
     throw new Error("Could not fetch user info");
   }
 }
+
+export async function searchUsers(search) {
+  try {
+    const response = await fetch(
+      API_URL + "/api/users?" + new URLSearchParams({ search }),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          jwt: getJwt(),
+        },
+      }
+    );
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

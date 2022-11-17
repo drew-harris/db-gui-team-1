@@ -48,6 +48,12 @@ export const SideNav = () => {
       authOnly: true,
     },
     {
+      to: "/profiles/",
+      label: "All Users",
+      icon: <FontAwesomeIcon icon={faUser} />,
+      authOnly: false,
+    },
+    {
       to: "/movierequests",
       label: "Movie Requests",
       icon: <FontAwesomeIcon icon={faEnvelope} />,

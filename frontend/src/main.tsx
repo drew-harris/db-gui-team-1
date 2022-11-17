@@ -22,6 +22,7 @@ import Account from "./pages/profile/MainProfile";
 import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
 import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
 import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
+import { ProfileSearchPage } from "./pages/profile/ProfileSearchPage";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/profiles",
+        element: <ProfileSearchPage />,
       },
       {
         path: "/profile/:id",
