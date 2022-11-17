@@ -1,4 +1,5 @@
 import {
+  faEnvelope,
   faHome,
   faList,
   faPencil,
@@ -44,6 +45,12 @@ export const SideNav = () => {
       to: "/profile/" + user?.id,
       label: "My Profile",
       icon: <FontAwesomeIcon icon={faUser} />,
+      authOnly: true,
+    },
+    {
+      to: "/movierequests",
+      label: "Movie Requests",
+      icon: <FontAwesomeIcon icon={faEnvelope} />,
       authOnly: true,
     },
   ];

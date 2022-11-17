@@ -14,6 +14,7 @@ import SignUp from "./pages/accounts/SignUp";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
+import { MovieRequestPage } from "./pages/MovieRequestPage";
 import { MovieRatingsPage } from "./pages/movies/MovieRatingsPage";
 import { MovieReviewPage } from "./pages/movies/MovieReviews";
 import { EditProfilePage } from "./pages/profile/EditProfile";
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "/movie/:id/ratings",
         element: <MovieRatingsPage />,
+      },
+      {
+        path: "/movierequests",
+        element: <MovieRequestPage />,
       },
     ],
   },
