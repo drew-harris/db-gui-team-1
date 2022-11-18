@@ -44,7 +44,7 @@ export default function Login() {
       };
       createSessionSchema.parse(body);
       const data = await logIn(body);
-      console.log(data);
+     
       if (data.user) {
         setUser(data.user);
         window.localStorage.setItem("jwt", data.jwt);

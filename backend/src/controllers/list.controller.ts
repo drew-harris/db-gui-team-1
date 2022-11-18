@@ -1,7 +1,6 @@
 import { Response } from "express";
+import { createList, deleteList } from "../services/list.service";
 import prisma from "../utils/prisma.util";
-import { createList } from "../services/list.service";
-import { identity } from "lodash";
 
 export async function createListHandler(req, res: Response) {
   try {
@@ -24,8 +23,19 @@ export async function getListHandler(req, res: Response) {
       where: {
         id: req.query.id,
         name: req.query.name,
-        movies: req.query.movies,
+        movies: req.query.movieId
+          ? {
+              some: { id: req.query.movieId },
+            }
+          : undefined,
         userId: req.query.userId,
+      },
+      include: {
+        _count: {
+          select: {
+            movies: true,
+          },
+        },
       },
     });
     return res.json(lists);
@@ -67,18 +77,14 @@ export async function getMoviesInList(req, res: Response) {
 
 export async function deleteListHandler(req, res: Response) {
   try {
-    const lists = await prisma.list.delete({
-      where: {
-        id: req.query.id,
-      },
-    });
-    return res.json(lists);
+    const list = await deleteList(req.body);
+    return res.json(list);
   } catch (error) {
     console.error(error);
     res.status(500).json({
       error: {
         error: error.message,
-        message: "Could not find list to delete",
+        message: "Could not delete list",
       },
     });
   }

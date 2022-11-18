@@ -1,4 +1,5 @@
 import { ModalsProvider } from "@mantine/modals";
+import { NotificationsProvider } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
@@ -13,6 +14,7 @@ import SignUp from "./pages/accounts/SignUp";
 import { ErrorPage } from "./pages/Error";
 import Home from "./pages/Home";
 import { MoviePage } from "./pages/Movie";
+import { MovieRequestPage } from "./pages/MovieRequestPage";
 import { MovieRatingsPage } from "./pages/movies/MovieRatingsPage";
 import { MovieReviewPage } from "./pages/movies/MovieReviews";
 import { EditProfilePage } from "./pages/profile/EditProfile";
@@ -20,6 +22,7 @@ import Account from "./pages/profile/MainProfile";
 import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
 import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
 import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
+import { ProfileSearchPage } from "./pages/profile/ProfileSearchPage";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/profiles",
+        element: <ProfileSearchPage />,
       },
       {
         path: "/profile/:id",
@@ -71,6 +78,10 @@ const router = createBrowserRouter([
         path: "/movie/:id/ratings",
         element: <MovieRatingsPage />,
       },
+      {
+        path: "/movierequests",
+        element: <MovieRequestPage />,
+      },
     ],
   },
 ]);
@@ -83,7 +94,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <AuthContextProvider>
         <CustomMantineProvider>
           <ModalsProvider>
-            <RouterProvider router={router} />
+            <NotificationsProvider>
+              <RouterProvider router={router} />
+            </NotificationsProvider>
           </ModalsProvider>
         </CustomMantineProvider>
         <ReactQueryDevtools initialIsOpen={false} />

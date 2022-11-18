@@ -15,7 +15,10 @@ function GlobalMovieSearch() {
 
   const { data: movies } = useQuery(
     ["movies", { title: form.values.search }],
-    () => searchMovies(form.values.search)
+    () => searchMovies(form.values.search),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   const transformedMovies =

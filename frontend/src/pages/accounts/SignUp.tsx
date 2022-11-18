@@ -51,7 +51,7 @@ export default function SignUp() {
       };
       createUserSchema.parse(body);
       const data = await signUp(body);
-      console.log(data);
+
       if (data.user) {
         setUser(data.user);
         window.localStorage.setItem("jwt", data.jwt);
