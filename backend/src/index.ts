@@ -15,7 +15,7 @@ const app: Express = express();
 
 // Middleware (functions that intercept requests)
 app.use(
-  cors({origin: '*'})
+  cors({origin: ['http://localhost:30000', 'http://127.0.0.1:3000']})
 ); // Allows us to connect to the api from any website
 app.use(express());
 app.use(express.json()); // Reads the body from a post request properly
