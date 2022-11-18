@@ -14,7 +14,9 @@ dotenv.config();
 const app: Express = express();
 
 // Middleware (functions that intercept requests)
-app.use(cors()); // Allows us to connect to the api from any website
+app.use(
+  cors({origin: '*'})
+); // Allows us to connect to the api from any website
 app.use(express());
 app.use(express.json()); // Reads the body from a post request properly
 const port: number = +process.env.PORT || 8000;
