@@ -19,25 +19,33 @@ export async function createUserHandler(req: Request, res: Response) {
   } catch (e) {
     if (e.code === 409) {
       return res.status(409).json({
-        message: e.message,
+        error: {
+          message: e.message,
+        },
       });
     }
     return res.status(400).json({
-      message: e.message,
+      error: {
+        message: e.message,
+      },
     });
   }
 }
 
 export async function getUsersHandler(req: Request, res: Response) {
   try {
-    const user = await prisma.user.findMany({
+    const users = await prisma.user.findMany({
       where: {
-        id: req.query.id?.toString(),
-        username: req.query.username?.toString(),
+        id: req.query.id?.toString() || undefined,
+        username: req.query.search
+          ? {
+              contains: req.query.search.toString(),
+            }
+          : undefined,
       },
     });
 
-    return res.json(user);
+    return res.json(users);
   } catch (e) {
     res.status(500).json({
       message: e.message,

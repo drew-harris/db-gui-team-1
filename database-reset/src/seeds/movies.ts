@@ -93,12 +93,13 @@ async function addReviewsForPage(
   const reviews = await fetchWithKey("/movie/" + movieId + "/reviews", {
     page: 1,
   });
-  const randomElement = userIds[Math.floor(Math.random() * userIds.length)];
 
   reviews.results.forEach(async (item: any, index: any) => {
+    const randomElement = userIds[Math.floor(Math.random() * userIds.length)];
+
     const foundMovie = await prisma.movie.findFirst({
       where: {
-        id: movieId,
+        id: movieId.toString(),
       },
     });
 
@@ -107,15 +108,16 @@ async function addReviewsForPage(
     await prisma.review.create({
       data: {
         content: item.content,
-        movieId,
+        movieId: movieId.toString(),
         userId: randomElement.id,
       },
     });
     if (!item?.author_details?.rating) return;
+
     await prisma.rating.create({
       data: {
-        score: (item.author_details.rating % 5) + 1,
-        movieId,
+        score: (parseInt(item.author_details.rating) % 5) + 1,
+        movieId: movieId.toString(),
         userId: randomElement.id,
       },
     });

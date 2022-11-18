@@ -72,6 +72,17 @@ export async function getRatingHandler(req, res: Response) {
         movieId: req.query.movieId,
         userId: req.query.userId,
       },
+      include: {
+        by: {
+          select: {
+            username: true,
+            id: true,
+          },
+        },
+      },
+      orderBy: {
+        submittedAt: "desc",
+      },
     });
     return res.json(ratings);
   } catch (error) {
@@ -124,7 +135,7 @@ export async function updateScoreHandler(req, res: Response) {
     });
   }
 
-  console.log(req.body);
+  
   try {
     const rating = await prisma.rating.findFirst({
       where: {
@@ -132,7 +143,7 @@ export async function updateScoreHandler(req, res: Response) {
         userId: req.user.id,
       },
     });
-    console.log("RATING: ", rating);
+
 
     let newRating;
     if (rating) {

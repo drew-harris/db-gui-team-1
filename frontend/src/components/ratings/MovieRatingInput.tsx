@@ -1,4 +1,4 @@
-import { Rating } from "@mantine/core";
+import { Paper, Rating } from "@mantine/core";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
 import { getMyRatingForMovieId, rateMovie } from "../../api/ratings";
@@ -19,18 +19,21 @@ export const MovieRatingInput = ({ movieId }: { movieId: string }) => {
     },
     onSettled: () => {
       client.invalidateQueries(["average-rating", { movieId }]);
+      client.invalidateQueries(["movie-ranking", { movieId }]);
     },
   });
 
   const changeRating = (value) => {
-    console.log(value);
+    
     changeRatingMutation.mutate({ movieId: movieId, score: value });
   };
 
   return (
-    <Rating
-      onChange={(value) => changeRating(value)}
-      value={myRating || 0}
-    ></Rating>
+    <Paper radius="md" withBorder py="sm" px="md">
+      <Rating
+        onChange={(value) => changeRating(value)}
+        value={myRating || 0}
+      ></Rating>
+    </Paper>
   );
 };

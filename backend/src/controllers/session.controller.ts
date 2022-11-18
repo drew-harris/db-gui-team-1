@@ -8,14 +8,18 @@ export async function createSessionHandler(req: Request, res: Response) {
 
     if (!user) {
       return res.status(401).json({
-        message: "Email or password not valid",
+        error: {
+          message: "Email or password not valid",
+        },
       });
     }
 
     const isValid = await validateUser(req.body.password, user.password);
     if (!isValid) {
       return res.status(401).json({
-        message: "Email or password not valid",
+        error: {
+          message: "Email or password not valid",
+        },
       });
     }
 

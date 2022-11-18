@@ -1,5 +1,5 @@
+import { NextFunction, Response } from "express";
 import { verifyJWT } from "../utils/jwt.util";
-import { Request, Response, NextFunction } from "express";
 
 export default function optionalUser(req, res: Response, next: NextFunction) {
   const accessToken: string = req.headers.jwt;

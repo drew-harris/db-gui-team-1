@@ -1,18 +1,18 @@
+import { getJwt } from "../utils/jwt";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function logIn({ email, password }) {
+export async function getMyMovieRequests() {
   try {
-    const response = await fetch(API_URL + "/api/sessions", {
-      body: JSON.stringify({ email, password }),
-      method: "POST",
+    const response = await fetch(API_URL + "/api/movierequests", {
       headers: {
         "Content-Type": "application/json",
+        jwt: getJwt(),
       },
     });
     if (!response.ok) {
       const data = await response.json();
-      
-      throw new Error(data?.error?.message || "Something went wrong");
+      throw new Error(data.message);
     }
     return await response.json();
   } catch (error) {
@@ -20,23 +20,22 @@ export async function logIn({ email, password }) {
   }
 }
 
-export async function signUp(body) {
+export async function createNewMovieRequest({ title, message }) {
   try {
-    const response = await fetch(API_URL + "/api/users", {
-      body: JSON.stringify(body),
+    const response = await fetch(API_URL + "/api/movierequests/", {
+      body: JSON.stringify({ title, message }),
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        jwt: getJwt(),
       },
     });
     if (!response.ok) {
       const data = await response.json();
-
-      throw new Error(data.error.message);
+      throw new Error(data.message);
     }
     return await response.json();
   } catch (error) {
-    console.error(error);
-    throw new Error(error.message || "Something went wrong");
+    throw new Error(error.message);
   }
 }

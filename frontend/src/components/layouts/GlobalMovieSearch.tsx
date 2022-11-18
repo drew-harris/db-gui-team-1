@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { searchMovies } from "../../api/movies";
 
 // TODO: Debounce this
-function GloablMovieSearch() {
+function GlobalMovieSearch() {
   const navigate = useNavigate();
   const form = useForm({
     initialValues: {
@@ -15,7 +15,10 @@ function GloablMovieSearch() {
 
   const { data: movies } = useQuery(
     ["movies", { title: form.values.search }],
-    () => searchMovies(form.values.search)
+    () => searchMovies(form.values.search),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   const transformedMovies =
@@ -44,4 +47,4 @@ function GloablMovieSearch() {
   );
 }
 
-export default GloablMovieSearch;
+export default GlobalMovieSearch;

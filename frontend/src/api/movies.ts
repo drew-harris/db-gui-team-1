@@ -4,10 +4,11 @@ import { getJwt } from "../utils/jwt";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export default async function getMovies({ page }) {
+export default async function getMovies({ filters }) {
   try {
+    
     const response = await fetch(
-      API_URL + "/api/movies?" + new URLSearchParams({ page: page }),
+      API_URL + "/api/movies?" + new URLSearchParams({ ...filters }),
       {
         headers: {
           jwt: getJwt(),
@@ -16,7 +17,7 @@ export default async function getMovies({ page }) {
     );
 
     if (!response.ok) {
-      console.log(response);
+    
       throw new Error("Error getting information");
     }
 
@@ -37,7 +38,7 @@ export async function getMovieById(id) {
       },
     });
     if (!response.ok) {
-      console.log(response);
+      
       throw new Error("Error getting information");
     }
 
@@ -53,7 +54,7 @@ export async function getMovieById(id) {
 export async function searchMovies(title) {
   try {
     const url = API_URL + "/api/movies?" + new URLSearchParams({ title });
-    console.log(url);
+  
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/json",
@@ -66,6 +67,24 @@ export async function searchMovies(title) {
     }
     const data = await response.json();
     return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function getMovieRanking(movieId: string) {
+  try {
+    const response = await fetch(API_URL + "/api/movies/ranking/" + movieId, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
   } catch (error) {
     throw new Error(error.message);
   }

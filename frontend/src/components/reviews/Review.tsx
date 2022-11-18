@@ -1,6 +1,13 @@
-import { Group, Paper, Text } from "@mantine/core";
+import {
+  Avatar,
+  Group,
+  Paper,
+  Text,
+} from "@mantine/core";
+import RichTextEditor from "@mantine/rte";
 import { Link } from "react-router-dom";
 import { ReviewWithUser } from "../../types";
+import MovieInfo from "./MoiveInfo";
 
 const Review = ({
   review,
@@ -10,16 +17,27 @@ const Review = ({
   showUser?: boolean;
 }) => {
   return (
-    <Paper p="md" m="md">
-      {showUser && (
-        <Group mb="sm" position="apart" align="baseline">
-          <Link to={`/profile/${review.userId}`}>
-            <Text weight="bold">{review.by.username}</Text>
-          </Link>
-          <Text size="sm">{new Date(review.submittedAt).toLocaleString()}</Text>
+    <Paper radius="md" withBorder p="md" m="md">
+      {showUser ? (
+        <Group mb="sm" position="apart" align="center">
+          <Group spacing={4}>
+            <Avatar radius="xl" />
+            <Text
+              component={Link}
+              to={"/profile/" + review.by.id}
+              weight="bold"
+            >
+              {review.by.username}
+            </Text>
+          </Group>
+          <Text size="sm">
+            {new Date(review.submittedAt).toLocaleString("en-US")}
+          </Text>
         </Group>
+      ) : (
+        <div><MovieInfo id={review.movieId}/></div>
       )}
-      <Text>{review.content}</Text>
+      <RichTextEditor readOnly value={review.content} />
     </Paper>
   );
 };

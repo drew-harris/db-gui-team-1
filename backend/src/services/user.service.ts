@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { omit } from "lodash";
 import prisma from "../utils/prisma.util";
+import { createListForNewUser } from "./list.service";
 
 export async function createUser(body: Record<string, string>) {
   const emailExists = await findUserByEmail(body.email);
@@ -30,6 +31,7 @@ export async function createUser(body: Record<string, string>) {
       id: true,
     },
   });
+  createListForNewUser(user.id);
 
   return user;
 }

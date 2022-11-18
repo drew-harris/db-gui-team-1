@@ -14,86 +14,10 @@ export async function createMovie(body: Record<string, string>) {
   });
 }
 
-export function get100Movies() {
-  return prisma.movie.findMany({
-    orderBy: {
-      tmdbVoteCount: "desc",
-    },
-
-    take: 50,
-  });
-}
-export function filterMovies({
-  page,
-  sortUp,
-  sortDown,
-  genre,
-  title,
-  date: { from, to },
-  tmdb: { low, high },
-  runtime: { begin, end },
-}) {
-  if (isNaN(page)) page = 1;
-  return prisma.movie.findMany({
-    take: 28,
-    skip: (page - 1) * 28,
-    where: {
-      ...(title && {
-        title: {
-          contains: title,
-        },
-      }),
-      ...(genre && {
-        genre: {
-          contains: genre,
-        },
-      }),
-      ...(from &&
-        to && {
-          releaseDate: {
-            lte: to,
-            gte: from,
-          },
-        }),
-      ...(low &&
-        high && {
-          tmdbPopularity: {
-            lte: high,
-            gte: low,
-          },
-        }),
-      ...(begin &&
-        end && {
-          runTime: {
-            lte: end,
-            gte: begin,
-          },
-        }),
-    },
-    orderBy: {
-      ...(sortUp && {
-        [sortUp]: "asc",
-      }),
-      ...(sortDown && {
-        [sortDown]: "desc",
-      }),
-    },
-    include: {
-      _count: {
-        select: {
-          inLists: true,
-          ratings: true,
-          reviews: true,
-        },
-      },
-    },
-  });
-}
-
-export async function getMovieById(id: string) {
-  return await prisma.movie.findUnique({
-    where: {
-      id,
-    },
-  });
-}
+// export async function getMovieById(id: string) {
+//   return await prisma.movie.findUnique({
+//     where: {
+//       id,
+//     },
+//   });
+// }

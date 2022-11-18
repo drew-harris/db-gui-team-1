@@ -19,7 +19,7 @@ ratingRouter.get("/average/:movieId", getAverageRatingHandler);
 
 ratingRouter.post("/", decodeUser, createRatingHandler);
 
-ratingRouter.delete("/", deleteRatingByIdHandler);
+ratingRouter.delete("/", decodeUser, deleteRatingByIdHandler);
 
 ratingRouter.put("/", decodeUser, updateScoreHandler);
 
