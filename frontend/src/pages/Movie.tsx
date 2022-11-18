@@ -28,8 +28,6 @@ import { NewReviewModal } from "../modals/NewReviewModal";
 export const MoviePage = () => {
   const { id } = useParams();
 
-  const [showReviews, setShowReviews] = useState(false);
-
   const navigate = useNavigate();
 
   const { data: movie } = useQuery(
@@ -113,10 +111,10 @@ export const MoviePage = () => {
       </Group>
 
       <Title order={2} mt="md">
-      <Button onClick={() => setShowReviews(!showReviews)}>{showReviews ? "Hide " : "Show "}Reviews</Button>
+        Reviews
       </Title>
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
-      {showReviews && reviews &&
+      {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
     </>
   );
