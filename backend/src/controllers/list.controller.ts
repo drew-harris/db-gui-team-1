@@ -1,4 +1,5 @@
 import { Response } from "express";
+import { watch } from "fs";
 import { createList, deleteList } from "../services/list.service";
 import prisma from "../utils/prisma.util";
 
@@ -139,5 +140,35 @@ export async function removeFromMovieListHandler(req, res: Response) {
         message: "Could not find movie to remove",
       },
     });
+  }
+}
+
+export async function addMovieFromRating(mov, usr) {
+  console.log("here cunt");
+  try {
+    const watchedList = await prisma.list.findFirst({
+      where: {
+        userId: usr,
+        name: "Watched",
+      },
+    });
+    const lists = await prisma.list.update({
+      where: {
+        id: watchedList.id,
+      },
+      data: {
+        movies: {
+          connect: {
+            id: mov,
+          },
+        },
+      },
+    });
+    return lists;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      error?.message || "Failed to add rated movie to watched list"
+    );
   }
 }

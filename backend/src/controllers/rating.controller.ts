@@ -6,6 +6,7 @@ import {
   updateMovieScore,
 } from "../services/rating.service";
 import prisma from "../utils/prisma.util";
+import { addMovieFromRating } from "./list.controller";
 
 export async function createRatingHandler(req, res: Response) {
   try {
@@ -173,6 +174,7 @@ export async function updateScoreHandler(req, res: Response) {
         },
       });
     }
+    addMovieFromRating(req.body.movieId, req.user.id);
     console.log(newRating);
     return res.json(newRating);
   } catch (error) {
