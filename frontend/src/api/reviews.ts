@@ -1,5 +1,4 @@
 const API_URL = import.meta.env.VITE_API_URL;
-import { Review, User } from "@prisma/client";
 import { ReviewWithUser } from "../types";
 import { getJwt } from "../utils/jwt";
 

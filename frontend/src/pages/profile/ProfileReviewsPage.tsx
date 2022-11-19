@@ -1,10 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { getReviewsForUser } from "../../api/reviews";
-import { getUserInfo } from "../../api/userInfo";
 import Review from "../../components/reviews/Review";
-import { AuthContext } from "../../context/AuthContext";
 
 export const ProfileReviewsPage = () => {
   const { id } = useParams();

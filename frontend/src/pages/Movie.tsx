@@ -1,19 +1,8 @@
-import { faList, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Box,
-  Button,
-  Group,
-  Image,
-  MultiSelect,
-  Rating,
-  Space,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Box, Button, Group, Image, Space, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMovieById, getMovieRanking } from "../api/movies";
 import { getAverageRating } from "../api/ratings";

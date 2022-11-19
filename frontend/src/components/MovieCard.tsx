@@ -1,7 +1,5 @@
 import { Card, Group, Image, Text } from "@mantine/core";
-import { useFocusReturn } from "@mantine/hooks";
-import { useRef } from "react";
-import { useNavigate, useRoutes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MovieWithCounts } from "../types";
 
 export default function MovieCard({ movie }: { movie: MovieWithCounts }) {

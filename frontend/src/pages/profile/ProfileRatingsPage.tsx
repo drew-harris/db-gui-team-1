@@ -1,4 +1,4 @@
-import { Box, Group, Paper, Title } from "@mantine/core";
+import { Paper } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { getAllRatingsByUserId } from "../../api/ratings";
