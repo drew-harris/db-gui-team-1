@@ -1,9 +1,4 @@
-import {
-  Avatar,
-  Group,
-  Paper,
-  Text,
-} from "@mantine/core";
+import { Avatar, Group, Paper, Text } from "@mantine/core";
 import RichTextEditor from "@mantine/rte";
 import { Link } from "react-router-dom";
 import { ReviewWithUser } from "../../types";
@@ -35,7 +30,9 @@ const Review = ({
           </Text>
         </Group>
       ) : (
-        <div><MovieInfo id={review.movieId}/></div>
+        <div>
+          <MovieInfo id={review.movieId} />
+        </div>
       )}
       <RichTextEditor readOnly value={review.content} />
     </Paper>

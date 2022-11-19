@@ -7,17 +7,20 @@ import Review from "../../components/reviews/Review";
 import { AuthContext } from "../../context/AuthContext";
 
 export const ProfileReviewsPage = () => {
- const { id } = useParams();
- const { data: reviews, status: reviewsStatus } = useQuery(
-  ["reviews", { userId: id }],
-  () => getReviewsForUser(id)
-);
-
+  const { id } = useParams();
+  const { data: reviews, status: reviewsStatus } = useQuery(
+    ["reviews", { userId: id }],
+    () => getReviewsForUser(id)
+  );
 
   console.log(reviews);
   return (
     <div>
-      {reviews?.map((review, key) => <div key={key}><Review review={review} showUser={false}/></div>)}
+      {reviews?.map((review, key) => (
+        <div key={key}>
+          <Review review={review} showUser={false} />
+        </div>
+      ))}
     </div>
   );
 };

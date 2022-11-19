@@ -1,6 +1,15 @@
 import { faList, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Group, Space, Title, Image, Button, MultiSelect, Text } from "@mantine/core";
+import {
+  Box,
+  Group,
+  Space,
+  Title,
+  Image,
+  Button,
+  MultiSelect,
+  Text,
+} from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,7 +43,7 @@ export const MovieReviewPage = () => {
 
   return (
     <div>
-        <Group mb="lg" spacing={40} noWrap align="start">
+      <Group mb="lg" spacing={40} noWrap align="start">
         <Box
           sx={(theme) => ({
             boxShadow: theme.shadows.xl,
@@ -61,7 +70,7 @@ export const MovieReviewPage = () => {
               }
             >
               Leave A Review
-            </Button>    
+            </Button>
           </AuthOnly>
         </Box>
       </Group>
@@ -73,6 +82,6 @@ export const MovieReviewPage = () => {
       {reviewsStatus !== "success" && <Text>Loading...</Text>}
       {reviews &&
         reviews.map((review) => <Review review={review} key={review.id} />)}
-      </div>
+    </div>
   );
 };

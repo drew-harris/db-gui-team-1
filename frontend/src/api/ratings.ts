@@ -88,7 +88,6 @@ export async function getAllRatingsByUserId(userId) {
       {
         headers: {
           "Content-Type": "application/json",
-          
         },
       }
     );

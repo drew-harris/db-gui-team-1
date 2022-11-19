@@ -38,7 +38,7 @@ export async function getMovieHandler(req, res: Response) {
         },
       });
     }
-  
+
     const movies = await prisma.movie.findMany({
       where: {
         id: req.query.id,
@@ -162,7 +162,7 @@ export async function setListsForMovieHandler(req, res) {
   try {
     const listIds = req.body.listIds as string[];
     const movieId = req.params.id;
-  
+
     const connectField = listIds.map((id) => ({ id: id }));
     const newMovie = await prisma.movie.update({
       where: {

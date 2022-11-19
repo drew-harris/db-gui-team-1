@@ -12,7 +12,6 @@ export const ProfileRatingsPage = () => {
     getAllRatingsByUserId(id)
   );
 
-
   if (!ratings) {
     return <div>not found</div>;
   }
@@ -20,17 +19,17 @@ export const ProfileRatingsPage = () => {
   return (
     <div>
       {ratings.map((rating, key) => {
-        return <Paper key={key} p="md" m="md">
-          
-          <MovieInfo id={rating.movieId} />
-          
-        
-        <RatingChip rating={rating}  showUser={false} />
-        </Paper>
+        return (
+          <Paper key={key} p="md" m="md">
+            <MovieInfo id={rating.movieId} />
+
+            <RatingChip rating={rating} showUser={false} />
+          </Paper>
+        );
       })}
     </div>
   );
 };
 
-//need to figure out what we want it to look like... 
-//also MovieInfo needs editing but not sure what we want there either 
+//need to figure out what we want it to look like...
+//also MovieInfo needs editing but not sure what we want there either

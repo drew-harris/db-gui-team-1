@@ -37,7 +37,7 @@ export async function getReviewsForUser(userId) {
       const data = await response.json();
       throw new Error(data.message);
     }
-    return (await response.json());
+    return await response.json();
   } catch (error) {
     throw new Error("Could not fetch reviews for user");
   }

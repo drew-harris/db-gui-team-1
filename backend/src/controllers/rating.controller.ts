@@ -136,7 +136,6 @@ export async function updateScoreHandler(req, res: Response) {
     });
   }
 
-  
   try {
     const rating = await prisma.rating.findFirst({
       where: {
@@ -144,7 +143,6 @@ export async function updateScoreHandler(req, res: Response) {
         userId: req.user.id,
       },
     });
-
 
     let newRating;
     if (rating) {

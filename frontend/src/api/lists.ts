@@ -39,7 +39,7 @@ export async function getListsByUserId(userId) {
       throw new Error(data.message);
     }
     const data = await response.json();
-  
+
     return data;
   } catch (error) {
     throw new Error(error.message);
