@@ -50,7 +50,8 @@ export async function getMovieById(id) {
 
 export async function searchMovies(title) {
   try {
-    const url = API_URL + "/api/movies?" + new URLSearchParams({ title });
+    const url =
+      API_URL + "/api/movies?" + new URLSearchParams({ title, limit: "5" });
 
     const response = await fetch(url, {
       headers: {
