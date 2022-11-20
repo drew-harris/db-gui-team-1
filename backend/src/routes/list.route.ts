@@ -1,14 +1,14 @@
 import express from "express";
-import decodeUser from "../middleware/requireUser";
 import {
+  addToMovieListHandler,
   createListHandler,
   deleteListHandler,
   getListHandler,
-  addToMovieListHandler,
   getMoviesInList,
   removeFromMovieListHandler,
 } from "../controllers/list.controller";
 import optionalUser from "../middleware/optionalUser";
+import decodeUser from "../middleware/requireUser";
 
 const listRouter = express.Router();
 

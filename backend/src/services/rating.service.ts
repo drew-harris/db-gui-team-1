@@ -1,5 +1,4 @@
 import prisma from "../utils/prisma.util";
-import { addMovieFromRating } from "../controllers/list.controller";
 
 export async function createRating(body, user) {
   const rating = prisma.rating.create({

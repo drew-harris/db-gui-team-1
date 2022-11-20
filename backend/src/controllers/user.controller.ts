@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
+import { getRatingByUser } from "../services/rating.service";
+import { getReviewByUserId } from "../services/review.service";
 import {
   createUser,
-  getUserById,
-  getUsers,
   editBio,
   editImage,
+  getUserById,
 } from "../services/user.service";
-import prisma from "../utils/prisma.util";
-import { getReviewByUserId } from "../services/review.service";
 import { signJwt } from "../utils/jwt.util";
-import { getRatingByUser } from "../services/rating.service";
+import prisma from "../utils/prisma.util";
 export async function createUserHandler(req: Request, res: Response) {
   try {
     const user = await createUser(req.body);

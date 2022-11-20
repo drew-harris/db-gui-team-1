@@ -3,7 +3,6 @@ import {
   createRating,
   deleteRatingById,
   getRatingById,
-  updateMovieScore,
 } from "../services/rating.service";
 import prisma from "../utils/prisma.util";
 import { addMovieFromRating } from "./list.controller";

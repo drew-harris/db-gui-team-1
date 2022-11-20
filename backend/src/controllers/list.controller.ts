@@ -1,5 +1,4 @@
 import { Response } from "express";
-import { watch } from "fs";
 import { createList, deleteList } from "../services/list.service";
 import prisma from "../utils/prisma.util";
 

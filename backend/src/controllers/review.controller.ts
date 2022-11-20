@@ -1,5 +1,4 @@
-import { Request, Response } from "express";
-import { userInfo } from "os";
+import { Response } from "express";
 import { createReview, editReview } from "../services/review.service";
 import prisma from "../utils/prisma.util";
 

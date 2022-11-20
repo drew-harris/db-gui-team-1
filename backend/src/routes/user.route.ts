@@ -2,14 +2,14 @@ import express from "express";
 import { createUserSchema, editBioSchema, editPfpSchema } from "schemas";
 import {
   createUserHandler,
-  getUsersHandler,
-  getUserOverviewHandler,
   editBioHandler,
   editImageHandler,
+  getUserOverviewHandler,
+  getUsersHandler,
 } from "../controllers/user.controller";
-import validate from "../middleware/validateRequest";
-import decodeUser from "../middleware/requireUser";
 import optionalUser from "../middleware/optionalUser";
+import decodeUser from "../middleware/requireUser";
+import validate from "../middleware/validateRequest";
 const userRouter = express.Router();
 
 userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
