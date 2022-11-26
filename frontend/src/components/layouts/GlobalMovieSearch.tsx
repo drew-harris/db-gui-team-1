@@ -1,4 +1,4 @@
-import { Autocomplete } from "@mantine/core";
+import { Autocomplete, MediaQuery, Spoiler } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDebouncedValue } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
@@ -35,6 +35,11 @@ function GlobalMovieSearch() {
 
   return (
     <>
+
+    <MediaQuery
+      smallerThan="sm"  styles={{ display: 'none' }}
+      >
+
       <Autocomplete
         size="sm"
         placeholder="Search Movies"
@@ -45,6 +50,7 @@ function GlobalMovieSearch() {
         }}
         {...form.getInputProps("search")}
       ></Autocomplete>
+      </MediaQuery>
     </>
   );
 }
