@@ -1,9 +1,8 @@
 import express from "express";
-import { createUserSchema, editBioSchema, editPfpSchema } from "schemas";
+import { createUserSchema, editProfileSchema } from "schemas";
 import {
   createUserHandler,
-  editBioHandler,
-  editImageHandler,
+  editProfileHandler,
   getUserOverviewHandler,
   getUsersHandler,
 } from "../controllers/user.controller";
@@ -17,16 +16,10 @@ userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
 userRouter.get("/", getUsersHandler);
 userRouter.get("/about", optionalUser, getUserOverviewHandler);
 userRouter.put(
-  "/bio",
-  validate(editBioSchema, "body"),
+  "/",
+  validate(editProfileSchema, "body"),
   decodeUser,
-  editBioHandler
-);
-userRouter.put(
-  "/pfp",
-  validate(editPfpSchema, "body"),
-  decodeUser,
-  editImageHandler
+  editProfileHandler
 );
 
 export default userRouter;

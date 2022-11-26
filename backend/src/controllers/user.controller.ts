@@ -3,8 +3,7 @@ import { getRatingByUser } from "../services/rating.service";
 import { getReviewByUserId } from "../services/review.service";
 import {
   createUser,
-  editBio,
-  editImage,
+  editProfile,
   getUserById,
 } from "../services/user.service";
 import { signJwt } from "../utils/jwt.util";
@@ -51,24 +50,12 @@ export async function getUsersHandler(req: Request, res: Response) {
     });
   }
 }
-export async function editBioHandler(req, res: Response) {
+export async function editProfileHandler(req, res: Response) {
   try {
     const bio = req.body.bio;
-    const userId = req.user.id;
-    const user = await editBio(userId, bio);
-
-    return res.json(user);
-  } catch (e) {
-    res.status(500).json({
-      message: e.message,
-    });
-  }
-}
-export async function editImageHandler(req, res: Response) {
-  try {
     const profileImageUrl = req.body.profileImageUrl;
     const userId = req.user.id;
-    const user = await editImage(userId, profileImageUrl);
+    const user = await editProfile(userId, bio, profileImageUrl);
 
     return res.json(user);
   } catch (e) {
@@ -77,6 +64,7 @@ export async function editImageHandler(req, res: Response) {
     });
   }
 }
+
 export async function getUserOverviewHandler(req, res: Response) {
   try {
     if (!req.query.id) {
