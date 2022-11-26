@@ -63,7 +63,7 @@ export const SideNav = () => {
   if (location.pathname === "/login" || location.pathname === "/signup")
     return null;
   return (
-    <Navbar width={{ base: 240 }} withBorder p="xs">
+    <Navbar width={{ base: 150 }} withBorder p="xs">
       {links.map((link) => {
         if (link.authOnly && !user) {
           return null;

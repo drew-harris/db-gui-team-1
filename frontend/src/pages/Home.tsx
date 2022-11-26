@@ -49,7 +49,14 @@ function Home() {
       <AuthOnly>
         <MovieFilterBar filters={filters} setFilters={setFilters} />
       </AuthOnly>
-      <SimpleGrid cols={4}>
+      <SimpleGrid breakpoints={[
+        { maxWidth: 4000, cols: 6, spacing: 'md' },
+        { maxWidth: 2000, cols: 5, spacing: 'md' },
+        { maxWidth: 1500, cols: 4, spacing: 'md' },
+        { maxWidth: 980, cols: 3, spacing: 'md' },
+        { maxWidth: 755, cols: 2, spacing: 'sm' },
+        { maxWidth: 600, cols: 1, spacing: 'sm' },
+      ]}>
         {movies &&
           movies.map((movie) => {
             return <MovieCard movie={movie} key={movie.id} />;
