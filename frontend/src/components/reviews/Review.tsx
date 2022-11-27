@@ -2,6 +2,7 @@ import { Avatar, Group, Paper, Text } from "@mantine/core";
 import RichTextEditor from "@mantine/rte";
 import { Link } from "react-router-dom";
 import { ReviewWithUser } from "../../types";
+import { RatingChip } from "../ratings/RatingChip";
 import MovieInfo from "./MoiveInfo";
 
 const Review = ({
@@ -13,8 +14,8 @@ const Review = ({
 }) => {
   return (
     <Paper radius="md" withBorder p="md" m="md">
-      {showUser ? (
-        <Group mb="sm" position="apart" align="center">
+      <Group mb="sm" position="apart" align="center">
+        {showUser ? (
           <Group spacing={4}>
             <Avatar radius="xl" />
             <Text
@@ -25,15 +26,19 @@ const Review = ({
               {review.by.username}
             </Text>
           </Group>
+        ) : (
+          <div>
+            <MovieInfo id={review.movieId} />
+          </div>
+        )}
+        <Group px="lg">
+          <p>rating chip</p>
           <Text size="sm">
             {new Date(review.submittedAt).toLocaleString("en-US")}
           </Text>
         </Group>
-      ) : (
-        <div>
-          <MovieInfo id={review.movieId} />
-        </div>
-      )}
+      </Group>
+
       <RichTextEditor readOnly value={review.content} />
     </Paper>
   );

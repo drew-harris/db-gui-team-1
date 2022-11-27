@@ -1,16 +1,26 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Box, Button, Group, Image, Space, Text, Title } from "@mantine/core";
+import {
+  Box,
+  Button,
+  Group,
+  Image,
+  Space,
+  Tabs,
+  Text,
+  Title,
+} from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMovieById, getMovieRanking } from "../api/movies";
-import { getAverageRating } from "../api/ratings";
+import { getAllRatingsByMovieId, getAverageRating } from "../api/ratings";
 import { getReviewsForMovie } from "../api/reviews";
 import { DataSquare } from "../components/DataSquare";
 import AuthOnly from "../components/layouts/AuthOnly";
 import { ListSelect } from "../components/lists/ListSelect";
 import { MovieRatingInput } from "../components/ratings/MovieRatingInput";
+import { RatingChip } from "../components/ratings/RatingChip";
 import Review from "../components/reviews/Review";
 import { NewReviewModal } from "../modals/NewReviewModal";
 
@@ -23,6 +33,11 @@ export const MoviePage = () => {
     ["movie", { id }],
     () => getMovieById(id),
     {}
+  );
+
+  const { data: ratings, status: ratingsStatus } = useQuery(
+    ["ratings", { movieId: id }],
+    () => getAllRatingsByMovieId(id)
   );
 
   const { data: reviews, status: reviewsStatus } = useQuery(
@@ -52,6 +67,7 @@ export const MoviePage = () => {
           sx={(theme) => ({
             boxShadow: theme.shadows.xl,
             maxWidth: 200,
+            minWidth: 75,
           })}
         >
           <Image radius="md" src={movie.posterImageUrl}></Image>
@@ -99,12 +115,26 @@ export const MoviePage = () => {
         </Box>
       </Group>
 
-      <Title order={2} mt="md">
-        Reviews
-      </Title>
-      {reviewsStatus !== "success" && <Text>Loading...</Text>}
-      {reviews &&
-        reviews.map((review) => <Review review={review} key={review.id} />)}
+      <Tabs variant="outline" defaultValue="Reviews">
+        <Tabs.List>
+          <Tabs.Tab value="Reviews">Reviews</Tabs.Tab>
+          <Tabs.Tab value="Ratings">Ratings</Tabs.Tab>
+        </Tabs.List>
+
+        <Tabs.Panel value="Reviews">
+          {reviewsStatus !== "success" && <Text>Loading...</Text>}
+          {reviews &&
+            reviews.map((review) => <Review review={review} key={review.id} />)}
+        </Tabs.Panel>
+
+        <Tabs.Panel value="Ratings">
+          {ratingsStatus !== "success" && <Text>Loading...</Text>}
+          {ratings &&
+            ratings.map((rating) => {
+              return <RatingChip showUser key={rating.id} rating={rating} />;
+            })}
+        </Tabs.Panel>
+      </Tabs>
     </>
   );
 };

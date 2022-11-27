@@ -1,12 +1,15 @@
-import { Paper } from "@mantine/core";
+import { Card, Group, Paper, SimpleGrid, Image, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getMovieById } from "../../api/movies";
 import { getAllRatingsByUserId } from "../../api/ratings";
 import { RatingChip } from "../../components/ratings/RatingChip";
 import MovieInfo from "../../components/reviews/MoiveInfo";
 
 export const ProfileRatingsPage = () => {
   const { id } = useParams();
+
+  const navigate = useNavigate();
 
   const { data: ratings } = useQuery(["ratings", { userId: id }], () =>
     getAllRatingsByUserId(id)
@@ -17,19 +20,56 @@ export const ProfileRatingsPage = () => {
   }
 
   return (
-    <div>
+    <SimpleGrid
+      breakpoints={[
+        { maxWidth: 4000, cols: 6, spacing: "md" },
+        { maxWidth: 2000, cols: 5, spacing: "md" },
+        { maxWidth: 1500, cols: 4, spacing: "md" },
+        { maxWidth: 980, cols: 3, spacing: "md" },
+        { maxWidth: 755, cols: 2, spacing: "sm" },
+        { maxWidth: 600, cols: 1, spacing: "sm" },
+      ]}
+    >
       {ratings.map((rating, key) => {
         return (
-          <Paper key={key} p="md" m="md">
-            <MovieInfo id={rating.movieId} />
+          <Card
+            key={key}
+            withBorder
+            radius="md"
+            shadow="lg"
+            onClick={() => navigate("/movie/" + rating.movieId)}
+          >
+            <Card.Section>
+              <RatingInfo id={rating.movieId} />
+            </Card.Section>
 
-            <RatingChip rating={rating} showUser={false} />
-          </Paper>
+            <Group position="center" mt="xs">
+              <RatingChip rating={rating} showUser={false} />
+            </Group>
+          </Card>
         );
       })}
-    </div>
+    </SimpleGrid>
   );
 };
 
-//need to figure out what we want it to look like...
-//also MovieInfo needs editing but not sure what we want there either
+const RatingInfo = ({ id }) => {
+  const { data: movie } = useQuery(
+    ["movie", { id }],
+    () => getMovieById(id),
+    {}
+  );
+
+  if (!movie) {
+    return null;
+  }
+
+  return (
+    <>
+      <Image src={movie.backdropImageUrl} height={160}></Image>
+      <Text align="center" m="xs" size={30}>
+        {movie.title}
+      </Text>
+    </>
+  );
+};
