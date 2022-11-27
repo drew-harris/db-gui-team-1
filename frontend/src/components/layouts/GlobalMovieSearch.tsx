@@ -35,21 +35,17 @@ function GlobalMovieSearch() {
 
   return (
     <>
-
-    <MediaQuery
-      smallerThan="sm"  styles={{ display: 'none' }}
-      >
-
-      <Autocomplete
-        size="sm"
-        placeholder="Search Movies"
-        data={transformedMovies}
-        onItemSubmit={(item) => {
-          navigate("/movie/" + item.id);
-          form.setFieldValue("search", "");
-        }}
-        {...form.getInputProps("search")}
-      ></Autocomplete>
+      <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+        <Autocomplete
+          size="sm"
+          placeholder="Search Movies"
+          data={transformedMovies}
+          onItemSubmit={(item) => {
+            navigate("/movie/" + item.id);
+            form.setFieldValue("search", "");
+          }}
+          {...form.getInputProps("search")}
+        ></Autocomplete>
       </MediaQuery>
     </>
   );
