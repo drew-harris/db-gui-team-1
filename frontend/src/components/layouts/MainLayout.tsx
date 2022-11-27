@@ -1,4 +1,14 @@
-import { AppShell, Box, Group, Header, Text, MediaQuery } from "@mantine/core";
+import {
+  AppShell,
+  Box,
+  Group,
+  Header,
+  Text,
+  MediaQuery,
+  Burger,
+  useMantineTheme,
+} from "@mantine/core";
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { ThemeToggle } from "../ThemeToggle";
 import GlobalMovieSearch from "./GlobalMovieSearch";
@@ -6,10 +16,13 @@ import { HeaderAuthLinks } from "./HeaderAuthLinks";
 import { SideNav } from "./SideNav";
 
 export const MainLayout = () => {
+  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false);
   return (
     <AppShell
+      navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={<SideNav />}
+      navbar={<SideNav opened={opened} />}
       header={
         <Header height={60} withBorder>
           <Group
@@ -19,21 +32,26 @@ export const MainLayout = () => {
             p="xs"
             sx={{ height: "100%" }}
           >
-             <MediaQuery
-             query="(max-width: 600px)"
-             styles={{ fontSize: 12 }}>
+            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+              <Burger
+                opened={opened}
+                onClick={() => setOpened((o) => !o)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+              />
+            </MediaQuery>
 
-            <Text component={Link} to="/" weight="bold">
-              Movie Website
-            </Text>
+            <MediaQuery query="(max-width: 600px)" styles={{ fontSize: 12 }}>
+              <Text component={Link} to="/" weight="bold">
+                Movie Website
+              </Text>
             </MediaQuery>
             <GlobalMovieSearch />
-          
-            <Group>
-            
 
+            <Group>
               <HeaderAuthLinks />
-         
+
               <ThemeToggle />
             </Group>
           </Group>

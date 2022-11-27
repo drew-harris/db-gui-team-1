@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-export const SideNav = () => {
+export const SideNav = ({ opened }) => {
   const location = useLocation();
   const { user } = useContext(AuthContext);
 
@@ -63,7 +63,7 @@ export const SideNav = () => {
   if (location.pathname === "/login" || location.pathname === "/signup")
     return null;
   return (
-    <Navbar width={{ base: 150 }} withBorder p="xs">
+    <Navbar width={{ sm: 200, lg: 300 }} hidden={!opened} withBorder p="xs">
       {links.map((link) => {
         if (link.authOnly && !user) {
           return null;
