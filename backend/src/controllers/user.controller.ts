@@ -1,11 +1,7 @@
 import { Request, Response } from "express";
 import { getRatingByUser } from "../services/rating.service";
 import { getReviewByUserId } from "../services/review.service";
-import {
-  createUser,
-  editProfile,
-  getUserById,
-} from "../services/user.service";
+import { createUser, editProfile, getUserById } from "../services/user.service";
 import { signJwt } from "../utils/jwt.util";
 import prisma from "../utils/prisma.util";
 export async function createUserHandler(req: Request, res: Response) {
@@ -51,6 +47,7 @@ export async function getUsersHandler(req: Request, res: Response) {
   }
 }
 export async function editProfileHandler(req, res: Response) {
+  console.log("Editing a profile with", req.body);
   try {
     const bio = req.body.bio;
     const profileImageUrl = req.body.profileImageUrl;

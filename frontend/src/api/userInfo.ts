@@ -29,6 +29,26 @@ export async function getUserInfo(userId?: string) {
   }
 }
 
+export async function saveProfileInformation({ bio, profileImageUrl }) {
+  try {
+    const response = await fetch(API_URL + "/api/users/", {
+      method: "PUT",
+      body: JSON.stringify({ bio, profileImageUrl }),
+      headers: {
+        "Content-Type": "application/json",
+        jwt: getJwt(),
+      },
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 export async function searchUsers(search) {
   try {
     const response = await fetch(

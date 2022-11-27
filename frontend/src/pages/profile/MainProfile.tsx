@@ -32,6 +32,7 @@ function MainProfilePage() {
         )}
       </Group>
       <Text mb={"xl"}>{userInfo.user.email}</Text>
+      {userInfo && <Text mb="lg">{userInfo.user.bio}</Text>}
       {JSON.stringify(userInfo, null, 4)}
     </>
   );
