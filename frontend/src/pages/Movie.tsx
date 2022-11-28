@@ -10,6 +10,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -26,6 +27,8 @@ import { NewReviewModal } from "../modals/NewReviewModal";
 
 export const MoviePage = () => {
   const { id } = useParams();
+  // TODO: Netflix effect when in mobile view!
+  const isMobile = useMediaQuery("(max-width: 900px)", false);
 
   const navigate = useNavigate();
 
@@ -63,20 +66,21 @@ export const MoviePage = () => {
   return (
     <>
       <Group mb="lg" spacing={40} noWrap align="start">
-        <Box
-          sx={(theme) => ({
-            boxShadow: theme.shadows.xl,
-            maxWidth: 200,
-            minWidth: 75,
-          })}
-        >
-          <Image radius="md" src={movie.posterImageUrl}></Image>
-        </Box>
+        {!isMobile && (
+          <Box
+            sx={(theme) => ({
+              boxShadow: theme.shadows.xl,
+              maxWidth: 200,
+            })}
+          >
+            <Image radius="md" src={movie.posterImageUrl}></Image>
+          </Box>
+        )}
         <Box style={{ flexShrink: 1 }}>
           <Title size={40}>{movie.title}</Title>
           <Text mb="md">{movie.description}</Text>
           <Space />
-          <Group>
+          <Group position={isMobile ? "center" : "left"}>
             <DataSquare label="Genre" value={movie.genre} />
             <DataSquare label="Runtime" value={movie.runTime + " mins."} />
             <DataSquare label="Released" value={releaseDate.getFullYear()} />
@@ -94,7 +98,7 @@ export const MoviePage = () => {
           </Group>
           <Space h="md"></Space>
           <AuthOnly>
-            <Group>
+            <Group position={isMobile ? "center" : undefined}>
               <Button
                 variant="light"
                 leftIcon={<FontAwesomeIcon icon={faPlus} />}

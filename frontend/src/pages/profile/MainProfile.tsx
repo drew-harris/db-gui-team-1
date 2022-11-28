@@ -64,7 +64,6 @@ function MainProfilePage() {
         <Tabs.Panel value="Ratings">Ratings</Tabs.Panel>
         <Tabs.Panel value="MovieLists">Movie Lists</Tabs.Panel>
       </Tabs>
-      {JSON.stringify(userInfo, null, 4)}
     </>
   );
 }

@@ -2,7 +2,10 @@
   "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", "dist/**"],
+      "outputs": [
+        "dist/**",
+        "dist/**"
+      ],
       "inputs": [
         "src/**/*.tsx",
         "src/**/*.ts",
@@ -11,14 +14,21 @@
         "index.html",
         "vite.config.ts"
       ],
-      "dependsOn": ["regen", "^build"]
+      "dependsOn": [
+        "regen",
+        "^build"
+      ]
     },
     "dev": {
       "cache": false,
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     },
     "serve": {
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     },
     "lint": {
       "inputs": [
@@ -30,9 +40,10 @@
         "index.html"
       ]
     },
-
     "regen": {
-      "inputs": ["prisma/schema.prisma"]
+      "inputs": [
+        "prisma/schema.prisma"
+      ]
     }
   }
 }

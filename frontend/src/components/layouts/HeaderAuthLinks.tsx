@@ -9,16 +9,16 @@ const LoginOrSignup = () => {
   return (
     <MediaQuery
       query="(max-width: 600px) and (min-width: 1px)"
-      styles={{ fontSize: 12 }}>
-
-    <Group spacing={29}>
-      <Text component={Link} to="/login">
-        Log In
-      </Text>
-      <Text component={Link} to="/signup">
-        Sign Up
-      </Text>
-    </Group>
+      styles={{ fontSize: 12 }}
+    >
+      <Group spacing={29}>
+        <Text component={Link} to="/login">
+          Log In
+        </Text>
+        <Text component={Link} to="/signup">
+          Sign Up
+        </Text>
+      </Group>
     </MediaQuery>
   );
 };
