@@ -1,10 +1,9 @@
-import { Card, Group, Paper, SimpleGrid, Image, Text } from "@mantine/core";
+import { Card, Group, SimpleGrid, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMovieById } from "../../api/movies";
 import { getAllRatingsByUserId } from "../../api/ratings";
 import { RatingChip } from "../../components/ratings/RatingChip";
-import MovieInfo from "../../components/reviews/MoiveInfo";
 
 export const ProfileRatingsPage = () => {
   const { id } = useParams();
@@ -39,37 +38,13 @@ export const ProfileRatingsPage = () => {
             shadow="lg"
             onClick={() => navigate("/movie/" + rating.movieId)}
           >
-            <Card.Section>
-              <RatingInfo id={rating.movieId} />
-            </Card.Section>
-
-            <Group position="center" mt="xs">
+            <Group>
+              <Text>{rating.for.title}</Text>
               <RatingChip rating={rating} showUser={false} />
             </Group>
           </Card>
         );
       })}
     </SimpleGrid>
-  );
-};
-
-const RatingInfo = ({ id }) => {
-  const { data: movie } = useQuery(
-    ["movie", { id }],
-    () => getMovieById(id),
-    {}
-  );
-
-  if (!movie) {
-    return null;
-  }
-
-  return (
-    <>
-      <Image src={movie.backdropImageUrl} height={160}></Image>
-      <Text align="center" m="xs" size={30}>
-        {movie.title}
-      </Text>
-    </>
   );
 };
