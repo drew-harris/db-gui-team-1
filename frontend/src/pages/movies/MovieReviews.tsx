@@ -37,13 +37,14 @@ export const MovieReviewPage = () => {
           sx={(theme) => ({
             boxShadow: theme.shadows.xl,
             maxWidth: 200,
+            minWidth: 75,
           })}
           onClick={() => navigate("/movie/" + movie.id)}
         >
           <Image radius="md" src={movie.posterImageUrl}></Image>
         </Box>
         <Box style={{ flexShrink: 1 }}>
-          <Title size={75}>{movie.title}</Title>
+          <Title size={40}>{movie.title}</Title>
           <Space />
           <Space h="md"></Space>
           <AuthOnly>
