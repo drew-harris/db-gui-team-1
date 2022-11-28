@@ -144,5 +144,3 @@ export const MoviePage = () => {
     </>
   );
 };
-
-//use status for the querys to check if everythign has loaded
