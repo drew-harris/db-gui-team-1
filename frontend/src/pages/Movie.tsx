@@ -55,7 +55,7 @@ export const MoviePage = () => {
   );
 
   if (!movie || !ranking || !ratingStats || !reviews) {
-    return null;
+    return <div>loading...</div>;
   }
 
   const releaseDate = new Date(movie.releaseDate);
@@ -124,13 +124,15 @@ export const MoviePage = () => {
         <Tabs.Panel value="Reviews">
           {reviewsStatus !== "success" && <Text>Loading...</Text>}
           {reviews &&
-            reviews.map((review) => <Review review={review} key={review.id} />)}
+            reviews?.map((review) => (
+              <Review review={review} key={review.id} />
+            ))}
         </Tabs.Panel>
 
         <Tabs.Panel value="Ratings">
           {ratingsStatus !== "success" && <Text>Loading...</Text>}
           {ratings &&
-            ratings.map((rating) => {
+            ratings?.map((rating) => {
               return <RatingChip showUser key={rating.id} rating={rating} />;
             })}
         </Tabs.Panel>
@@ -138,3 +140,5 @@ export const MoviePage = () => {
     </>
   );
 };
+
+//use status for the querys to check if everythign has loaded
