@@ -40,7 +40,7 @@ function Home() {
 
   return (
     <>
-      <Title mb="md">All Movies</Title>
+      <Title mb="md">top flicks.</Title>
       {error && error instanceof Error && (
         <Center>
           <Text color="red">{error.message || "Error getting movies"}</Text>

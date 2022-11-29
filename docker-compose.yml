@@ -1,33 +1,31 @@
 version: "3"
 
 services:
-  backend:
-    container_name: backend
+  api:
+    container_name: api
     build:
       context: .
       dockerfile: ./backend/Dockerfile
     restart: always
-    environment:
-      - DATABASE_URL=CHANGE_ME
     ports:
       - 8000:8000
     networks:
-      - project
+      - app_network
 
-  frontend:
-    container_name: frontend
-    depends_on:
-      - backend
-    build:
-      context: .
-      dockerfile: ./frontend/Dockerfile
-    restart: always
-    environment:
-      - VITE_API_URL=http://localhost:8000
-    ports:
-      - 3000:3000
-    networks:
-      - project
+  # frontend:
+  #   container_name: frontend
+  #   depends_on:
+  #     - backend
+  #   build:
+  #     context: .
+  #     dockerfile: ./frontend/Dockerfile
+  #   restart: always
+  #   environment:
+  #     - VITE_API_URL=http://localhost:8000
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - project
 
 networks:
-  project:
+  app_network:

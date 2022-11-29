@@ -43,8 +43,8 @@ export const MainLayout = () => {
             </MediaQuery>
 
             <MediaQuery query="(max-width: 600px)" styles={{ fontSize: 12 }}>
-              <Text component={Link} to="/" weight="bold">
-                Movie Website
+              <Text component={Link} to="/" weight="bold" size="lg" >
+                  flickaid
               </Text>
             </MediaQuery>
             <GlobalMovieSearch />

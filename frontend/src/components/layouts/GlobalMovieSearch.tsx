@@ -38,7 +38,7 @@ function GlobalMovieSearch() {
       <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
         <Autocomplete
           size="sm"
-          placeholder="Search Movies"
+          placeholder="Search Flicks"
           data={transformedMovies}
           onItemSubmit={(item) => {
             navigate("/movie/" + item.id);
