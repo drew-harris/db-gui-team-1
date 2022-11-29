@@ -12,11 +12,8 @@ export const ProfileReviewsPage = () => {
 
   return (
     <div>
-      {reviews?.map((review, key) => (
-        <div key={key}>
-          {JSON.stringify(review, null, 4)}
-          <Review review={review} showUser={false} />
-        </div>
+      {reviews?.map((review) => (
+        <Review review={review} key={review.id} showUser={false} />
       ))}
     </div>
   );

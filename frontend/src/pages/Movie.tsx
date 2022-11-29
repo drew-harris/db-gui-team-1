@@ -6,6 +6,7 @@ import {
   Group,
   Image,
   Space,
+  Stack,
   Tabs,
   Text,
   Title,
@@ -119,7 +120,7 @@ export const MoviePage = () => {
         </Box>
       </Group>
 
-      <Tabs variant="outline" defaultValue="Reviews">
+      <Tabs variant="pills" defaultValue="Reviews">
         <Tabs.List>
           <Tabs.Tab value="Reviews">Reviews</Tabs.Tab>
           <Tabs.Tab value="Ratings">Ratings</Tabs.Tab>
@@ -135,10 +136,12 @@ export const MoviePage = () => {
 
         <Tabs.Panel value="Ratings">
           {ratingsStatus !== "success" && <Text>Loading...</Text>}
-          {ratings &&
-            ratings?.map((rating) => {
-              return <RatingChip showUser key={rating.id} rating={rating} />;
-            })}
+          <Stack mt="md">
+            {ratings &&
+              ratings?.map((rating) => {
+                return <RatingChip showUser key={rating.id} rating={rating} />;
+              })}
+          </Stack>
         </Tabs.Panel>
       </Tabs>
     </>

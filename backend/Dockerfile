@@ -1,10 +1,10 @@
-FROM node:16-alpine
+FROM node:16
 
 WORKDIR /app
 
 ADD . .
 
-RUN npm ci
+RUN npm i
 
 RUN npm run build-backend
 

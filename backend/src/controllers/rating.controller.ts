@@ -73,6 +73,7 @@ export async function getRatingHandler(req, res: Response) {
         userId: req.query.userId,
       },
       include: {
+        for: true,
         by: {
           select: {
             username: true,

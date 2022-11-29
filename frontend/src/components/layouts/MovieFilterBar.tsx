@@ -15,6 +15,7 @@ const genres = [
   "Crime",
   "Adventure",
 ];
+
 export const MovieFilterBar = ({ filters, setFilters }) => {
   return (
     <Group mb="lg" position="apart">

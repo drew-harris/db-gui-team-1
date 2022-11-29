@@ -1,9 +1,7 @@
-import { Box, Group, Image, Space, Text, Title } from "@mantine/core";
+import { Group, Image, Title } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { getMovieById, getMovieRanking } from "../../api/movies";
-import { getAverageRating } from "../../api/ratings";
-import { DataSquare } from "../DataSquare";
+import { getMovieById } from "../../api/movies";
 
 const MovieInfo = ({ id }) => {
   const navigate = useNavigate();
