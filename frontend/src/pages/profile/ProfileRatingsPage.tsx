@@ -1,7 +1,6 @@
-import { Card, Group, SimpleGrid, Text } from "@mantine/core";
+import { Card, Group, Image, Rating, SimpleGrid, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getMovieById } from "../../api/movies";
 import { getAllRatingsByUserId } from "../../api/ratings";
 import { RatingChip } from "../../components/ratings/RatingChip";
 
@@ -29,19 +28,16 @@ export const ProfileRatingsPage = () => {
         { maxWidth: 600, cols: 1, spacing: "sm" },
       ]}
     >
-      {ratings.map((rating, key) => {
+      {ratings.map((rating) => {
         return (
-          <Card
-            key={key}
-            withBorder
-            radius="md"
-            shadow="lg"
-            onClick={() => navigate("/movie/" + rating.movieId)}
-          >
-            <Group>
-              <Text>{rating.for.title}</Text>
-              <RatingChip rating={rating} showUser={false} />
-            </Group>
+          <Card withBorder radius="md" key={rating.id} shadow="lg">
+            <Card.Section>
+              <Image src={rating.for.backdropImageUrl} height={160}></Image>
+            </Card.Section>
+            <Text mt="md" weight="bold" lineClamp={1}>
+              {rating.for.title}
+            </Text>
+            <Rating value={rating.score}></Rating>
           </Card>
         );
       })}
