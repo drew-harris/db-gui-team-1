@@ -33,32 +33,39 @@ export const MoviePage = () => {
 
   const navigate = useNavigate();
 
-  const { data: movie } = useQuery(
+  const { data: movie, isSuccess: movieLoaded } = useQuery(
     ["movie", { id }],
     () => getMovieById(id),
     {}
   );
 
-  const { data: ratings, status: ratingsStatus } = useQuery(
+  const { data: ratings, status: ratingStatus } = useQuery(
     ["ratings", { movieId: id }],
     () => getAllRatingsByMovieId(id)
   );
 
-  const { data: reviews, status: reviewsStatus } = useQuery(
+  const { data: reviews, isSuccess: reviewsLoaded } = useQuery(
     ["reviews", { movieId: id }],
     () => getReviewsForMovie(id)
   );
 
-  const { data: ratingStats } = useQuery(
+  const { data: ratingStats, isSuccess: ratingStatsLoaded } = useQuery(
     ["average-rating", { movieId: id }],
     () => getAverageRating(id)
   );
 
-  const { data: ranking } = useQuery(["movie-ranking", { movieId: id }], () =>
-    getMovieRanking(id)
+  const { data: ranking, isSuccess: rankingLoaded } = useQuery(
+    ["movie-ranking", { movieId: id }],
+    () => getMovieRanking(id)
   );
 
-  if (!movie || !ranking || !ratingStats || !reviews) {
+  if (
+    !movieLoaded ||
+    !rankingLoaded ||
+    !ratingStatsLoaded ||
+    !reviewsLoaded ||
+    !ratings
+  ) {
     return <div>loading...</div>;
   }
 
@@ -127,7 +134,7 @@ export const MoviePage = () => {
         </Tabs.List>
 
         <Tabs.Panel value="Reviews">
-          {reviewsStatus !== "success" && <Text>Loading...</Text>}
+          {!reviewsLoaded && <Text>Loading...</Text>}
           {reviews &&
             reviews?.map((review) => (
               <Review review={review} key={review.id} />
@@ -135,7 +142,7 @@ export const MoviePage = () => {
         </Tabs.Panel>
 
         <Tabs.Panel value="Ratings">
-          {ratingsStatus !== "success" && <Text>Loading...</Text>}
+          {ratingStatus !== "success" && <Text>Loading...</Text>}
           <Stack mt="md">
             {ratings &&
               ratings?.map((rating) => {
