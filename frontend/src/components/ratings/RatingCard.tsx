@@ -8,11 +8,10 @@ export const RatingCard = ({ rating }) => {
     <Card
       withBorder
       radius="md"
-      shadow="lg"
       onClick={() => navigate("/movie/" + rating.movieId)}
     >
       <Card.Section>
-        <Image src={rating.for.backdropImageUrl} height={160}></Image>
+        <Image src={rating.for.backdropImageUrl} height={120}></Image>
       </Card.Section>
       <Text mt="md" weight="bold" lineClamp={1}>
         {rating.for.title}

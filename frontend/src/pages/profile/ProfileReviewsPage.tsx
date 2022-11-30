@@ -19,7 +19,9 @@ export const ProfileReviewsPage = () => {
 
   return (
     <div>
-      {id === user?.id ? "Your Reviews" : username + "'s Reviews"}
+      <Title size={25} mb="md">
+        {id === user?.id ? "Your Reviews" : username + "'s Reviews"}
+      </Title>
       {reviews?.length === 0 && <Center>This user has no reviews.</Center>}
       {reviews?.map((review) => (
         <Review review={review} key={review.id} showUser={false} />

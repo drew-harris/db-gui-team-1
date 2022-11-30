@@ -1,14 +1,13 @@
 import {
+  Avatar,
   Button,
+  Center,
   Group,
   SimpleGrid,
   Stack,
   Tabs,
   Text,
-  Image,
   Title,
-  Avatar,
-  Center,
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -55,12 +54,18 @@ function MainProfilePage() {
     <>
       <Group align="center" position="apart">
         <Group>
-          <Avatar radius="xl" size="lg" src={userInfo.user.profileImageUrl} />
-          <Title size={50}>
-            {userInfo.user.id === user?.id
-              ? "Your Profile"
-              : userInfo.user.username + "'s Profile"}
-          </Title>
+          <Avatar radius="xl" size="xl" src={userInfo.user.profileImageUrl} />
+          <Stack spacing={0}>
+            <Title size={50}>
+              {userInfo.user.id === user?.id
+                ? "Your Profile"
+                : userInfo.user.username + "'s Profile"}
+            </Title>
+            <Text>
+              {"Member Since "}
+              {new Date(userInfo.user.createdAt).toDateString()}
+            </Text>
+          </Stack>
         </Group>
         {isCurrentUser && (
           <Button component={Link} to="/profile/edit">
@@ -68,11 +73,9 @@ function MainProfilePage() {
           </Button>
         )}
       </Group>
-      <Text mb="xl">
-        {"Member Since "}
-        {new Date(userInfo.user.createdAt).toDateString()}
-      </Text>
       <Text m="xl">{userInfo.user.bio}</Text>
+
+      {/* TODO: Add icons to tabs */}
       <Tabs variant="outline" defaultValue="Reviews">
         <Tabs.List>
           <Tabs.Tab value="Reviews">Reviews</Tabs.Tab>
