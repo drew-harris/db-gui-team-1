@@ -120,7 +120,7 @@ export const MoviePage = () => {
         </Box>
       </Group>
 
-      <Tabs variant="pills" defaultValue="Reviews">
+      <Tabs variant="outline" defaultValue="Reviews">
         <Tabs.List>
           <Tabs.Tab value="Reviews">Reviews</Tabs.Tab>
           <Tabs.Tab value="Ratings">Ratings</Tabs.Tab>

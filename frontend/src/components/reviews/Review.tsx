@@ -1,4 +1,4 @@
-import { Avatar, Group, Paper, Text } from "@mantine/core";
+import { Avatar, Group, Paper, Rating, Text } from "@mantine/core";
 import RichTextEditor from "@mantine/rte";
 import { Link } from "react-router-dom";
 import { ReviewWithUser } from "../../types";

@@ -29,9 +29,8 @@ export const ProfileListsPage = () => {
 
   return (
     <Box>
-      <Text>{JSON.stringify(userInfo)}</Text>
-      <Group position="apart">
-        <Title>{userInfo.user.username}&apos;s Lists</Title>
+      <Group position="apart" pb="md">
+        <Title size={25}>{userInfo.user.username}&apos;s Lists</Title>
         {isCurrentUser && (
           <Button
             onClick={() => {
