@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Box,
   Button,
+  Center,
   Group,
   Paper,
   Stack,
@@ -39,6 +40,7 @@ export const MovieRequestPage = () => {
         </Button>
       </Group>
       <Stack m="sm">
+        {data?.length === 0 && <Center>No Movies In List</Center>}
         {error && (
           <Text color="red" weight="bold" size="lg" align="center">
             There was an error getting your movie requests.

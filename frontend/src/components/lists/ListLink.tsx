@@ -1,21 +1,24 @@
-import { Group, Paper, SimpleGrid, Text } from "@mantine/core";
+import { Group, Paper, SimpleGrid, Text, useMantineTheme } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
 import { useState } from "react";
 import MovieCard from "../MovieCard";
 
 export const ListLink = ({ list, showUserName = false }) => {
   const { hovered, ref } = useHover();
+  const theme = useMantineTheme();
 
   const [showMovies, setShowMovies] = useState(false);
+  const themeHover =
+    theme.colorScheme === "dark" ? theme.colors.dark[5] : theme.colors.dark[0];
 
   return (
     <>
       <Paper
         sx={(theme) => ({
-          backgroundColor: hovered && theme.colors.blue[5],
+          backgroundColor: hovered ? themeHover : undefined,
+          cursor: "pointer",
         })}
         p="sm"
-        color="red"
         ref={ref}
         onClick={() => setShowMovies(!showMovies)}
       >
