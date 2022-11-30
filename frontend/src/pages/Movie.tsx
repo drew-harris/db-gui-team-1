@@ -21,6 +21,7 @@ import { getReviewsForMovie } from "../api/reviews";
 import { DataSquare } from "../components/DataSquare";
 import AuthOnly from "../components/layouts/AuthOnly";
 import { ListSelect } from "../components/lists/ListSelect";
+import { PageLoader } from "../components/PageLoader";
 import { MovieRatingInput } from "../components/ratings/MovieRatingInput";
 import { RatingChip } from "../components/ratings/RatingChip";
 import Review from "../components/reviews/Review";
@@ -59,7 +60,7 @@ export const MoviePage = () => {
   );
 
   if (!movie || !ranking || !ratingStats || !reviews) {
-    return <div>loading...</div>;
+    return <PageLoader></PageLoader>;
   }
 
   const releaseDate = new Date(movie.releaseDate);
