@@ -1,16 +1,20 @@
+
+
 version: "3"
 
 services:
-  api:
-    container_name: api
+  backend:
+    container_name: backend
     build:
       context: .
       dockerfile: ./backend/Dockerfile
     restart: always
+    environment:
+      - DATABASE_URL=CHANGE_ME
     ports:
       - 8000:8000
     networks:
-      - app_network
+      - project
 
   frontend:
     container_name: frontend
@@ -25,7 +29,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - app_network
+      - project
 
 networks:
-  app_network:
+  project:
