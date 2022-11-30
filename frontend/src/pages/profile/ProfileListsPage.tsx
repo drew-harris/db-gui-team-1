@@ -1,4 +1,4 @@
-import { Box, Button, Group, Stack, Text, Title } from "@mantine/core";
+import { Box, Button, Center, Group, Stack, Text, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -45,6 +45,7 @@ export const ProfileListsPage = () => {
         )}
       </Group>
       <Stack>
+        {lists?.length === 0 && <Center>This user has no lists</Center>}
         {lists.map((list) => (
           <ListLink key={list.id} list={list} />
         ))}

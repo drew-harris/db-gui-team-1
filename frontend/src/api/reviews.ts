@@ -42,6 +42,26 @@ export async function getReviewsForUser(userId) {
   }
 }
 
+export async function deleteReview(reviewId) {
+  try {
+    const response = await fetch(API_URL + "/api/reviews/delete", {
+      body: JSON.stringify({ id: reviewId }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        jwt: getJwt(),
+      },
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error("Could not delete review");
+  }
+}
+
 export async function leaveReview({ movieId, content }) {
   try {
     const response = await fetch(API_URL + "/api/reviews", {

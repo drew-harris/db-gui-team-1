@@ -1,4 +1,4 @@
-import { Title } from "@mantine/core";
+import { Center, Title } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
@@ -20,6 +20,7 @@ export const ProfileReviewsPage = () => {
         {user.username}
         {"'s Reviews"}
       </Title>
+      {reviews?.length === 0 && <Center>This user has no reviews.</Center>}
       {reviews?.map((review) => (
         <Review review={review} key={review.id} showUser={false} />
       ))}

@@ -1,18 +1,9 @@
-import {
-  Card,
-  Group,
-  Image,
-  Rating,
-  SimpleGrid,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Center, SimpleGrid, Title } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getAllRatingsByUserId } from "../../api/ratings";
 import { RatingCard } from "../../components/ratings/RatingCard";
-import { RatingChip } from "../../components/ratings/RatingChip";
 import { AuthContext } from "../../context/AuthContext";
 
 export const ProfileRatingsPage = () => {
@@ -34,6 +25,7 @@ export const ProfileRatingsPage = () => {
         {user.username}
         {"'s Ratings"}
       </Title>
+      {ratings?.length === 0 && <Center>This user has no ratings.</Center>}
       <SimpleGrid
         breakpoints={[
           { maxWidth: 4000, cols: 6, spacing: "md" },

@@ -73,7 +73,7 @@ export async function editReviewByIdHandler(req, res: Response) {
 
 export async function deleteReviewHandler(req, res) {
   try {
-    const movieDelete = await prisma.movieRequest.findFirst({
+    const movieDelete = await prisma.review.findFirst({
       where: {
         id: req.body.id,
       },
@@ -93,6 +93,7 @@ export async function deleteReviewHandler(req, res) {
     });
     return res.json(movieDelete);
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       error: {
         message: "Error deleting review",
