@@ -22,6 +22,7 @@ export const ProfileSearchPage = () => {
     ["user-search", { query: debouncedQuery }],
     () => searchUsers(query)
   );
+
   return (
     <Box>
       <TextInput

@@ -1,3 +1,4 @@
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -24,7 +25,8 @@ import { ListSelect } from "../components/lists/ListSelect";
 import { PageLoader } from "../components/PageLoader";
 import { MovieRatingInput } from "../components/ratings/MovieRatingInput";
 import { RatingChip } from "../components/ratings/RatingChip";
-import Review from "../components/reviews/Review";
+import { RatingsList } from "../components/ratings/RatingsList";
+import { ReviewList } from "../components/reviews/ReviewList";
 import { NewReviewModal } from "../modals/NewReviewModal";
 
 export const MoviePage = () => {
@@ -34,11 +36,7 @@ export const MoviePage = () => {
 
   const navigate = useNavigate();
 
-  const { data: movie } = useQuery(
-    ["movie", { id }],
-    () => getMovieById(id),
-    {}
-  );
+  const { data: movie } = useQuery(["movie", { id }], () => getMovieById(id));
 
   const { data: ratings, status: ratingsStatus } = useQuery(
     ["ratings", { movieId: id }],
@@ -129,20 +127,12 @@ export const MoviePage = () => {
 
         <Tabs.Panel value="Reviews">
           {reviewsStatus !== "success" && <Text>Loading...</Text>}
-          {reviews &&
-            reviews?.map((review) => (
-              <Review review={review} key={review.id} />
-            ))}
+          {reviews && <ReviewList reviews={reviews} />}
         </Tabs.Panel>
 
         <Tabs.Panel value="Ratings">
           {ratingsStatus !== "success" && <Text>Loading...</Text>}
-          <Stack mt="md">
-            {ratings &&
-              ratings?.map((rating) => {
-                return <RatingChip showUser key={rating.id} rating={rating} />;
-              })}
-          </Stack>
+          {ratings && <RatingsList ratings={ratings} />}
         </Tabs.Panel>
       </Tabs>
     </>

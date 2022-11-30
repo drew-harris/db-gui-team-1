@@ -1,4 +1,4 @@
-import { Center, Pagination, Stack, Title } from "@mantine/core";
+import { Center, Loader, Pagination, Stack, Title } from "@mantine/core";
 import { usePagination } from "@mantine/hooks";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -8,9 +8,12 @@ import { RecentReviewCard } from "../components/reviews/RecentReviewCard";
 export const RecentReviewsPage = () => {
   const [page, onPageChange] = useState(1);
   const client = useQueryClient();
-  const { data: reviews } = useQuery(["recent-reviews", { page: page }], () => {
-    return getRecentReviews({ page, limit: 10 });
-  });
+  const { data: reviews, status } = useQuery(
+    ["recent-reviews", { page: page }],
+    () => {
+      return getRecentReviews({ page, limit: 10 });
+    }
+  );
   const pagination = usePagination({ total: 10, page, onChange: onPageChange });
 
   useEffect(() => {
@@ -22,6 +25,11 @@ export const RecentReviewsPage = () => {
   return (
     <>
       <Title>Latest Reviews</Title>
+      {status === "loading" && (
+        <Center>
+          <Loader></Loader>
+        </Center>
+      )}
 
       <Stack py="md">
         {reviews?.map((review) => (

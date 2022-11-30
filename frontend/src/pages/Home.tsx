@@ -17,7 +17,11 @@ function Home() {
   });
 
   const [debouncedFilters] = useDebouncedValue(filters, 200);
-  const pagination = usePagination({ total: 10, page, onChange: onPageChange });
+  const pagination = usePagination({
+    total: 50,
+    page,
+    onChange: onPageChange,
+  });
   const client = useQueryClient();
   const { data: movies, error } = useQuery(
     ["movies", { page: page, ...debouncedFilters }],
@@ -61,7 +65,7 @@ function Home() {
       >
         {movies &&
           movies.map((movie) => {
-            return <MovieCard movie={movie} key={movie.id} />;
+            return <MovieCard showCounts movie={movie} key={movie.id} />;
           })}
       </SimpleGrid>
       {!filters.title && (
@@ -70,7 +74,7 @@ function Home() {
             mt="md"
             page={pagination.active}
             onChange={pagination.setPage}
-            total={10}
+            total={15}
           />
         </Center>
       )}
