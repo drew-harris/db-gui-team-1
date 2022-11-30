@@ -2,6 +2,27 @@ const API_URL = import.meta.env.VITE_API_URL;
 import { ReviewWithUser } from "../types";
 import { getJwt } from "../utils/jwt";
 
+export async function getRecentReviews({ page, limit }) {
+  try {
+    const response = await fetch(
+      API_URL +
+        "/api/reviews/recent?" +
+        new URLSearchParams({
+          page,
+          limit,
+        })
+    );
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return (await response.json()) as ReviewWithUser[];
+  } catch (error) {
+    throw new Error("Could not fetch reviews for movie");
+  }
+}
+
 export async function getReviewsForMovie(movieId) {
   try {
     const response = await fetch(

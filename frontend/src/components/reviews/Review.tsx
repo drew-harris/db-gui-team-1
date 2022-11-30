@@ -1,6 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ActionIcon, Avatar, Group, Paper, Text } from "@mantine/core";
+import { openConfirmModal } from "@mantine/modals";
 import RichTextEditor from "@mantine/rte";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -8,6 +9,7 @@ import { Link } from "react-router-dom";
 import { deleteReview } from "../../api/reviews";
 import { AuthContext } from "../../context/AuthContext";
 import { ReviewWithUser } from "../../types";
+import { time_ago } from "../../utils/time";
 import MovieInfo from "./MovieInfo";
 
 const Review = ({
@@ -19,6 +21,7 @@ const Review = ({
 }) => {
   const client = useQueryClient();
   const { user } = useContext(AuthContext);
+
   const deleteReviewMutation = useMutation({
     mutationFn: async () => {
       await deleteReview(review.id);
@@ -28,6 +31,22 @@ const Review = ({
       client.invalidateQueries(["reviews", { movieId: review.movieId }]);
     },
   });
+
+  const promptDeleteReview = () => {
+    openConfirmModal({
+      title: "Are you sure you want to delete your review?",
+      labels: {
+        confirm: "Delete Review",
+        cancel: "Cancel",
+      },
+      confirmProps: { color: "red" },
+
+      onConfirm: () => {
+        deleteReviewMutation.mutate();
+      },
+    });
+  };
+
   return (
     <Paper radius="md" withBorder p="md" m="md">
       <Group mb="sm" position="apart" align="start">
@@ -48,11 +67,11 @@ const Review = ({
           </div>
         )}
         <Group>
-          <Text size="sm">{new Date(review.submittedAt).toDateString()}</Text>
+          <Text size="sm">{time_ago(new Date(review.submittedAt))}</Text>
           {review.by.id === user?.id && (
             <ActionIcon
               loading={deleteReviewMutation.isLoading}
-              onClick={() => deleteReviewMutation.mutate()}
+              onClick={promptDeleteReview}
               color="red"
             >
               <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>

@@ -16,7 +16,7 @@ import { getListsByUserId } from "../../api/lists";
 import { getAllRatingsByUserId } from "../../api/ratings";
 import { getReviewsForUser } from "../../api/reviews";
 import { getUserInfo } from "../../api/userInfo";
-import { ListLink } from "../../components/lists/ListLink";
+import { MovieListList } from "../../components/lists/MovieListList";
 import { RatingCard } from "../../components/ratings/RatingCard";
 import Review from "../../components/reviews/Review";
 import { AuthContext } from "../../context/AuthContext";
@@ -31,13 +31,11 @@ function MainProfilePage() {
     isLoading,
   } = useQuery(["user", { id }], () => getUserInfo(id));
 
-  const { data: reviews, status: reviewsStatus } = useQuery(
-    ["reviews", { userId: id }],
-    () => getReviewsForUser(id)
+  const { data: reviews } = useQuery(["reviews", { userId: id }], () =>
+    getReviewsForUser(id)
   );
-  const { data: ratings, status: ratingsStatus } = useQuery(
-    ["ratings", { userId: id }],
-    () => getAllRatingsByUserId(id)
+  const { data: ratings } = useQuery(["ratings", { userId: id }], () =>
+    getAllRatingsByUserId(id)
   );
 
   const { data: lists } = useQuery(["lists", { userId: id }], () =>
@@ -113,15 +111,11 @@ function MainProfilePage() {
             })}
           </SimpleGrid>
         </Tabs.Panel>
-        <Tabs.Panel value="MovieLists">
+        <Tabs.Panel mt="md" value="MovieLists">
           {lists?.length === 0 && (
             <Center mt="xl">This user has no lists.</Center>
           )}
-          <Stack mt="md">
-            {lists?.map((list) => (
-              <ListLink key={list.id} list={list} />
-            ))}
-          </Stack>
+          {lists && <MovieListList lists={lists} />}
         </Tabs.Panel>
       </Tabs>
     </>

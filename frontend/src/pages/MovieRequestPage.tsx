@@ -1,3 +1,4 @@
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +18,7 @@ import { getMyMovieRequests } from "../api/movieRequests";
 import { NewMovieRequestModal } from "../modals/NewMovieRequestModal";
 
 export const MovieRequestPage = () => {
+  const [parent] = useAutoAnimate<HTMLDivElement>();
   const { data, status, error } = useQuery(
     ["movie-requests"],
     () => getMyMovieRequests(),
@@ -39,7 +41,7 @@ export const MovieRequestPage = () => {
           New Request
         </Button>
       </Group>
-      <Stack m="sm">
+      <Stack ref={parent} m="sm">
         {data?.length === 0 && <Center>No Movie Requests</Center>}
         {error && (
           <Text color="red" weight="bold" size="lg" align="center">

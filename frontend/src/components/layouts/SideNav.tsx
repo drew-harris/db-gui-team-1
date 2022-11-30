@@ -1,4 +1,5 @@
 import {
+  faClock,
   faEnvelope,
   faHome,
   faList,
@@ -22,6 +23,12 @@ export const SideNav = ({ opened, setOpened }) => {
       to: "/",
       label: "Home",
       icon: <FontAwesomeIcon icon={faHome} />,
+      authOnly: false,
+    },
+    {
+      to: "/recentreviews",
+      label: "Latest Reviews",
+      icon: <FontAwesomeIcon icon={faClock} />,
       authOnly: false,
     },
     {

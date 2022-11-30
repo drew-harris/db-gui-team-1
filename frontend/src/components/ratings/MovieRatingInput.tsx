@@ -20,6 +20,7 @@ export const MovieRatingInput = ({ movieId }: { movieId: string }) => {
     onSettled: () => {
       client.invalidateQueries(["average-rating", { movieId }]);
       client.invalidateQueries(["movie-ranking", { movieId }]);
+      client.invalidateQueries(["ratings", { movieId: movieId }]);
     },
   });
 

@@ -1,13 +1,11 @@
 import { Group, Paper, SimpleGrid, Text, useMantineTheme } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import { useState } from "react";
 import MovieCard from "../MovieCard";
 
-export const ListLink = ({ list, showUserName = false }) => {
+export const ListLink = ({ list }) => {
   const { hovered, ref } = useHover();
   const theme = useMantineTheme();
-  const { user } = useContext(AuthContext);
 
   const [showMovies, setShowMovies] = useState(false);
   const themeHover =
@@ -42,7 +40,9 @@ export const ListLink = ({ list, showUserName = false }) => {
           ]}
         >
           {list.movies?.map((movie) => {
-            return <MovieCard movie={movie} key={movie.id} />;
+            return (
+              <MovieCard showCounts={false} movie={movie} key={movie.id} />
+            );
           })}
         </SimpleGrid>
       )}
