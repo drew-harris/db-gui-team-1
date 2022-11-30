@@ -64,14 +64,16 @@ function Home() {
             return <MovieCard movie={movie} key={movie.id} />;
           })}
       </SimpleGrid>
-      <Center>
-        <Pagination
-          mt="md"
-          page={pagination.active}
-          onChange={pagination.setPage}
-          total={10}
-        />
-      </Center>
+      {!filters.title && (
+        <Center>
+          <Pagination
+            mt="md"
+            page={pagination.active}
+            onChange={pagination.setPage}
+            total={10}
+          />
+        </Center>
+      )}
     </>
   );
 }

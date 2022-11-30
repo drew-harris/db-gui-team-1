@@ -8,6 +8,7 @@ import {
   Image,
   Title,
   Avatar,
+  Center,
 } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -54,7 +55,7 @@ function MainProfilePage() {
     <>
       <Group align="center" position="apart">
         <Group>
-          <Avatar radius="xl" size="xl" src={userInfo.user.profileImageUrl} />
+          <Avatar radius="xl" size="lg" src={userInfo.user.profileImageUrl} />
           <Title size={50}>{userInfo.user.username + "'s Profile"}</Title>
         </Group>
         {isCurrentUser && (
@@ -63,15 +64,11 @@ function MainProfilePage() {
           </Button>
         )}
       </Group>
-      <Text mb="xl" mt="sm" size={22}>
-        {"Email: "}
-        {userInfo.user.email}
-      </Text>
       <Text mb="xl">
         {"Member since "}
         {new Date(userInfo.user.createdAt).toLocaleString("en-US")}
       </Text>
-
+      <Text m="xl">{userInfo.user.bio}</Text>
       <Tabs variant="outline" defaultValue="Reviews">
         <Tabs.List>
           <Tabs.Tab value="Reviews">Reviews</Tabs.Tab>
@@ -80,6 +77,9 @@ function MainProfilePage() {
         </Tabs.List>
 
         <Tabs.Panel value="Reviews">
+          {reviews?.length === 0 && (
+            <Center mt="xl">This user has no reviews</Center>
+          )}
           {reviews?.map((review, key) => (
             <div key={key}>
               <Review review={review} showUser={false} />
@@ -87,6 +87,9 @@ function MainProfilePage() {
           ))}
         </Tabs.Panel>
         <Tabs.Panel value="Ratings">
+          {ratings?.length === 0 && (
+            <Center mt="xl">This user has no ratings</Center>
+          )}
           <SimpleGrid
             m="md"
             breakpoints={[
@@ -104,6 +107,9 @@ function MainProfilePage() {
           </SimpleGrid>
         </Tabs.Panel>
         <Tabs.Panel value="MovieLists">
+          {lists?.length === 0 && (
+            <Center mt="xl">This user has no lists.</Center>
+          )}
           <Stack mt="md">
             {lists.map((list) => (
               <ListLink key={list.id} list={list} />
