@@ -144,7 +144,6 @@ export async function removeFromMovieListHandler(req, res: Response) {
 }
 
 export async function addMovieFromRating(mov, usr) {
-  console.log("here cunt");
   try {
     const watchedList = await prisma.list.findFirst({
       where: {

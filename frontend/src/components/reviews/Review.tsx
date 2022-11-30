@@ -1,14 +1,6 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  ActionIcon,
-  Avatar,
-  Button,
-  Group,
-  Paper,
-  Rating,
-  Text,
-} from "@mantine/core";
+import { ActionIcon, Avatar, Group, Paper, Text } from "@mantine/core";
 import RichTextEditor from "@mantine/rte";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext } from "react";
