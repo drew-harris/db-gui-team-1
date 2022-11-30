@@ -16,7 +16,7 @@ const Review = ({
       <Group mb="sm" position="apart" align="center">
         {showUser ? (
           <Group spacing={4}>
-            <Avatar radius="xl" />
+            <Avatar src={review.by.profileImageUrl} radius="xl" />
             <Text
               component={Link}
               to={"/profile/" + review.by.id}
@@ -31,9 +31,7 @@ const Review = ({
           </div>
         )}
         <Group px="lg">
-          <Text size="sm">
-            {new Date(review.submittedAt).toLocaleString("en-US")}
-          </Text>
+          <Text size="sm">{new Date(review.submittedAt).toDateString()}</Text>
         </Group>
       </Group>
       <RichTextEditor readOnly value={review.content} />
