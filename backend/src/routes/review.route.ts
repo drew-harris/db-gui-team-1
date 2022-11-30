@@ -4,6 +4,7 @@ import {
   deleteReviewHandler,
   editReviewByIdHandler,
   getReviewHandler,
+  recentReviewHandler,
   reviewIdHandler,
 } from "../controllers/review.controller";
 import validate from "../middleware/validateRequest";
@@ -13,6 +14,7 @@ import decodeUser from "../middleware/requireUser";
 const reviewRouter = express.Router();
 
 reviewRouter.get("/", getReviewHandler);
+reviewRouter.get("/recent", recentReviewHandler);
 
 reviewRouter.get("/:id", reviewIdHandler);
 reviewRouter.put("/", editReviewByIdHandler);

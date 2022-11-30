@@ -36,6 +36,7 @@ export async function getListHandler(req, res: Response) {
             movies: true,
           },
         },
+        movies: true,
       },
     });
     return res.json(lists);
@@ -139,5 +140,34 @@ export async function removeFromMovieListHandler(req, res: Response) {
         message: "Could not find movie to remove",
       },
     });
+  }
+}
+
+export async function addMovieFromRating(mov, usr) {
+  try {
+    const watchedList = await prisma.list.findFirst({
+      where: {
+        userId: usr,
+        name: "Watched",
+      },
+    });
+    const lists = await prisma.list.update({
+      where: {
+        id: watchedList.id,
+      },
+      data: {
+        movies: {
+          connect: {
+            id: mov,
+          },
+        },
+      },
+    });
+    return lists;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      error?.message || "Failed to add rated movie to watched list"
+    );
   }
 }

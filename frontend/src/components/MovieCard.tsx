@@ -1,10 +1,14 @@
 import { Card, Group, Image, Text } from "@mantine/core";
-import { useFocusReturn } from "@mantine/hooks";
-import { useRef } from "react";
-import { useNavigate, useRoutes } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MovieWithCounts } from "../types";
 
-export default function MovieCard({ movie }: { movie: MovieWithCounts }) {
+export default function MovieCard({
+  movie,
+  showCounts = true,
+}: {
+  movie: MovieWithCounts;
+  showCounts: boolean;
+}) {
   const navigate = useNavigate();
   return (
     <Card
@@ -25,14 +29,16 @@ export default function MovieCard({ movie }: { movie: MovieWithCounts }) {
       <Text size="xs" lineClamp={3} color="dimmed">
         {movie.description}
       </Text>
-      <Group mt="md" position="apart" align="center">
-        <Text size="sm" color="dimmed">
-          {movie?._count?.reviews} Reviews
-        </Text>
-        <Text size="sm" color="dimmed">
-          {movie?._count?.ratings} Ratings
-        </Text>
-      </Group>
+      {showCounts && (
+        <Group mt="md" position="apart" align="center">
+          <Text size="sm" color="dimmed">
+            {movie?._count?.reviews} Reviews
+          </Text>
+          <Text size="sm" color="dimmed">
+            {movie?._count?.ratings} Ratings
+          </Text>
+        </Group>
+      )}
     </Card>
   );
 }

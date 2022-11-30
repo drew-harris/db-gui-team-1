@@ -1,4 +1,3 @@
-import { date } from "zod";
 import prisma from "../utils/prisma.util";
 
 export async function createMovie(body: Record<string, string>) {

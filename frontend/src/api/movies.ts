@@ -6,7 +6,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default async function getMovies({ filters }) {
   try {
-    
     const response = await fetch(
       API_URL + "/api/movies?" + new URLSearchParams({ ...filters }),
       {
@@ -17,7 +16,6 @@ export default async function getMovies({ filters }) {
     );
 
     if (!response.ok) {
-    
       throw new Error("Error getting information");
     }
 
@@ -38,7 +36,6 @@ export async function getMovieById(id) {
       },
     });
     if (!response.ok) {
-      
       throw new Error("Error getting information");
     }
 
@@ -53,8 +50,9 @@ export async function getMovieById(id) {
 
 export async function searchMovies(title) {
   try {
-    const url = API_URL + "/api/movies?" + new URLSearchParams({ title });
-  
+    const url =
+      API_URL + "/api/movies?" + new URLSearchParams({ title, limit: "5" });
+
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/json",

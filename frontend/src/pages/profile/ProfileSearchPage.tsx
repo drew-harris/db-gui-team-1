@@ -7,19 +7,22 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import { useDebouncedValue } from "@mantine/hooks";
+import { useDebouncedValue, useMediaQuery } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { searchUsers } from "../../api/userInfo";
 
 export const ProfileSearchPage = () => {
+  const isMobile = useMediaQuery("(max-width: 900px)", false);
+
   const [query, setQuery] = useState("");
   const [debouncedQuery] = useDebouncedValue(query, 200);
   const { data: users } = useQuery(
     ["user-search", { query: debouncedQuery }],
     () => searchUsers(query)
   );
+
   return (
     <Box>
       <TextInput
@@ -27,7 +30,7 @@ export const ProfileSearchPage = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       ></TextInput>
-      <SimpleGrid mt="md" cols={4}>
+      <SimpleGrid mt="md" cols={isMobile ? 1 : 4}>
         {users?.map((user) => (
           <User user={user} key={user.id} />
         ))}

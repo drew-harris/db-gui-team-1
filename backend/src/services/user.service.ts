@@ -52,29 +52,18 @@ export async function getUsers() {
 
   return users;
 }
-export async function editBio(id, bio) {
+export async function editProfile(id, bio, profileImageUrl) {
   const users = await prisma.user.update({
     where: {
       id,
     },
     data: {
       bio,
-    },
-  });
-
-  return users;
-}
-export async function editImage(id, profileImageUrl) {
-  const user = await prisma.user.update({
-    where: {
-      id,
-    },
-    data: {
       profileImageUrl,
     },
   });
 
-  return user;
+  return users;
 }
 
 export async function getUserById(id) {

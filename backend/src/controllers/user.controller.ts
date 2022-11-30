@@ -1,15 +1,9 @@
 import { Request, Response } from "express";
-import {
-  createUser,
-  getUserById,
-  getUsers,
-  editBio,
-  editImage,
-} from "../services/user.service";
-import prisma from "../utils/prisma.util";
-import { getReviewByUserId } from "../services/review.service";
-import { signJwt } from "../utils/jwt.util";
 import { getRatingByUser } from "../services/rating.service";
+import { getReviewByUserId } from "../services/review.service";
+import { createUser, editProfile, getUserById } from "../services/user.service";
+import { signJwt } from "../utils/jwt.util";
+import prisma from "../utils/prisma.util";
 export async function createUserHandler(req: Request, res: Response) {
   try {
     const user = await createUser(req.body);
@@ -52,24 +46,13 @@ export async function getUsersHandler(req: Request, res: Response) {
     });
   }
 }
-export async function editBioHandler(req, res: Response) {
+export async function editProfileHandler(req, res: Response) {
+  console.log("Editing a profile with", req.body);
   try {
     const bio = req.body.bio;
-    const userId = req.user.id;
-    const user = await editBio(userId, bio);
-
-    return res.json(user);
-  } catch (e) {
-    res.status(500).json({
-      message: e.message,
-    });
-  }
-}
-export async function editImageHandler(req, res: Response) {
-  try {
     const profileImageUrl = req.body.profileImageUrl;
     const userId = req.user.id;
-    const user = await editImage(userId, profileImageUrl);
+    const user = await editProfile(userId, bio, profileImageUrl);
 
     return res.json(user);
   } catch (e) {
@@ -78,6 +61,7 @@ export async function editImageHandler(req, res: Response) {
     });
   }
 }
+
 export async function getUserOverviewHandler(req, res: Response) {
   try {
     if (!req.query.id) {

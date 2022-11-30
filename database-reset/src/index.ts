@@ -5,9 +5,10 @@ import users from "./seeds/users";
 async function clearDb(prisma: PrismaClient) {
   await prisma.review.deleteMany({});
   await prisma.rating.deleteMany({});
-  await prisma.movie.deleteMany({});
+  await prisma.list.deleteMany({});
   await prisma.movieRequest.deleteMany({});
   await prisma.user.deleteMany({});
+  await prisma.movie.deleteMany({});
 }
 async function main() {
   try {

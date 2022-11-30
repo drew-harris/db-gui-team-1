@@ -1,5 +1,4 @@
-import { Request, Response } from "express";
-import { userInfo } from "os";
+import { Response } from "express";
 import { createReview, editReview } from "../services/review.service";
 import prisma from "../utils/prisma.util";
 
@@ -32,6 +31,9 @@ export async function getReviewHandler(req, res: Response) {
         userId: req.query.userId,
       },
       take: req.query.limit ? parseInt(req.query.limit) : undefined,
+      skip: req.query?.page
+        ? (req.query.page - 1) * (req.query.limit || 20)
+        : undefined,
       include: {
         // Include user with each review
         by: {
@@ -57,6 +59,7 @@ export async function getReviewHandler(req, res: Response) {
     });
   }
 }
+
 export async function editReviewByIdHandler(req, res: Response) {
   try {
     const review = await editReview(req.query.id, req.body.content);
@@ -74,7 +77,7 @@ export async function editReviewByIdHandler(req, res: Response) {
 
 export async function deleteReviewHandler(req, res) {
   try {
-    const movieDelete = await prisma.movieRequest.findFirst({
+    const movieDelete = await prisma.review.findFirst({
       where: {
         id: req.body.id,
       },
@@ -94,9 +97,55 @@ export async function deleteReviewHandler(req, res) {
     });
     return res.json(movieDelete);
   } catch (error) {
+    console.error(error);
     res.status(500).json({
       error: {
         message: "Error deleting review",
+      },
+    });
+  }
+}
+
+export async function recentReviewHandler(req, res: Response) {
+  try {
+    const reviews = await prisma.review.findMany({
+      where: {
+        movieId: req.query.movieId,
+
+        userId: req.query.userId,
+      },
+      take: req.query.limit ? parseInt(req.query.limit) : undefined,
+      skip: req.query?.page
+        ? (req.query.page - 1) * (req.query.limit || 20)
+        : undefined,
+      include: {
+        // Include user with each review
+        by: {
+          select: {
+            id: true,
+            username: true,
+            profileImageUrl: true,
+          },
+        },
+        for: {
+          select: {
+            id: true,
+            title: true,
+            posterImageUrl: true,
+          },
+        },
+      },
+      orderBy: {
+        submittedAt: "desc",
+      },
+    });
+    res.json(reviews);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: {
+        error: error.message,
+        message: "Could not get reviews",
       },
     });
   }

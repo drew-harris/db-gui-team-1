@@ -17,7 +17,11 @@ function Home() {
   });
 
   const [debouncedFilters] = useDebouncedValue(filters, 200);
-  const pagination = usePagination({ total: 10, page, onChange: onPageChange });
+  const pagination = usePagination({
+    total: 50,
+    page,
+    onChange: onPageChange,
+  });
   const client = useQueryClient();
   const { data: movies, error } = useQuery(
     ["movies", { page: page, ...debouncedFilters }],
@@ -40,7 +44,7 @@ function Home() {
 
   return (
     <>
-      <Title mb="md">All Movies</Title>
+      <Title mb="md">Top Flicks</Title>
       {error && error instanceof Error && (
         <Center>
           <Text color="red">{error.message || "Error getting movies"}</Text>
@@ -49,20 +53,31 @@ function Home() {
       <AuthOnly>
         <MovieFilterBar filters={filters} setFilters={setFilters} />
       </AuthOnly>
-      <SimpleGrid cols={4}>
+      <SimpleGrid
+        breakpoints={[
+          { maxWidth: 4000, cols: 6, spacing: "md" },
+          { maxWidth: 2000, cols: 5, spacing: "md" },
+          { maxWidth: 1500, cols: 4, spacing: "md" },
+          { maxWidth: 980, cols: 3, spacing: "md" },
+          { maxWidth: 755, cols: 2, spacing: "sm" },
+          { maxWidth: 600, cols: 1, spacing: "sm" },
+        ]}
+      >
         {movies &&
           movies.map((movie) => {
-            return <MovieCard movie={movie} key={movie.id} />;
+            return <MovieCard showCounts movie={movie} key={movie.id} />;
           })}
       </SimpleGrid>
-      <Center>
-        <Pagination
-          mt="md"
-          page={pagination.active}
-          onChange={pagination.setPage}
-          total={10}
-        />
-      </Center>
+      {!filters.title && (
+        <Center>
+          <Pagination
+            mt="md"
+            page={pagination.active}
+            onChange={pagination.setPage}
+            total={15}
+          />
+        </Center>
+      )}
     </>
   );
 }

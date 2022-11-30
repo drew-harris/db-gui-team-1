@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import prisma from "../utils/prisma.util";
 
 export async function handleNewMovieRequest(req, res: Response) {

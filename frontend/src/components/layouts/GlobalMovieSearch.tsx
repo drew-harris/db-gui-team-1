@@ -1,10 +1,10 @@
-import { Autocomplete } from "@mantine/core";
+import { Autocomplete, MediaQuery, Spoiler } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useDebouncedValue } from "@mantine/hooks";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { searchMovies } from "../../api/movies";
 
-// TODO: Debounce this
 function GlobalMovieSearch() {
   const navigate = useNavigate();
   const form = useForm({
@@ -13,9 +13,11 @@ function GlobalMovieSearch() {
     },
   });
 
+  const [debouncedSearch] = useDebouncedValue(form.values.search, 300);
+
   const { data: movies } = useQuery(
-    ["movies", { title: form.values.search }],
-    () => searchMovies(form.values.search),
+    ["movies", { title: debouncedSearch }],
+    () => searchMovies(debouncedSearch),
     {
       refetchOnWindowFocus: false,
     }
@@ -33,16 +35,18 @@ function GlobalMovieSearch() {
 
   return (
     <>
-      <Autocomplete
-        size="sm"
-        placeholder="Search Movies"
-        data={transformedMovies}
-        onItemSubmit={(item) => {
-          navigate("/movie/" + item.id);
-          form.setFieldValue("search", "");
-        }}
-        {...form.getInputProps("search")}
-      ></Autocomplete>
+      <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+        <Autocomplete
+          size="sm"
+          placeholder="Search Flicks"
+          data={transformedMovies}
+          onItemSubmit={(item) => {
+            navigate("/movie/" + item.id);
+            form.setFieldValue("search", "");
+          }}
+          {...form.getInputProps("search")}
+        ></Autocomplete>
+      </MediaQuery>
     </>
   );
 }

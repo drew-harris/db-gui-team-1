@@ -61,6 +61,7 @@ export async function rateMovie({ movieId, score }) {
 }
 
 export async function getAllRatingsByMovieId(movieId) {
+  console.log("GETTING RATINGS BY MOVIE ID");
   try {
     const response = await fetch(
       API_URL + "/api/ratings?" + new URLSearchParams({ movieId }),
@@ -75,8 +76,11 @@ export async function getAllRatingsByMovieId(movieId) {
       const data = await response.json();
       throw new Error(data.message);
     }
-    return await response.json();
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
+    console.error(error);
     throw new Error(error.message);
   }
 }
@@ -88,7 +92,6 @@ export async function getAllRatingsByUserId(userId) {
       {
         headers: {
           "Content-Type": "application/json",
-          
         },
       }
     );

@@ -39,7 +39,7 @@ export async function getListsByUserId(userId) {
       throw new Error(data.message);
     }
     const data = await response.json();
-  
+
     return data;
   } catch (error) {
     throw new Error(error.message);
@@ -56,6 +56,28 @@ export async function createNewList(name) {
         jwt: getJwt(),
       },
     });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message);
+    }
+    return await response.json();
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export async function deleteList(listId) {
+  try {
+    const response = await fetch(
+      API_URL + "/api/list?" + new URLSearchParams({ id: listId }),
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          jwt: getJwt(),
+        },
+      }
+    );
     if (!response.ok) {
       const data = await response.json();
       throw new Error(data.message);

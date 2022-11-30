@@ -1,3 +1,4 @@
+import { faFilm } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AppShell,
@@ -7,7 +8,9 @@ import {
   Header,
   MediaQuery,
   Text,
+  useMantineTheme,
 } from "@mantine/core";
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { ThemeToggle } from "../ThemeToggle";
 import GlobalMovieSearch from "./GlobalMovieSearch";
@@ -15,9 +18,13 @@ import { HeaderAuthLinks } from "./HeaderAuthLinks";
 import { SideNav } from "./SideNav";
 
 export const MainLayout = () => {
+  const theme = useMantineTheme();
+  const [opened, setOpened] = useState(false);
   return (
     <AppShell
-      navbar={<SideNav />}
+      navbarOffsetBreakpoint="sm"
+      asideOffsetBreakpoint="sm"
+      navbar={<SideNav opened={opened} setOpened={setOpened} />}
       header={
         <Header height={60} withBorder>
           <Group
@@ -46,8 +53,10 @@ export const MainLayout = () => {
               </Group>
             </MediaQuery>
             <GlobalMovieSearch />
+
             <Group>
               <HeaderAuthLinks />
+
               <ThemeToggle />
             </Group>
           </Group>

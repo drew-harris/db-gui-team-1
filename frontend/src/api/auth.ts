@@ -11,7 +11,7 @@ export async function logIn({ email, password }) {
     });
     if (!response.ok) {
       const data = await response.json();
-      
+
       throw new Error(data?.error?.message || "Something went wrong");
     }
     return await response.json();

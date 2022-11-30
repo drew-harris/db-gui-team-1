@@ -22,7 +22,7 @@ export async function deleteList(body) {
   const list = prisma.list.delete({
     where: {
       id: body.id,
-    }
+    },
   });
   return list;
 }

@@ -27,7 +27,6 @@ export const ListSelect = ({ movieId }) => {
   const setListsMutation = useMutation({
     mutationFn: setListsForMovie,
     onMutate: ({ listIds }) => {
-     
       client.setQueryData(["list-ids", { movieId }], listIds);
     },
     onSettled: () => refetch(),

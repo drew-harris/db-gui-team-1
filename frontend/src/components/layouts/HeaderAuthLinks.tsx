@@ -1,20 +1,25 @@
-import { faPerson, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ActionIcon, Button, Group, Text } from "@mantine/core";
+import { ActionIcon, Group, Text, MediaQuery } from "@mantine/core";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 const LoginOrSignup = () => {
   return (
-    <Group spacing={29}>
-      <Text component={Link} to="/login">
-        Log In
-      </Text>
-      <Text component={Link} to="/signup">
-        Sign Up
-      </Text>
-    </Group>
+    <MediaQuery
+      query="(max-width: 600px) and (min-width: 1px)"
+      styles={{ fontSize: 12 }}
+    >
+      <Group spacing={29}>
+        <Text component={Link} to="/login">
+          Log In
+        </Text>
+        <Text component={Link} to="/signup">
+          Sign Up
+        </Text>
+      </Group>
+    </MediaQuery>
   );
 };
 

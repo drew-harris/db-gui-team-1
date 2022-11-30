@@ -1,13 +1,14 @@
 import prisma from "../utils/prisma.util";
 
 export async function createRating(body, user) {
-  return prisma.rating.create({
+  const rating = prisma.rating.create({
     data: {
       score: body.score,
       by: { connect: { id: user.id } },
       for: { connect: { id: body.movieId } },
     },
   });
+  return rating;
 }
 
 export function getRatings() {

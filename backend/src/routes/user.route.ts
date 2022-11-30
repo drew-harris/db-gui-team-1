@@ -1,15 +1,14 @@
 import express from "express";
-import { createUserSchema, editBioSchema, editPfpSchema } from "schemas";
+import { createUserSchema, editProfileSchema } from "schemas";
 import {
   createUserHandler,
-  getUsersHandler,
+  editProfileHandler,
   getUserOverviewHandler,
-  editBioHandler,
-  editImageHandler,
+  getUsersHandler,
 } from "../controllers/user.controller";
-import validate from "../middleware/validateRequest";
-import decodeUser from "../middleware/requireUser";
 import optionalUser from "../middleware/optionalUser";
+import decodeUser from "../middleware/requireUser";
+import validate from "../middleware/validateRequest";
 const userRouter = express.Router();
 
 userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
@@ -17,16 +16,10 @@ userRouter.post("/", validate(createUserSchema, "body"), createUserHandler);
 userRouter.get("/", getUsersHandler);
 userRouter.get("/about", optionalUser, getUserOverviewHandler);
 userRouter.put(
-  "/bio",
-  validate(editBioSchema, "body"),
+  "/",
+  validate(editProfileSchema, "body"),
   decodeUser,
-  editBioHandler
-);
-userRouter.put(
-  "/pfp",
-  validate(editPfpSchema, "body"),
-  decodeUser,
-  editImageHandler
+  editProfileHandler
 );
 
 export default userRouter;

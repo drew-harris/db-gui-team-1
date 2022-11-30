@@ -1,11 +1,45 @@
-import { Button } from "@mantine/core";
-import { useContext } from "react";
+import {
+  Avatar,
+  Button,
+  Group,
+  Stack,
+  Textarea,
+  TextInput,
+  Title,
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { showNotification } from "@mantine/notifications";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserInfo, saveProfileInformation } from "../../api/userInfo";
 import { AuthContext } from "../../context/AuthContext";
 
 export const EditProfilePage = () => {
-  const { setUser } = useContext(AuthContext);
+  const { setUser, user } = useContext(AuthContext);
+  const [userDataLoaded, setUserDataLoaded] = useState(false);
   const navigate = useNavigate();
+
+  const form = useForm({
+    initialValues: {
+      bio: "",
+      profilePicture: "",
+    },
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getUserInfo(user.id);
+      console.log(data.user);
+      form.setValues({
+        bio: data.user.bio || "",
+        profilePicture: data.user.profileImageUrl || "",
+      });
+      setUserDataLoaded(true);
+    };
+
+    fetchData();
+  }, []);
+
   const signOut = () => {
     window.localStorage.setItem("jwt", null);
     window.localStorage.setItem("user", null);
@@ -13,13 +47,23 @@ export const EditProfilePage = () => {
     navigate("/");
   };
 
+  const submitProfileInfo = async (values) => {
+    try {
+      console.log("submitProfileInfo");
+      await saveProfileInformation({
+        bio: values.bio,
+        profileImageUrl: values.profilePicture,
+      });
+      navigate("/profile/" + user.id);
+    } catch (error) {
+      showNotification({
+        message: "Error updating profile information",
+        color: "red",
+      });
+    }
+  };
+
   return (
-<<<<<<< Updated upstream
-    <div>
-      <div>Edit profile</div>
-      <Button onClick={signOut}>Sign Out</Button>
-    </div>
-=======
     <>
       <Group mb="md" align="start" position="apart">
         <Title>Edit Profile</Title>
@@ -56,6 +100,5 @@ export const EditProfilePage = () => {
         </form>
       )}
     </>
->>>>>>> Stashed changes
   );
 };

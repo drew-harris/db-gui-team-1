@@ -3,9 +3,9 @@ import {
   createRating,
   deleteRatingById,
   getRatingById,
-  updateMovieScore,
 } from "../services/rating.service";
 import prisma from "../utils/prisma.util";
+import { addMovieFromRating } from "./list.controller";
 
 export async function createRatingHandler(req, res: Response) {
   try {
@@ -73,6 +73,7 @@ export async function getRatingHandler(req, res: Response) {
         userId: req.query.userId,
       },
       include: {
+        for: true,
         by: {
           select: {
             username: true,
@@ -135,7 +136,6 @@ export async function updateScoreHandler(req, res: Response) {
     });
   }
 
-  
   try {
     const rating = await prisma.rating.findFirst({
       where: {
@@ -143,7 +143,6 @@ export async function updateScoreHandler(req, res: Response) {
         userId: req.user.id,
       },
     });
-
 
     let newRating;
     if (rating) {
@@ -173,6 +172,7 @@ export async function updateScoreHandler(req, res: Response) {
         },
       });
     }
+    addMovieFromRating(req.body.movieId, req.user.id);
     console.log(newRating);
     return res.json(newRating);
   } catch (error) {

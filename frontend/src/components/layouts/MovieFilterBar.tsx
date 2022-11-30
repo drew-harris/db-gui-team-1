@@ -1,4 +1,5 @@
 import { Group, Select, TextInput } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 
 const genres = [
   "Animation",
@@ -15,7 +16,10 @@ const genres = [
   "Crime",
   "Adventure",
 ];
+
 export const MovieFilterBar = ({ filters, setFilters }) => {
+  const isMobile = useMediaQuery("(max-width: 900px)", false);
+
   return (
     <Group mb="lg" position="apart">
       <TextInput

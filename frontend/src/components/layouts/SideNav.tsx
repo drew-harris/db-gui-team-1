@@ -1,10 +1,12 @@
 import {
+  faClock,
   faEnvelope,
   faHome,
   faList,
   faPencil,
   faStar,
   faUser,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navbar, NavLink } from "@mantine/core";
@@ -12,7 +14,7 @@ import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-export const SideNav = () => {
+export const SideNav = ({ opened, setOpened }) => {
   const location = useLocation();
   const { user } = useContext(AuthContext);
 
@@ -21,6 +23,12 @@ export const SideNav = () => {
       to: "/",
       label: "Home",
       icon: <FontAwesomeIcon icon={faHome} />,
+      authOnly: false,
+    },
+    {
+      to: "/recentreviews",
+      label: "Latest Reviews",
+      icon: <FontAwesomeIcon icon={faClock} />,
       authOnly: false,
     },
     {
@@ -50,7 +58,7 @@ export const SideNav = () => {
     {
       to: "/profiles/",
       label: "All Users",
-      icon: <FontAwesomeIcon icon={faUser} />,
+      icon: <FontAwesomeIcon icon={faUsers} />,
       authOnly: false,
     },
     {
@@ -63,13 +71,14 @@ export const SideNav = () => {
   if (location.pathname === "/login" || location.pathname === "/signup")
     return null;
   return (
-    <Navbar width={{ base: 240 }} withBorder p="xs">
+    <Navbar width={{ sm: 200, lg: 300 }} hidden={!opened} withBorder p="xs">
       {links.map((link) => {
         if (link.authOnly && !user) {
           return null;
         }
         return (
           <NavLink
+            onClick={() => setOpened(false)}
             icon={link.icon}
             key={link.to}
             label={link.label}
