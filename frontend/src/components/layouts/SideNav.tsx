@@ -5,6 +5,7 @@ import {
   faPencil,
   faStar,
   faUser,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Navbar, NavLink } from "@mantine/core";
@@ -50,7 +51,7 @@ export const SideNav = ({ opened, setOpened }) => {
     {
       to: "/profiles/",
       label: "All Users",
-      icon: <FontAwesomeIcon icon={faUser} />,
+      icon: <FontAwesomeIcon icon={faUsers} />,
       authOnly: false,
     },
     {

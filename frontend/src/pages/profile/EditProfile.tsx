@@ -65,7 +65,7 @@ export const EditProfilePage = () => {
 
   return (
     <>
-      <Group position="apart">
+      <Group mb="md" align="start" position="apart">
         <Title>Edit Profile</Title>
         <Button onClick={signOut}>Sign Out</Button>
       </Group>
@@ -83,7 +83,7 @@ export const EditProfilePage = () => {
                 label="Profile Image"
                 placeholder="Profile Image URL"
               ></TextInput>
-              <Avatar src={form.values.profilePicture}></Avatar>
+              <Avatar radius="xl" src={form.values.profilePicture}></Avatar>
             </Group>
             <Button
               sx={(theme) => ({

@@ -65,15 +65,15 @@ function MainProfilePage() {
         )}
       </Group>
       <Text mb="xl">
-        {"Member since "}
-        {new Date(userInfo.user.createdAt).toLocaleString("en-US")}
+        {"Member Since "}
+        {new Date(userInfo.user.createdAt).toDateString()}
       </Text>
       <Text m="xl">{userInfo.user.bio}</Text>
       <Tabs variant="outline" defaultValue="Reviews">
         <Tabs.List>
           <Tabs.Tab value="Reviews">Reviews</Tabs.Tab>
           <Tabs.Tab value="Ratings">Ratings</Tabs.Tab>
-          <Tabs.Tab value="MovieLists">Movie Lists</Tabs.Tab>
+          <Tabs.Tab value="MovieLists">Lists</Tabs.Tab>
         </Tabs.List>
 
         <Tabs.Panel value="Reviews">

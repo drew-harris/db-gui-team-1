@@ -28,8 +28,8 @@ const Review = ({
   const client = useQueryClient();
   const { user } = useContext(AuthContext);
   const deleteReviewMutation = useMutation({
-    mutationFn: async (id) => {
-      await deleteReview(id);
+    mutationFn: async () => {
+      await deleteReview(review.id);
     },
     onSuccess: () => {
       console.log("onsuccess");
@@ -60,7 +60,7 @@ const Review = ({
           {review.by.id === user.id && (
             <ActionIcon
               loading={deleteReviewMutation.isLoading}
-              onClick={() => deleteReviewMutation.mutate(review.id)}
+              onClick={() => deleteReviewMutation.mutate()}
               color="red"
             >
               <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>

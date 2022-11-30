@@ -1,3 +1,5 @@
+import { faFilm } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   AppShell,
   Box,
@@ -43,9 +45,12 @@ export const MainLayout = () => {
             </MediaQuery>
 
             <MediaQuery query="(max-width: 600px)" styles={{ fontSize: 12 }}>
-              <Text component={Link} to="/" weight="bold" size="lg">
-                flickaid
-              </Text>
+              <Group>
+                <FontAwesomeIcon icon={faFilm}></FontAwesomeIcon>
+                <Text component={Link} to="/" weight="bold" size="lg">
+                  flickaid
+                </Text>
+              </Group>
             </MediaQuery>
             <GlobalMovieSearch />
 
