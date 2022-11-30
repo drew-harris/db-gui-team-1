@@ -1,9 +1,23 @@
-import { Button, Group, Tabs, Text, Title } from "@mantine/core";
+import {
+  Button,
+  Group,
+  SimpleGrid,
+  Stack,
+  Tabs,
+  Text,
+  Image,
+  Title,
+  Avatar,
+} from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
+import { getListsByUserId } from "../../api/lists";
+import { getAllRatingsByUserId } from "../../api/ratings";
 import { getReviewsForUser } from "../../api/reviews";
 import { getUserInfo } from "../../api/userInfo";
+import { ListLink } from "../../components/lists/ListLink";
+import { RatingCard } from "../../components/ratings/RatingCard";
 import Review from "../../components/reviews/Review";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -21,6 +35,14 @@ function MainProfilePage() {
     ["reviews", { userId: id }],
     () => getReviewsForUser(id)
   );
+  const { data: ratings, status: ratingsStatus } = useQuery(
+    ["ratings", { userId: id }],
+    () => getAllRatingsByUserId(id)
+  );
+
+  const { data: lists } = useQuery(["lists", { userId: id }], () =>
+    getListsByUserId(id)
+  );
 
   if (!userInfo || isLoading || error) {
     return null;
@@ -31,7 +53,10 @@ function MainProfilePage() {
   return (
     <>
       <Group align="center" position="apart">
-        <Title size={50}>{userInfo.user.username + "'s Profile"}</Title>
+        <Group>
+          <Avatar radius="xl" size="xl" src={userInfo.user.profileImageUrl} />
+          <Title size={50}>{userInfo.user.username + "'s Profile"}</Title>
+        </Group>
         {isCurrentUser && (
           <Button component={Link} to="/profile/edit">
             Profile Settings
@@ -61,8 +86,30 @@ function MainProfilePage() {
             </div>
           ))}
         </Tabs.Panel>
-        <Tabs.Panel value="Ratings">Ratings</Tabs.Panel>
-        <Tabs.Panel value="MovieLists">Movie Lists</Tabs.Panel>
+        <Tabs.Panel value="Ratings">
+          <SimpleGrid
+            m="md"
+            breakpoints={[
+              { maxWidth: 4000, cols: 6, spacing: "md" },
+              { maxWidth: 2000, cols: 5, spacing: "md" },
+              { maxWidth: 1500, cols: 4, spacing: "md" },
+              { maxWidth: 980, cols: 3, spacing: "md" },
+              { maxWidth: 755, cols: 2, spacing: "sm" },
+              { maxWidth: 600, cols: 1, spacing: "sm" },
+            ]}
+          >
+            {ratings?.map((rating) => {
+              return <RatingCard key={rating.id} rating={rating} />;
+            })}
+          </SimpleGrid>
+        </Tabs.Panel>
+        <Tabs.Panel value="MovieLists">
+          <Stack mt="md">
+            {lists.map((list) => (
+              <ListLink key={list.id} list={list} />
+            ))}
+          </Stack>
+        </Tabs.Panel>
       </Tabs>
     </>
   );

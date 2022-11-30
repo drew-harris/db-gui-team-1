@@ -36,6 +36,7 @@ export async function getListHandler(req, res: Response) {
             movies: true,
           },
         },
+        movies: true,
       },
     });
     return res.json(lists);
