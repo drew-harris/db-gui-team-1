@@ -22,7 +22,7 @@ export const MainLayout = () => {
     <AppShell
       navbarOffsetBreakpoint="sm"
       asideOffsetBreakpoint="sm"
-      navbar={<SideNav opened={opened} />}
+      navbar={<SideNav opened={opened} setOpened={setOpened} />}
       header={
         <Header height={60} withBorder>
           <Group
@@ -43,8 +43,8 @@ export const MainLayout = () => {
             </MediaQuery>
 
             <MediaQuery query="(max-width: 600px)" styles={{ fontSize: 12 }}>
-              <Text component={Link} to="/" weight="bold" size="lg" >
-                  flickaid
+              <Text component={Link} to="/" weight="bold" size="lg">
+                flickaid
               </Text>
             </MediaQuery>
             <GlobalMovieSearch />

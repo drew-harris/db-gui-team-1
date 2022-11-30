@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-export const SideNav = ({ opened }) => {
+export const SideNav = ({ opened, setOpened }) => {
   const location = useLocation();
   const { user } = useContext(AuthContext);
 
@@ -70,6 +70,7 @@ export const SideNav = ({ opened }) => {
         }
         return (
           <NavLink
+            onClick={() => setOpened(false)}
             icon={link.icon}
             key={link.to}
             label={link.label}
