@@ -54,7 +54,7 @@ export const MoviePage = () => {
     getMovieRanking(id)
   );
 
-  if (!movie || !ranking || !ratingStats || !reviews) {
+  if (!movie || !ratingStats || !reviews) {
     return <PageLoader></PageLoader>;
   }
 

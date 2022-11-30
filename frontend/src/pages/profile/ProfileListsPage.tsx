@@ -1,4 +1,4 @@
-import { Box, Button, Group, Title } from "@mantine/core";
+import { Box, Button, Center, Group, Loader, Title } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
@@ -24,7 +24,11 @@ export const ProfileListsPage = () => {
   const isCurrentUser = currentUser?.id === id;
 
   if (!userInfo || !lists) {
-    return null;
+    return (
+      <Center mt="lg">
+        <Loader />
+      </Center>
+    );
   }
 
   return (

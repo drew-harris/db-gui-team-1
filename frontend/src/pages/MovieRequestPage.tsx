@@ -19,7 +19,7 @@ import { NewMovieRequestModal } from "../modals/NewMovieRequestModal";
 
 export const MovieRequestPage = () => {
   const [parent] = useAutoAnimate<HTMLDivElement>();
-  const { data, status, error } = useQuery(
+  const { data, error } = useQuery(
     ["movie-requests"],
     () => getMyMovieRequests(),
     {
