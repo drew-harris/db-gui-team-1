@@ -9,6 +9,9 @@ export default function MovieCard({ movie }: { movie: MovieWithCounts }) {
   return (
     <Card
       withBorder
+      sx={{
+        cursor: "pointer",
+      }}
       radius="md"
       shadow="lg"
       onClick={() => navigate("/movie/" + movie.id)}

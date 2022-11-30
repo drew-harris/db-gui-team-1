@@ -1,19 +1,15 @@
-import { faList, faPlus } from "@fortawesome/free-solid-svg-icons";
+<<<<<<< Updated upstream
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Box,
-  Button,
-  Group,
-  Image,
-  MultiSelect,
-  Rating,
-  Space,
-  Text,
-  Title,
+    Box,
+    Button,
+    Group,
+    Image, Space, Text,
+    Title
 } from "@mantine/core";
 import { openModal } from "@mantine/modals";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getMovieById, getMovieRanking } from "../api/movies";
 import { getAverageRating } from "../api/ratings";
@@ -50,8 +46,8 @@ export const MoviePage = () => {
     getMovieRanking(id)
   );
 
-  if (!movie || !ranking || !ratingStats || !reviews) {
-    return null;
+  if (!movie) {
+    return <PageLoader></PageLoader>;
   }
 
   const releaseDate = new Date(movie.releaseDate);
@@ -78,7 +74,11 @@ export const MoviePage = () => {
             <DataSquare
               label="Rating"
               onClick={() => navigate(`/movie/${id}/ratings`)}
-              value={ratingStats?.average.toFixed(2)}
+              value={
+                ratingStats?.count > 0
+                  ? ratingStats?.average?.toFixed(2)
+                  : "No Ratings"
+              }
             />
             <DataSquare
               onClick={() => navigate(`/movie/${id}/reviews`)}

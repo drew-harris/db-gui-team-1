@@ -147,7 +147,8 @@ export async function getMovieRankingHandler(req, res: Response) {
       },
     });
     const orderedIds = ranking.map((ratingGroup) => ratingGroup.movieId);
-    res.json(orderedIds.indexOf(movie.id) + 1);
+    const data = orderedIds.indexOf(movie.id) + 1;
+    res.json(data);
   } catch (error) {
     res.status(500).json({
       error: {

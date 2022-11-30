@@ -1,4 +1,13 @@
-import { AppShell, Box, Group, Header, Text } from "@mantine/core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  AppShell,
+  Box,
+  Burger,
+  Group,
+  Header,
+  MediaQuery,
+  Text,
+} from "@mantine/core";
 import { Link, Outlet } from "react-router-dom";
 import { ThemeToggle } from "../ThemeToggle";
 import GlobalMovieSearch from "./GlobalMovieSearch";
@@ -18,9 +27,24 @@ export const MainLayout = () => {
             p="xs"
             sx={{ height: "100%" }}
           >
-            <Text component={Link} to="/" weight="bold">
-              Movie Website
-            </Text>
+            <MediaQuery largerThan="sm" styles={{ display: "none" }}>
+              <Burger
+                opened={opened}
+                onClick={() => setOpened((o) => !o)}
+                size="sm"
+                color={theme.colors.gray[6]}
+                mr="xl"
+              />
+            </MediaQuery>
+
+            <MediaQuery query="(max-width: 600px)" styles={{ fontSize: 12 }}>
+              <Group spacing={6}>
+                <FontAwesomeIcon icon={faFilm}></FontAwesomeIcon>
+                <Text component={Link} to="/" weight="bold" size="lg">
+                  flickaid
+                </Text>
+              </Group>
+            </MediaQuery>
             <GlobalMovieSearch />
             <Group>
               <HeaderAuthLinks />
