@@ -78,6 +78,7 @@ export async function getRatingHandler(req, res: Response) {
           select: {
             username: true,
             id: true,
+            profileImageUrl: true,
           },
         },
       },
