@@ -1,11 +1,13 @@
 import { Group, Paper, SimpleGrid, Text, useMantineTheme } from "@mantine/core";
 import { useHover } from "@mantine/hooks";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import MovieCard from "../MovieCard";
 
 export const ListLink = ({ list, showUserName = false }) => {
   const { hovered, ref } = useHover();
   const theme = useMantineTheme();
+  const { user } = useContext(AuthContext);
 
   const [showMovies, setShowMovies] = useState(false);
   const themeHover =

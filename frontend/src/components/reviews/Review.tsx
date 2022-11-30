@@ -57,7 +57,7 @@ const Review = ({
         )}
         <Group>
           <Text size="sm">{new Date(review.submittedAt).toDateString()}</Text>
-          {review.by.id === user.id && (
+          {review.by.id === user?.id && (
             <ActionIcon
               loading={deleteReviewMutation.isLoading}
               onClick={() => deleteReviewMutation.mutate()}

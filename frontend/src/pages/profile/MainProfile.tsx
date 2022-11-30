@@ -56,7 +56,11 @@ function MainProfilePage() {
       <Group align="center" position="apart">
         <Group>
           <Avatar radius="xl" size="lg" src={userInfo.user.profileImageUrl} />
-          <Title size={50}>{userInfo.user.username + "'s Profile"}</Title>
+          <Title size={50}>
+            {userInfo.user.id === user?.id
+              ? "Your Profile"
+              : userInfo.user.username + "'s Profile"}
+          </Title>
         </Group>
         {isCurrentUser && (
           <Button component={Link} to="/profile/edit">
@@ -111,7 +115,7 @@ function MainProfilePage() {
             <Center mt="xl">This user has no lists.</Center>
           )}
           <Stack mt="md">
-            {lists.map((list) => (
+            {lists?.map((list) => (
               <ListLink key={list.id} list={list} />
             ))}
           </Stack>

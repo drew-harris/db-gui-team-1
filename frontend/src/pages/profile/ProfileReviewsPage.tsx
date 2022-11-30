@@ -5,10 +5,13 @@ import { useParams } from "react-router-dom";
 import { getReviewsForUser } from "../../api/reviews";
 import Review from "../../components/reviews/Review";
 import { AuthContext } from "../../context/AuthContext";
+import { useUsername } from "../../hooks/useUsername";
 
 export const ProfileReviewsPage = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const username = useUsername(id);
+
   const { data: reviews, status: reviewsStatus } = useQuery(
     ["reviews", { userId: id }],
     () => getReviewsForUser(id)
@@ -16,10 +19,7 @@ export const ProfileReviewsPage = () => {
 
   return (
     <div>
-      <Title size={25} mb="md">
-        {user.username}
-        {"'s Reviews"}
-      </Title>
+      {id === user?.id ? "Your Reviews" : username + "'s Reviews"}
       {reviews?.length === 0 && <Center>This user has no reviews.</Center>}
       {reviews?.map((review) => (
         <Review review={review} key={review.id} showUser={false} />

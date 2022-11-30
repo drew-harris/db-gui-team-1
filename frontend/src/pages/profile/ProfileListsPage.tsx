@@ -7,6 +7,7 @@ import { getListsByUserId } from "../../api/lists";
 import { getUserInfo } from "../../api/userInfo";
 import ListLink from "../../components/lists/ListLink";
 import { AuthContext } from "../../context/AuthContext";
+import { useUsername } from "../../hooks/useUsername";
 import { NewListModal } from "../../modals/NewListModal";
 
 export const ProfileListsPage = () => {
@@ -15,6 +16,9 @@ export const ProfileListsPage = () => {
   const { data: lists } = useQuery(["lists", { userId: id }], () =>
     getListsByUserId(id)
   );
+
+  const username = useUsername(id);
+
   const {
     data: userInfo,
     error,
@@ -30,7 +34,11 @@ export const ProfileListsPage = () => {
   return (
     <Box>
       <Group position="apart" pb="md">
-        <Title size={25}>{userInfo.user.username}&apos;s Lists</Title>
+        <Title size={25}>
+          {userInfo.user.id === currentUser?.id
+            ? "Your Lists"
+            : username + "'s Lists"}
+        </Title>
         {isCurrentUser && (
           <Button
             onClick={() => {

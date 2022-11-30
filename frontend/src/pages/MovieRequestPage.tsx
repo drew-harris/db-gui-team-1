@@ -27,7 +27,7 @@ export const MovieRequestPage = () => {
   return (
     <div>
       <Group position="apart">
-        <Title>My Movie Requests</Title>
+        <Title>Your Movie Requests</Title>
         <Button
           onClick={() => {
             openModal({
@@ -40,7 +40,7 @@ export const MovieRequestPage = () => {
         </Button>
       </Group>
       <Stack m="sm">
-        {data?.length === 0 && <Center>No Movies In List</Center>}
+        {data?.length === 0 && <Center>No Movie Requests</Center>}
         {error && (
           <Text color="red" weight="bold" size="lg" align="center">
             There was an error getting your movie requests.
