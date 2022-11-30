@@ -99,7 +99,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             </NotificationsProvider>
           </ModalsProvider>
         </CustomMantineProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
       </AuthContextProvider>
     </QueryClientProvider>
   </React.StrictMode>
