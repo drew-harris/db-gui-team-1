@@ -23,6 +23,7 @@ import { ProfileListsPage } from "./pages/profile/ProfileListsPage";
 import { ProfileRatingsPage } from "./pages/profile/ProfileRatingsPage";
 import { ProfileReviewsPage } from "./pages/profile/ProfileReviewsPage";
 import { ProfileSearchPage } from "./pages/profile/ProfileSearchPage";
+import { RecentReviewsPage } from "./pages/RecentReviewsPage";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/recentreviews",
+        element: <RecentReviewsPage />,
       },
       {
         path: "/profiles",

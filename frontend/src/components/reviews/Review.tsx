@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { deleteReview } from "../../api/reviews";
 import { AuthContext } from "../../context/AuthContext";
 import { ReviewWithUser } from "../../types";
+import { time_ago } from "../../utils/time";
 import MovieInfo from "./MovieInfo";
 
 const Review = ({
@@ -48,7 +49,7 @@ const Review = ({
           </div>
         )}
         <Group>
-          <Text size="sm">{new Date(review.submittedAt).toDateString()}</Text>
+          <Text size="sm">{time_ago(new Date(review.submittedAt))}</Text>
           {review.by.id === user?.id && (
             <ActionIcon
               loading={deleteReviewMutation.isLoading}
